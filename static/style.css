@@ -1,0 +1,105 @@
+a {
+    color: DarkSlateBlue;
+}
+
+/* Header */
+
+.header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid BlanchedAlmond;
+    box-shadow: 0 0 5px DarkGray;
+    background-color: Salmon;
+    text-align: center;
+   
+}
+
+.header a {
+    text-decoration: none;
+}
+
+post-list {
+    text-align: left;
+    padding: 0;
+    font-size: 16px;
+}
+
+.post-list a {
+    text-decoration: none;
+}
+
+.main {
+    display: block;
+    margin: 7rem auto 0 auto;
+    max-width: 700px;
+    line-height: 1.45;
+    overflow-wrap: break-word;
+    text-align: justify;
+}
+
+.main a:visited {
+    color: DarkMagenta;
+}
+
+.main article > h2 a:visited {
+    /* Don't change title color. */
+    color: DarkSlateBlue;
+}
+
+.main article h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0.5em 0;
+}
+
+.main article h3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.main article > time {
+    display: block;
+    text-align: center;
+    font-size: 0.8em;
+    color: DimGray;
+}
+
+.main article > time:before {
+    font-family: 'foundation-icons';
+    content: '\f124'
+}
+
+.main article p {
+    margin: 0.75em 0;
+}
+
+.main article p a,
+.main article li a {
+    text-decoration: underline;
+}
+
+.main article h2 a {
+    text-decoration: none;
+}
+
+.post-list {
+    text-align: left;
+    padding: 0;
+    font-size: 16px;
+}
+
+.post-list a {
+    text-decoration: none;
+}
+
+.main article ul li {
+    list-style-type: disc;
+    margin-left: 0.25em;
+}
+
+.main article s {
+    color: DimGray;
+}
