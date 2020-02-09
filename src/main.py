@@ -10,7 +10,7 @@ def parse_template(raw, filename):
     data = {}
 
     data['filename']=filename
-    data['path']='../static/{}.html'.format(filename)
+    data['path']='./{}.html'.format(filename)
     data['raw']=raw
     data['contents']=''
 
@@ -99,5 +99,5 @@ def basic_html_template():
     </html>
     '''
 
-render_all('../static/index.html', '../contents/')
+render_all('../index.html', '../contents/')
 print(get_posts_from_github('gbrls'))
