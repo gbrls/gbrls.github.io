@@ -10,8 +10,8 @@ a {
     top: 0;
     left: 0;
     border-bottom: 1px solid BlanchedAlmond;
-    box-shadow: 0 0 5px DarkGray;
-    background-color: Salmon;
+    /*box-shadow: 0 0 5px DarkGray;*/
+    background-color: #FFDB6E;
     text-align: center;
    
 }
@@ -31,6 +31,7 @@ post-list {
 }
 
 .main {
+    color: #3B4FB3;
     display: block;
     margin: 7rem auto 0 auto;
     max-width: 700px;

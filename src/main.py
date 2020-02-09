@@ -1,16 +1,14 @@
 import os, markdown2
+from gists import get_posts_from_github
 
 def write_file(filename, data):
     f = open(filename,'w')
     f.write(data)
     f.close()
 
-def parse_template(path):
+def parse_template(raw, filename):
     data = {}
-    f = open(path, 'r')
-    raw = f.read()
 
-    filename = os.path.splitext(os.path.basename(path))[0]
     data['filename']=filename
     data['path']='../static/{}.html'.format(filename)
     data['raw']=raw
@@ -52,8 +50,19 @@ def render_all(index_path, contents_path):
     for r, d, f in os.walk(contents_path):
         for file in f:
             if '.md' in file:
-                data = parse_template(os.path.join(r,file))
+
+                path = os.path.join(r,file)
+                f = open(path, 'r')
+                raw = f.read()
+                filename = os.path.splitext(os.path.basename(path))[0]
+
+                data = parse_template(raw, filename)
                 articles.append(data)
+
+    webfiles = get_posts_from_github('gbrls')
+    for file in webfiles:
+        data = parse_template(file['text'], file['filename'])
+        articles.append(data)
 
     for article in articles:
         render_template(article)
@@ -91,3 +100,4 @@ def basic_html_template():
     '''
 
 render_all('../static/index.html', '../contents/')
+print(get_posts_from_github('gbrls'))
