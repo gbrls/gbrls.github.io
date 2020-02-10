@@ -42,7 +42,9 @@ def render_template(data):
     print(data['contents'])
 
     rendered = markdown2.markdown(data['contents'])
-    write_file(data['path'], basic_html_template().format(rendered))
+    title = '<h2>{}</h2>\n'.format(data['title'])
+    write_file(data['path'],
+            basic_html_template().format((title+rendered)))
 
 def render_all(index_path, contents_path):
     articles = []
