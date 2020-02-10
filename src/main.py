@@ -42,9 +42,8 @@ def render_template(data):
     print(data['contents'])
 
     rendered = markdown2.markdown(data['contents'])
-    title = '<h2>{}</h2>\n'.format(data['title'])
     write_file(data['path'],
-            basic_html_template().format((title+rendered)))
+            basic_html_template().format(data['title'], rendered))
 
 def render_all(index_path, contents_path):
     articles = []
@@ -80,7 +79,7 @@ def render_index(filename, articles):
         body += '<li><a href="{}">{}</a></li>'.format(article['path'], article['title'])
     body += '</ul>'
 
-    write_file(filename, basic_html_template().format(body))
+    write_file(filename, basic_html_template().format('',body))
 
 def basic_html_template():
     return '''
@@ -95,6 +94,7 @@ def basic_html_template():
                 <p>overheated</p>
             </div>
             <div class="main">
+                <h2>{}</h2>
                 {}
             </div>
         </body>
