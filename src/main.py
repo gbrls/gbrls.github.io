@@ -87,6 +87,8 @@ def basic_html_template():
     <html>
         <head>
             <link rel="stylesheet" href="style.css">
+            <link href="https://fonts.googleapis.com/css?family=Lacquer&display=swap" rel="stylesheet">
+
         </head>
         <body>
             <div class="header">
