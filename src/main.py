@@ -87,7 +87,7 @@ def basic_html_template():
     <html>
         <head>
             <link rel="stylesheet" href="style.css">
-            <link href="https://fonts.googleapis.com/css?family=Lacquer&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 
             <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
             <script>hljs.initHighlightingOnLoad();</script>
