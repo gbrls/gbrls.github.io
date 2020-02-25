@@ -93,7 +93,7 @@ def basic_html_template():
         <body>
             <div class="header">
                 <h3><a href="index.html">gbrls</a></h3>
-                <p>overheated</p>
+                <p>¯\_(ツ)_/¯</p>
             </div>
             <div class="main">
                 <h2>{}</h2>
