@@ -1,4 +1,4 @@
-import os, markdown2
+import os, markdown
 from gists import get_posts_from_github
 
 def write_file(filename, data):
@@ -41,7 +41,7 @@ def parse_template(raw, filename):
 def render_template(data):
     print(data['contents'])
 
-    rendered = markdown2.markdown(data['contents'])
+    rendered = markdown.markdown(data['contents'])
     write_file(data['path'],
             basic_html_template().format(data['title'], rendered))
 
