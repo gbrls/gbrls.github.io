@@ -41,7 +41,7 @@ def parse_template(raw, filename):
 def render_template(data):
     print(data['contents'])
 
-    rendered = markdown.markdown(data['contents'])
+    rendered = markdown.markdown(data['contents'],extensions=['fenced_code'])
     write_file(data['path'],
             basic_html_template().format(data['title'], rendered))
 
