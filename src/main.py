@@ -90,7 +90,7 @@ def basic_html_template():
             <link href="https://fonts.googleapis.com/css?family=Lacquer&display=swap" rel="stylesheet">
 
 
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.css">
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
             <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
         </head>
         <body>
