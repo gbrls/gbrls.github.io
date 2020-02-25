@@ -95,7 +95,7 @@ def basic_html_template():
         </head>
         <body>
             <div class="header">
-                <h3><a href="index.html">gbrls</a></h3>
+                <h3><a href="/">gbrls</a></h3>
                 <p>¯\_(ツ)_/¯</p>
             </div>
             <div class="main">
