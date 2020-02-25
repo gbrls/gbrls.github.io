@@ -17,8 +17,8 @@
             <div class="main">
                 <h2> Solução OBI 2018 Baldes</h2>
                 <p><a href="https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/baldes/">Enunciado</a><br />
-Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho 10^5 e 10^5 queries. Iremos fazer uma segtree para o minimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.
-Porém após implementar a primeira solução e não funcionar fiz uma segunda leitura e percebi que o max e o min não podem estar no mesmo balde (na mesma posição no vetor). Quando o min e o max estiverem no mesmo balde temos uma certeza, um dos dois faz parte da solução. Nesse caso podemos testar, o query sem o min mas com o max e o query sem o max mas com o min.</p>
+Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho 10^5 e 10^5 queries dentro desse intervalo. Iremos fazer uma segtree para o mínimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.</p>
+<p>Porém após implementar a primeira solução e não funcionar fiz uma segunda leitura e percebi que o max e o min não podem estar no mesmo balde (na mesma posição no vetor). Quando o min e o max estiverem no mesmo balde temos uma certeza, um dos dois faz parte da solução. Nesse caso podemos testar, o query sem o min, mas com o max e o query sem o max, mas com o min.</p>
 <pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
 typedef struct ii {
     int first;
