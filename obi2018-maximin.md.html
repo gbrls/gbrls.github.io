@@ -1,0 +1,50 @@
+
+    <!DOCTYPE HTML>
+    <html>
+        <head>
+            <link rel="stylesheet" href="style.css">
+            <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+
+            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script>
+
+        </head>
+        <body>
+            <div class="header">
+                <h3><a href="/">gbrls</a></h3>
+                <p>¯\_(ツ)_/¯</p>
+            </div>
+            <div class="main">
+                <h2> Solução OBI 2018 Maximin</h2>
+                <p><a href="https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/maximin/">Enunciado</a><br />
+Como o tamanho máximo do vetor é 10^5 podemos ordená-lo. Fazendo isso podemos ver que o número que estamos procurando está
+entre dois números vizinhos no vetor ou está em alguma das extremidades.</p>
+<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    int n,r,l;
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;r,&amp;l);
+    int arr[n];
+    for(int i=0;i&lt;n;i++) scanf(&quot;%d&quot;,&amp;arr[i]);
+
+    sort(arr,arr+n);
+
+    int dif=0;
+    for(int i=1;i&lt;n;i++) {
+        int mid=(arr[i]+arr[i-1])/2;
+        if(mid&gt;=r&amp;&amp;mid&lt;=l) dif=max(dif,min(abs(mid-arr[i]),abs(mid-arr[i-1])));
+    }
+
+    if(l&gt;arr[n-1]) dif=max(dif, l-arr[n-1]);
+    if(r&lt;arr[0]) dif=max(dif,arr[0]-r);
+
+    printf(&quot;%d\n&quot;,dif);
+
+    return 0;
+}
+</code></pre>
+            </div>
+        </body>
+    </html>
+    
