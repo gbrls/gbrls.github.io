@@ -1,0 +1,58 @@
+
+    <!DOCTYPE HTML>
+    <html>
+        <head>
+            <link rel="stylesheet" href="style.css">
+            <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+
+            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+            <script>hljs.initHighlightingOnLoad();</script>
+
+        </head>
+        <body>
+            <div class="header">
+                <h3><a href="/">gbrls</a></h3>
+                <p>¯\_(ツ)_/¯</p>
+            </div>
+            <div class="main">
+                <h2> Solução OBI 2018 Maximin</h2>
+                <p><a href="https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/muro/">Enunciado</a><br />
+Podemos criar uma função recursiva: f(n) = f(n-1) + 4*f(n-2) + 2*f(n-3). Como existem estados que irão se repetir, podemos
+usar um vetor para guardar o valor da função já computados.</p>
+<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+#define int long long int
+using namespace std;
+
+const int mod = 1e9+7;
+const int MAX = 1e4+20;
+
+int dp[MAX]={};
+
+int solve(int pos) {
+    if(pos==0) return 1;
+    if(~dp[pos]) return dp[pos];
+
+    int ans=0;
+
+    ans = (ans+solve(pos-1))%mod;
+    if(pos&gt;=2) ans = (ans+4*solve(pos-2))%mod;
+    if(pos&gt;=3) ans = (ans+2*solve(pos-3))%mod;
+
+    return dp[pos]=ans;
+}
+
+int32_t main() {
+
+    memset(dp,-1,sizeof(dp));
+    int n;
+    scanf(&quot;%lld&quot;,&amp;n);
+
+    printf(&quot;%lld\n&quot;,solve(n));
+
+    return 0;
+}
+</code></pre>
+            </div>
+        </body>
+    </html>
+    
