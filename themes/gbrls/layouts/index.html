@@ -1,0 +1,17 @@
+{{ define "title" }}
+{{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<div class="column">
+    <div class="left">
+        This is my website INDEX.
+        {{ .Content }}
+    </div>
+    <div class="right">
+        {{partial "list.html" .}}
+    </div>
+</div>
+{{ end }}

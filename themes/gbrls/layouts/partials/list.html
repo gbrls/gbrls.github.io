@@ -1,0 +1,13 @@
+<ul>
+    <!-- Ranges through content/posts/*.md -->
+    Partial template created this.
+    {{ range .Pages }}
+
+    <div class="ra">
+        <li>
+            <a href="{{.Permalink}}">{{.Title}}</a>
+        </li>
+
+    </div>
+    {{ end }}
+</ul>
