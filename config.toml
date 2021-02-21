@@ -1,6 +1,6 @@
-baseURL = "https://localhost:1313"
+baseURL = "https://gbrls.github.io"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "gbrls"
 theme = "gbrls"
 
 [markup]
