@@ -1,13 +1,13 @@
 html, body {
     background-color: blanchedalmond;
     color: blue;
-    font-family: 'Slabo 27px', serif;
+    font-family: 'Slabo 32px', serif;
 }
 
 .ra {
     background-color: rgba(255, 255, 255, 0);
     transition: background-color 1s, transform 10s;
-    outline: 2px dashed;
+    /*outline: 2px dashed;*/
     width: 20%;
     text-align: center;
 }
@@ -24,6 +24,11 @@ html, body {
 
 .main-content {
     min-height: 85vh;
+}
+
+.single-content {
+    margin-left: 50vh;
+    margin-right: 50vh;
 }
 
 .column {
