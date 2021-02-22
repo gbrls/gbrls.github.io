@@ -59,3 +59,8 @@ html, body {
     left: 0;
     text-align: center;
 }
+
+
+.tr > pre {
+    background-color: rgb(255, 245, 230)!important;
+}
