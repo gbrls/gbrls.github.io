@@ -25,10 +25,11 @@ html, body {
 .main-content {
     min-height: 85vh;
 }
-
-.single-content {
-    margin-left: 25%;
-    margin-right: 25%;
+@media (min-aspect-ratio: 1/1) {
+    .single-content {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
 }
 
 .column {
