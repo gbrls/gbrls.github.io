@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" integrity="">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <title>
+myLisp Interpreter 0: What is Lisp? &ndash; gbrls - Gabriel Schneider&#39;s website
+
+    </title>
+</head>
+
+<body>
+    
+
+    <div class="main-content">
+        
+<div class="single-content">
+    <h1>myLisp Interpreter 0: What is Lisp?</h1>
+
+    <p>This is the first part of a series of articles that I&rsquo;ll be writing to document
+my progress on building a interpreter for a Lisp-like language.</p>
+<p>I&rsquo;ve been interested in learning different programming languages for a while now, I&rsquo;ve read the
+first chapters of Haskell and Lisp books recently and the one that hooked me on was <a href="http://landoflisp.com/">Land
+of lisp</a>. Lisp&rsquo;s simplicity really struck me: from very
+simple building blocks you can create anything in such an elegant and simple way.</p>
+<h3 id="what-is-mylisp">What is myLisp</h3>
+<p>myLisp is a lisp-like language, the main goal of it is to be implemented in
+the most simple and educational way possible.<br>
+So, what is lisp?</p>
+<h3 id="a-bit-of-history">A bit of history</h3>
+<p>Lisp is a programming language that was invented in the late 50&rsquo;s by John McCarthy, in 1960 he published a
+<a href="http://www-formal.stanford.edu/jmc/recursive.html">paper</a> where he defined the
+language and wrote a Lisp interpreter in Lisp! It&rsquo;s crazy to think that you can
+write a interpreter for Lisp in Lisp in such an small and beautiful way using only simple
+operations, it really shows its elegance and power. There&rsquo;s a more <a href="http://www.paulgraham.com/rootsoflisp.html">approachable
+paper</a> by Paul Graham in which he
+explains step by step how Lisp was defined in McCarthy&rsquo;s paper, here&rsquo;s an
+excerpt from it:</p>
+<blockquote>
+<p>&ldquo;<em>I wrote this article to help myself understand exactly what McCarthy
+discovered. You don&rsquo;t need to know this stuff to program in Lisp, but it
+should be helpful to anyone who wants to understand the essence of Lisp - both
+in the sense of its origins and its semantic core. The fact that it has such a
+core is one of Lisp&rsquo;s distinguishing features (&hellip;)</em>&rdquo;</p>
+</blockquote>
+<h3 id="what-is-it">What is it?</h3>
+<p>The building blocks of Lisp are cons cells. It is a structure that holds two
+values, head and tail or as Lisp calls them: <code>CAR</code> and <code>CDR</code>. Each of them can
+either point to another cons cell or to atoms. Atoms are anything that can&rsquo;t be
+divided into smaller parts (as we can with cons cells which can be divided into
+two parts) such as: <code>14</code>, <code>hello-there</code>,
+<code>aux</code>, <code>&quot;I'm a string&quot;</code>.
+Bellow you can see some examples on how cons cells can work together:</p>
+<blockquote>
+<p><img src="/cons-cell-0.png" alt="image"></p>
+</blockquote>
+<blockquote>
+<p><em>Example 1: List</em></p>
+</blockquote>
+<blockquote>
+<p><img src="/cons-cell-1.jpg" alt="image"></p>
+</blockquote>
+<blockquote>
+<p><em>Example 2: Nested list</em></p>
+</blockquote>
+<p>NIL is a special object which denotes the end of a list. As you can see from the first example we&rsquo;ve just created a list, which is the
+single most important data structure in Lisp. That&rsquo;s where it&rsquo;s name comes from:
+<strong>LIS</strong>t <strong>P</strong>rocessor.</p>
+<h3 id="s-expressions">S-Expressions</h3>
+<p>Now that we know the basic concepts of the language we are going to learn how to
+represent them in Lisp code.</p>
+<p>S-Expressions are how Lisp represent its code and data. Code and data being
+represented in the same way is a very important concept to Lisp, it is called
+<a href="https://en.wikipedia.org/wiki/Homoiconicity">homoiconicity</a>. They can be in the form of atoms or other s-expressions enclosed by
+parenthesis and separated by a whitespace.</p>
+<p>Lets see how the examples 1 and 2 can be represented using S-Expressions.</p>
+<pre><code>(42 69 613)
+(c-major (c e g))
+</code></pre>
+<p>Lisp can look at these two expressions as code or as data. By default Lisp reads
+them as if they were code. The first element of an expression, (it&rsquo;s <code>CAR</code>)
+is interpreted as a function, so <code>(f a b)</code> has the same meaning as <code>f(a, b);</code>
+have in C, for example.</p>
+<h3 id="basic-functions">Basic functions</h3>
+<ul>
+<li><code>PRINT</code>: Receives an expression as its input, prints it, and then returns it.</li>
+<li><code>QUOTE</code>: Receives an expression as its input and returns it, without evaluating
+it.</li>
+</ul>
+<p>Let&rsquo;s try these two functions, let&rsquo;s say that I want to print the list from the
+first example. If I call <code>(PRINT (32 69 613))</code> it will throw an error because
+Lisp will try to call the function <code>32</code> with <code>69</code> and <code>613</code> as its arguments.
+But if I call <code>(PRINT (QUOTE (32 69 613)))</code> it will work as I intended,
+because <code>QUOTE</code> returns <code>(32 69 613)</code> and then <code>PRINT</code> prints it, so <code>QUOTE</code> is
+a way to convert code into data.</p>
+<ul>
+<li><code>CONS</code>: Takes <code>a</code> and <code>b</code> and returns a cons cell with <code>a</code> as it&rsquo;s first part and
+<code>b</code> as the second.</li>
+<li><code>CAR</code>: Takes a cons cell and returns it&rsquo;s first part.</li>
+<li><code>CDR</code>: Takes a cons cell and returns it&rsquo;s second part.</li>
+<li><code>CADR</code>: Same as <code>CAR(CDR(a))</code>, <code>CDDR</code>: Same as <code>(CDR(CDR(a)))</code>, <code>CADDR</code>,
+<code>CADAR</code>, &hellip;</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><code>(CONS (QUOTE A) (CONS (QUOTE B) NIL))</code> returns <code>(A B)</code>.</li>
+<li>Expression to create the nested list from the second image:<br>
+<code>(CONS (QUOTE C-MAJOR) (CONS (CONS (QUOTE C) (CONS (QUOTE E) (CONS (QUOTE G) NIL))) NIL))</code> which returns <code>(C-MAJOR (C E G))</code>.</li>
+</ul>
+<p><em>Sidenote: You don&rsquo;t have to declare things this way, I just made this way for
+illustration purposes, in Lisp you could also just do</em> <code>(QUOTE (C-MAJOR (C E G)))</code>.</p>
+<p>There are other important functions that we&rsquo;ll be discussing later, but for the
+next article they are enough.</p>
+
+</div>
+
+    </div>
+    
+    
+    <footer class="footer">
+    <ul>
+        <li>Gabriel Schneider</li>
+        <li><a href="mailto:gas6@cin.ufpe.br">gas6@cin.ufpe.br</a></li>
+    </ul>
+</footer>
+    
+
+</body>
+
+</html>

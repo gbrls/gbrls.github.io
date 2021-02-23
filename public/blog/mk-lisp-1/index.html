@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" integrity="">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <title>
+myLisp Interpreter 1: Lexer and Parser &ndash; gbrls - Gabriel Schneider&#39;s website
+
+    </title>
+</head>
+
+<body>
+    
+
+    <div class="main-content">
+        
+<div class="single-content">
+    <h1>myLisp Interpreter 1: Lexer and Parser</h1>
+
+    <p>This is the second part of a series of articles that I&rsquo;m writing to document by
+progress on building a Interpreter for myLisp, a lisp-like language. For the previous post <a href="/mk-lisp-0">click
+here</a>.</p>
+<h3 id="heading"></h3>
+<h3 id="what-is-an-interpreter">What is an interpreter?</h3>
+<p>An Interpreter is a program that takes souce code as input and executes it. It
+is composed of several parts, today we are going to write a lexer and a parser.</p>
+<p>The lexer will read a string of characters and output a vector of tokens, with
+some information attached to them like its type. The lexer is important to the
+parser because it returns the soure code in a better representation, holding
+only information that matters to it, <em>(this is a very important pattern in
+programming, thowing away information that is not important for what we want, by
+keeping the data in a more convenient representation)</em>.</p>
+<p>The parser will take the vector of tokens created by the lexer and create a data
+structure <em>(in our case S-Expressions)</em> which can then be executed by another part of the interpreter.</p>
+<h3 id="the-interpreters-implementation">The interpreter&rsquo;s implementation</h3>
+<p>I will be writing this interpreter in C. The most important reason for it is that
+this is a learning project more than anything else, and in C provides us with
+the bare minimum to create what we want.<br>
+It is important to note that there are better ways to implement it, but I don&rsquo;t
+like to read other people&rsquo;s code before I try my own way. Maybe in the future when I&rsquo;m done,
+I&rsquo;ll change it.</p>
+<h3 id="lexer">Lexer</h3>
+<p>First, lets define a little macro to help us debug.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#888;font-style:italic">#ifdef DEBUG_F
+</span><span style="color:#888;font-style:italic"></span>
+<span style="color:#888;font-style:italic">#define DEBUG(fmt, args...)						\
+</span><span style="color:#888;font-style:italic">    printf(&#34;(%s:%d) &#34; fmt, __FILE__,__LINE__, ##args)
+</span><span style="color:#888;font-style:italic"></span>
+<span style="color:#888;font-style:italic">#else
+</span><span style="color:#888;font-style:italic"></span>
+<span style="color:#888;font-style:italic">#define DEBUG(f, fmt, args...) </span><span style="color:#888;font-style:italic">/* Do nothing */</span><span style="color:#888;font-style:italic">
+</span><span style="color:#888;font-style:italic"></span>
+<span style="color:#888;font-style:italic">#endif
+</span><span style="color:#888;font-style:italic"></span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Next, we need to create a few data types to store the tokens.
+<em>As you can see our Lisp won&rsquo;t support strings and floats for now</em>.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> <span style="color:#000">Token_Type</span> {
+    <span style="color:#000">TOKEN_OPEN</span>=<span style="color:#3af">0</span>,
+    <span style="color:#000">TOKEN_CLOSE</span>=<span style="color:#3af">1</span>,
+    <span style="color:#000">TOKEN_NUMBER</span>=<span style="color:#3af">2</span>,
+    <span style="color:#000">TOKEN_SYMBOL</span>=<span style="color:#3af">3</span>,
+};
+
+<span style="color:#888;font-style:italic">/*
+</span><span style="color:#888;font-style:italic">** Used to debug the lexer
+</span><span style="color:#888;font-style:italic">*/</span>
+<span style="color:#00f">char</span>* <span style="color:#000">Token_Type_Str</span>[<span style="color:#3af">4</span>] = {<span style="color:#5a2">&#34;(&#34;</span>, <span style="color:#5a2">&#34;)&#34;</span>, <span style="color:#5a2">&#34;NUM&#34;</span>, <span style="color:#5a2">&#34;SYM&#34;</span>};
+
+<span style="color:#00f">typedef</span> <span style="color:#00f">struct</span> {
+	<span style="color:#00f">enum</span> <span style="color:#000">Token_Type</span> <span style="color:#000">type</span>;
+
+	<span style="color:#00f">union</span> {
+		<span style="color:#00f">int</span> <span style="color:#000">number</span>;
+		<span style="color:#00f">char</span>* <span style="color:#000">name</span>;
+	}<span style="color:#000">data</span>;
+
+}<span style="color:#000">Token</span>;
+</code></pre></td></tr></table>
+</div>
+</div><p>And then the tokenize fuction, there are a few details about it that need to be discussed.
+Usually in Lisp, symbol names can be in some written in some formats, like +1, +$,
+<a href="mailto:10@b.com">10@b.com</a>. But for simplicity&rsquo;s sake we have a different set of rules: They must start
+with an alphabetical character and not contain any whitespace or parenthesis.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000">Token</span>* <span style="color:#000">tokenize</span>(<span style="color:#00f">char</span>* <span style="color:#000">in</span>, <span style="color:#00f">int</span>* <span style="color:#000">ret_sz</span>) {
+	<span style="color:#00f">int</span> <span style="color:#000">cursor</span> = <span style="color:#3af">0</span>;
+	<span style="color:#00f">int</span> <span style="color:#000">sz</span> = <span style="color:#3af">0</span>, <span style="color:#000">alloc</span>=<span style="color:#3af">1</span>;
+	<span style="color:#000">Token</span>* <span style="color:#000">vec</span> = (<span style="color:#000">Token</span>*) <span style="color:#000">malloc</span>(<span style="color:#00f">sizeof</span>(<span style="color:#000">Token</span>));
+
+	<span style="color:#00f">while</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39;\0&#39;</span>) {
+
+		<span style="color:#000">Token</span> <span style="color:#000">cur</span>;
+
+		<span style="color:#00f">if</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>]==<span style="color:#5a2">&#39;(&#39;</span>) {
+			<span style="color:#000">cur</span>.<span style="color:#000">type</span> = <span style="color:#000">TOKEN_OPEN</span>;
+			<span style="color:#000">cursor</span>++;
+
+		} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>]==<span style="color:#5a2">&#39;)&#39;</span>) {
+			<span style="color:#000">cur</span>.<span style="color:#000">type</span> = <span style="color:#000">TOKEN_CLOSE</span>;
+			<span style="color:#000">cursor</span>++;
+
+		} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">isdigit</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>])) {
+			<span style="color:#00f">int</span> <span style="color:#000">number</span>;
+			<span style="color:#000">sscanf</span>(<span style="color:#000">in</span>+<span style="color:#000">cursor</span>,<span style="color:#5a2">&#34;%d&#34;</span>,&amp;<span style="color:#000">number</span>);
+
+
+			<span style="color:#00f">while</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39;\0&#39;</span>
+				  &amp;&amp; <span style="color:#000">isdigit</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>])) {
+				<span style="color:#000">cursor</span>++;
+			}
+
+			<span style="color:#000">cur</span>.<span style="color:#000">type</span> = <span style="color:#000">TOKEN_NUMBER</span>;
+			<span style="color:#000">cur</span>.<span style="color:#000">data</span>.<span style="color:#000">number</span> = <span style="color:#000">number</span>;
+			<span style="color:#000">DEBUG</span>(<span style="color:#5a2">&#34;TOKEN_NUMBER: %d</span><span style="color:#5a2">\n</span><span style="color:#5a2">&#34;</span>, <span style="color:#000">number</span>);
+
+		} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">isalpha</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>])) {
+
+			<span style="color:#00f">char</span>* <span style="color:#000">name</span> = (<span style="color:#00f">char</span>*) <span style="color:#000">malloc</span>(<span style="color:#000">MAX_SYM_SZ</span>);
+			<span style="color:#000">assert</span>(<span style="color:#000">name</span>!=<span style="color:#000">NULL</span>);
+		
+			<span style="color:#00f">int</span> <span style="color:#000">ptr</span> = <span style="color:#3af">0</span>;
+
+			<span style="color:#00f">while</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39;(&#39;</span>
+				  &amp;&amp; <span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39;)&#39;</span>
+		 		  &amp;&amp; <span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39; &#39;</span>
+				  &amp;&amp; <span style="color:#000">in</span>[<span style="color:#000">cursor</span>] != <span style="color:#5a2">&#39;\0&#39;</span>)
+			  {
+
+				<span style="color:#00f">if</span>(<span style="color:#000">isalpha</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>])) <span style="color:#000">in</span>[<span style="color:#000">cursor</span>] = <span style="color:#000">toupper</span>(<span style="color:#000">in</span>[<span style="color:#000">cursor</span>]);
+				<span style="color:#000">name</span>[<span style="color:#000">ptr</span>] = <span style="color:#000">in</span>[<span style="color:#000">cursor</span>];
+				<span style="color:#000">ptr</span>++, <span style="color:#000">cursor</span>++;
+			}
+
+			<span style="color:#000">name</span>[<span style="color:#000">ptr</span>] = <span style="color:#5a2">&#39;\0&#39;</span>;
+
+			<span style="color:#000">cur</span>.<span style="color:#000">type</span> = <span style="color:#000">TOKEN_SYMBOL</span>;
+			<span style="color:#000">cur</span>.<span style="color:#000">data</span>.<span style="color:#000">name</span> = <span style="color:#000">name</span>;
+			<span style="color:#000">DEBUG</span>(<span style="color:#5a2">&#34;TOKEN_NAME: %s</span><span style="color:#5a2">\n</span><span style="color:#5a2">&#34;</span>, <span style="color:#000">name</span>);
+
+		} <span style="color:#00f">else</span> {
+			<span style="color:#000">cursor</span>++;
+			<span style="color:#00f">continue</span>;
+		}
+
+		<span style="color:#00f">if</span>(<span style="color:#000">alloc</span> &lt;= <span style="color:#000">sz</span>+<span style="color:#3af">1</span>) {
+
+			<span style="color:#000">alloc</span> *= <span style="color:#3af">2</span>;
+			<span style="color:#000">vec</span> = (<span style="color:#000">Token</span>*) <span style="color:#000">realloc</span>(<span style="color:#000">vec</span>, <span style="color:#00f">sizeof</span>(<span style="color:#000">Token</span>)*<span style="color:#000">alloc</span>);
+		}
+
+		<span style="color:#000">DEBUG</span>(<span style="color:#5a2">&#34;TOKEN: %s</span><span style="color:#5a2">\n</span><span style="color:#5a2">&#34;</span>, <span style="color:#000">Token_Type_Str</span>[<span style="color:#000">cur</span>.<span style="color:#000">type</span>]);
+
+		<span style="color:#000">vec</span>[<span style="color:#000">sz</span>++] = <span style="color:#000">cur</span>;
+	}
+
+	*<span style="color:#000">ret_sz</span> = <span style="color:#000">sz</span>;
+
+	<span style="color:#00f">return</span> <span style="color:#000">vec</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>And that&rsquo;s about it for the lexer.</p>
+<h3 id="representing-s-expressions">Representing S-Expressions</h3>
+<p>Before we start to implement the parser we need to write the data types for it.
+But this time it is a little bit different because the parser will generate a
+data structure which can be executed. We are going to represent those structures
+as lisp S-Expressions.</p>
+<p>First, let&rsquo;s define the type <code>Lisp_Object</code>, <em>(it has nothing to do with OOP&rsquo;s
+objects)</em>, which will represent everything that a cons cell can hold as its car
+or cdr.</p>
+<h3 id="tagged-pointers">Tagged Pointers</h3>
+<p>There are a few ways that we could choose to represent <code>Lisp_Object</code>, we are
+going to use tagged pointers, which are common in many Lisp implementations.</p>
+<p>Every variable in C has at least 8 bits, so every valid pointer points to an
+address which is a multiple of 8. This means that the least significant bits of
+a valid address will aways end with three zeros. So we can use these bits to
+store additional information about what the pointer is pointing to. When we need
+to deference it we just mask out those three bits.</p>
+<p>They are useful because a pointer usually occupies eight bytes and an <code>int</code> or
+<code>float</code> just 4, so we can embed ints and floats into them, all we have to do is to
+shift them up three bits. That&rsquo;s a huge improvement over deferencing a pointer
+to an integer which is allocated on the heap. Using tagged pointers we can
+utilize ints and floats on the stack.</p>
+<p>Now, we will define a variable that will represent everything that a cons cell
+can hold as its car and cdr: <code>Lisp_Object</code>.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">typedef</span> <span style="color:#000">uintptr_t</span> <span style="color:#000">Lisp_Object</span>;
+<span style="color:#888;font-style:italic">#define NIL (Lisp_Object)0;
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>Lisp_Object</code> is a tagged pointer, that&rsquo;s why we used <code>uintptr_t</code> <em>(it is
+defined be a variable that can store a pointer)</em>. And now a few functions to
+operate on it.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">enum</span> <span style="color:#000">Tag</span> {
+	<span style="color:#000">TAG_SYMBOL</span> = <span style="color:#3af">0</span>,
+	<span style="color:#000">TAG_NUMBER</span> = <span style="color:#3af">1</span>,
+	<span style="color:#000">TAG_CONS</span> = <span style="color:#3af">2</span>
+	<span style="color:#888;font-style:italic">/* ... */</span>
+};
+
+<span style="color:#000">Lisp_Object</span> <span style="color:#000">ptr_tag</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>, <span style="color:#00f">enum</span> <span style="color:#000">Tag</span> <span style="color:#000">tag</span>) {
+	<span style="color:#00f">return</span> <span style="color:#000">obj</span> | (<span style="color:#00f">int</span>)<span style="color:#000">tag</span>;
+}
+
+<span style="color:#000">Lisp_Object</span> <span style="color:#000">ptr_untag</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>) {
+	<span style="color:#00f">return</span> <span style="color:#000">obj</span> &amp; ~((<span style="color:#000">Lisp_Object</span>) <span style="color:#3af">7</span>);
+}
+
+<span style="color:#00f">int</span> <span style="color:#000">ptr_getTag</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>) {
+	<span style="color:#00f">return</span> (<span style="color:#00f">int</span>)(<span style="color:#000">obj</span>&amp;<span style="color:#3af">7</span>);
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Those are the basic operations that we are going to be doing with them. But now we
+need a few helper functions and macros to help us create new objects.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#888;font-style:italic">#define OBJ(val, type)							\
+</span><span style="color:#888;font-style:italic">	Obj_New_ ## type (val)
+</span><span style="color:#888;font-style:italic"></span>
+<span style="color:#000">Lisp_Object</span> <span style="color:#000">Obj_New_symbol</span>(<span style="color:#00f">char</span>* <span style="color:#000">str</span>) {
+	<span style="color:#00f">char</span>* <span style="color:#000">nstr</span> = (<span style="color:#00f">char</span>*) <span style="color:#000">malloc</span>(<span style="color:#00f">sizeof</span>(<span style="color:#000">str</span>));
+	<span style="color:#000">strcpy</span>(<span style="color:#000">nstr</span>, <span style="color:#000">str</span>);
+	<span style="color:#000">Lisp_Object</span> <span style="color:#000">ret</span> = <span style="color:#000">ptr_tag</span>((<span style="color:#000">Lisp_Object</span>)<span style="color:#000">nstr</span>, <span style="color:#000">TAG_SYMBOL</span>);
+
+	<span style="color:#00f">return</span> <span style="color:#000">ret</span>;
+}
+
+<span style="color:#000">Lisp_Object</span> <span style="color:#000">Obj_New_number</span>(<span style="color:#00f">int</span> <span style="color:#000">val</span>) {
+	<span style="color:#000">Lisp_Object</span> <span style="color:#000">nval</span> = <span style="color:#000">val</span>;
+	<span style="color:#000">nval</span> = <span style="color:#000">val</span>&lt;&lt;<span style="color:#3af">3</span>;
+
+	<span style="color:#00f">return</span> <span style="color:#000">ptr_tag</span>(<span style="color:#000">nval</span>, <span style="color:#000">TAG_NUMBER</span>);
+}
+
+<span style="color:#00f">typedef</span> <span style="color:#00f">struct</span> {
+
+	<span style="color:#000">Lisp_Object</span> <span style="color:#000">car</span>;
+	<span style="color:#000">Lisp_Object</span> <span style="color:#000">cdr</span>;
+
+}<span style="color:#000">Lisp_Cons_Cell</span>;
+
+<span style="color:#000">Lisp_Object</span> <span style="color:#000">fcons</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">a</span>, <span style="color:#000">Lisp_Object</span> <span style="color:#000">b</span>) {
+	<span style="color:#000">Lisp_Cons_Cell</span>* <span style="color:#000">cell</span> = (<span style="color:#000">Lisp_Cons_Cell</span>*) <span style="color:#000">malloc</span>(<span style="color:#00f">sizeof</span>(<span style="color:#000">Lisp_Cons_Cell</span>));
+	<span style="color:#000">cell</span>-&gt;<span style="color:#000">car</span> = <span style="color:#000">a</span>, <span style="color:#000">cell</span>-&gt;<span style="color:#000">cdr</span> = <span style="color:#000">b</span>;
+
+	<span style="color:#00f">return</span> <span style="color:#000">ptr_tag</span>((<span style="color:#000">Lisp_Object</span>)&amp;<span style="color:#000">cell</span>, <span style="color:#000">TAG_CONS</span>);
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>OBJ</code> is a little helper macro do help us create new objects. We use it like
+this:</p>
+<pre><code>Lisp_Object a = OBJ(&quot;hello-there&quot;, symbol);
+Lisp_Object b = OBJ(42, number);
+</code></pre>
+<p>I didn&rsquo;t write a <code>Obj_New_cons</code> because we will be using the fcons function to
+create new conses.</p>
+<h3 id="printing-s-expressions">Printing S-Expressions</h3>
+<p>Before we start the parser itself we need to create a function to print
+S-Expressions, in order to debug it. There&rsquo;s an algorithm for it but I won&rsquo;t get
+into detail. Here it is:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#00f">void</span> <span style="color:#000">_Lisp_Print</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>, <span style="color:#00f">int</span> <span style="color:#000">head</span>);
+
+<span style="color:#00f">void</span> <span style="color:#000">Lisp_Print_cons</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>, <span style="color:#00f">int</span> <span style="color:#000">head</span>) {
+	<span style="color:#00f">if</span>(<span style="color:#000">head</span>) <span style="color:#000">putchar</span>(<span style="color:#5a2">&#39;(&#39;</span>);
+
+	<span style="color:#000">_Lisp_Print</span>(<span style="color:#000">fcar</span>(<span style="color:#000">obj</span>), <span style="color:#3af">1</span>);
+
+	<span style="color:#00f">if</span>(<span style="color:#000">ptr_untag</span>(<span style="color:#000">fcdr</span>(<span style="color:#000">obj</span>))==<span style="color:#000">NIL</span>) {
+		<span style="color:#000">putchar</span>(<span style="color:#5a2">&#39;)&#39;</span>);
+	} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">ptr_getTag</span>(<span style="color:#000">fcdr</span>(<span style="color:#000">obj</span>))!=<span style="color:#000">TAG_CONS</span>) {
+		<span style="color:#000">printf</span>(<span style="color:#5a2">&#34; . &#34;</span>);
+		<span style="color:#000">_Lisp_Print</span>(<span style="color:#000">fcdr</span>(<span style="color:#000">obj</span>), <span style="color:#3af">0</span>);
+		<span style="color:#000">putchar</span>(<span style="color:#5a2">&#39;)&#39;</span>);
+	} <span style="color:#00f">else</span> {
+		<span style="color:#000">putchar</span>(<span style="color:#5a2">&#39; &#39;</span>);
+		<span style="color:#000">_Lisp_Print</span>(<span style="color:#000">fcdr</span>(<span style="color:#000">obj</span>), <span style="color:#3af">0</span>);
+	}
+}
+
+
+<span style="color:#00f">void</span> <span style="color:#000">_Lisp_Print</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>, <span style="color:#00f">int</span> <span style="color:#000">head</span>) {
+	<span style="color:#00f">enum</span> <span style="color:#000">Tag</span> <span style="color:#000">tag</span> = <span style="color:#000">ptr_getTag</span>(<span style="color:#000">obj</span>);
+
+	<span style="color:#00f">switch</span>(<span style="color:#000">tag</span>) {
+		<span style="color:#00f">case</span> <span style="color:#000">TAG_NUMBER</span>:
+			<span style="color:#000">printf</span>(<span style="color:#5a2">&#34;%d&#34;</span>, <span style="color:#000">GET_VAL</span>(<span style="color:#000">obj</span>, <span style="color:#000">number</span>));
+			<span style="color:#00f">break</span>;
+		<span style="color:#00f">case</span> <span style="color:#000">TAG_SYMBOL</span>:
+			<span style="color:#000">printf</span>(<span style="color:#5a2">&#34;%s&#34;</span>, <span style="color:#000">GET_VAL</span>(<span style="color:#000">obj</span>, <span style="color:#000">symbol</span>));
+			<span style="color:#00f">break</span>;
+		<span style="color:#00f">case</span> <span style="color:#000">TAG_CONS</span>:
+			<span style="color:#000">Lisp_Print_cons</span>(<span style="color:#000">obj</span>, <span style="color:#000">head</span>);
+			<span style="color:#00f">break</span>;
+		<span style="color:#00f">default</span>:
+			<span style="color:#00f">break</span>;
+	}
+}
+
+
+<span style="color:#00f">void</span> <span style="color:#000">Lisp_Print</span>(<span style="color:#000">Lisp_Object</span> <span style="color:#000">obj</span>) {
+	<span style="color:#000">_Lisp_Print</span>(<span style="color:#000">obj</span>, <span style="color:#3af">1</span>);
+	<span style="color:#000">putchar</span>(<span style="color:#5a2">&#39;\n&#39;</span>);
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="the-parser">The parser</h3>
+<p>I really liked implementing a Lisp parser a for another interpreter a few days
+ago, the algorithm is so simple!</p>
+<p>If a S-Expression is a list, whe can think of it as a list of atoms and for each
+atom we parse it recursively. So, how do we parse a simple list? This is how it
+would like in <del>py</del>pseudocode:</p>
+<pre><code>def parse (n):
+    obj = get_obj(n)
+
+    if obj == nil:
+        return obj
+
+    else:
+        return cons(obj, parse(n+1))
+</code></pre>
+<p>It doesn&rsquo;t work for every S-Expression <em>yet</em>, but the main takeaway for it is that
+you cons the current object with the rest of the list recursively. The only
+difference between this and a complete parser is that the latter handles
+parenthesis by parsing what is inside the current block and consing it with the
+rest of the list.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000">Lisp_Object</span> <span style="color:#000">parse</span>(<span style="color:#000">Token</span>* <span style="color:#000">tokens</span>, <span style="color:#00f">int</span> <span style="color:#000">pos</span>, <span style="color:#00f">int</span> <span style="color:#000">sz</span>) {
+	<span style="color:#00f">if</span>(<span style="color:#000">pos</span>==<span style="color:#000">sz</span>) <span style="color:#00f">return</span> <span style="color:#000">NIL</span>; <span style="color:#888;font-style:italic">/* the stop condition */</span>
+
+	<span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_OPEN</span>) {
+
+		<span style="color:#000">Lisp_Object</span> <span style="color:#000">car</span> = <span style="color:#000">parse</span>(<span style="color:#000">tokens</span>,<span style="color:#000">pos</span>+<span style="color:#3af">1</span>,<span style="color:#000">sz</span>);
+
+		<span style="color:#00f">int</span> <span style="color:#000">aux</span> = <span style="color:#3af">1</span>, <span style="color:#000">balance</span> = -<span style="color:#3af">1</span>;
+
+		<span style="color:#00f">while</span>(<span style="color:#000">balance</span> != <span style="color:#3af">0</span>) { <span style="color:#888;font-style:italic">/*  Looking for the matching ) */</span>
+
+			<span style="color:#000">assert</span>(<span style="color:#000">aux</span>+<span style="color:#000">pos</span> &lt; <span style="color:#000">sz</span>);
+
+			<span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>+<span style="color:#000">aux</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_OPEN</span>)
+				<span style="color:#000">balance</span>--;
+			<span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>+<span style="color:#000">aux</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_CLOSE</span>)
+				<span style="color:#000">balance</span> ++;
+
+			<span style="color:#000">aux</span>++;
+		}
+
+		<span style="color:#000">Lisp_Object</span> <span style="color:#000">cdr</span> = <span style="color:#000">parse</span>(<span style="color:#000">tokens</span>, <span style="color:#000">pos</span>+<span style="color:#000">aux</span>, <span style="color:#000">sz</span>);
+
+		<span style="color:#00f">return</span> <span style="color:#000">fcons</span>(<span style="color:#000">car</span>, <span style="color:#000">cdr</span>);
+
+	} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_CLOSE</span>) {
+
+		<span style="color:#00f">return</span> <span style="color:#000">NIL</span>;
+
+	} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_NUMBER</span>) {
+
+		<span style="color:#00f">int</span> <span style="color:#000">n</span> = <span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">data</span>.<span style="color:#000">number</span>;
+		<span style="color:#000">Lisp_Object</span> <span style="color:#000">car</span> = <span style="color:#000">OBJ</span>(<span style="color:#000">n</span>, <span style="color:#000">number</span>);
+
+		<span style="color:#00f">return</span> <span style="color:#000">fcons</span>(<span style="color:#000">car</span>, <span style="color:#000">parse</span>(<span style="color:#000">tokens</span>, <span style="color:#000">pos</span>+<span style="color:#3af">1</span>, <span style="color:#000">sz</span>));
+
+	} <span style="color:#00f">else</span> <span style="color:#00f">if</span>(<span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">type</span> == <span style="color:#000">TOKEN_SYMBOL</span>) {
+
+		<span style="color:#00f">char</span>* <span style="color:#000">str</span> = <span style="color:#000">tokens</span>[<span style="color:#000">pos</span>].<span style="color:#000">data</span>.<span style="color:#000">name</span>;
+
+		<span style="color:#000">Lisp_Object</span> <span style="color:#000">car</span> = <span style="color:#000">OBJ</span>(<span style="color:#000">str</span>, <span style="color:#000">symbol</span>);
+		<span style="color:#00f">return</span> <span style="color:#000">fcons</span>(<span style="color:#000">car</span>, <span style="color:#000">parse</span>(<span style="color:#000">tokens</span>, <span style="color:#000">pos</span>+<span style="color:#3af">1</span>, <span style="color:#000">sz</span>));
+
+	}
+
+	<span style="color:#00f">return</span> <span style="color:#000">NIL</span>;
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p>This code isn&rsquo;t that much different from the pseudocode that I&rsquo;ve written
+before, the main difference is the parenthesis handling. The code for this
+article can be seen
+<a href="https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c">here</a>.</p>
+<p>Every cons and symbol in which we allocate are not fred, so our interpreter is
+leaking memory. The solution for this is called garbage collection, we are going
+to implement it in a latter article.</p>
+
+</div>
+
+    </div>
+    
+    
+    <footer class="footer">
+    <ul>
+        <li>Gabriel Schneider</li>
+        <li><a href="mailto:gas6@cin.ufpe.br">gas6@cin.ufpe.br</a></li>
+    </ul>
+</footer>
+    
+
+</body>
+
+</html>
