@@ -1,21 +1,41 @@
 html, body {
     background-color: blanchedalmond;
     color: blue;
-    font-family: 'Slabo 32px', serif;
+    font-family: 'Barlow', sans-serif;
+    font-size: 105%;
+}
+
+h1 {
+
+    /*
+    font-family: 'Libre Baskerville 32px', serif !important;
+    */
+    font-family: 'Playfair Display', serif !important;
 }
 
 .ra {
     background-color: rgba(255, 255, 255, 0);
     transition: background-color 1s, transform 10s;
     /*outline: 2px dashed;*/
-    width: 20%;
-    text-align: center;
+    width: max-content;
 }
 
 .ra:hover {
     background-color: rgb(255, 174, 0);
     transform: rotate(1360deg);
     -webkit-transform: rotate(1360deg);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .index-main {
@@ -64,4 +84,8 @@ html, body {
 
 .tr > pre {
     background-color: rgb(255, 245, 230)!important;
+}
+
+.ul {
+    text-align: left;
 }
