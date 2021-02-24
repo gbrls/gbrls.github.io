@@ -41,4 +41,4 @@ But how do we generate these numbers? Just count from 0 up to 2^n - 1, in this c
 
 ### The tree
 
-This is also a complete binary tree. If you think about it as a decision tree, it may be easier to see the reason why. The first bit can be either true of false, for each case the second bit can be true or false too; if one is true, it is highlighted, otherwise it's black. The number of different paths that you can take from the root is exactly the number of all possible binary strings with `H` bits, where `H` is equal to the height of the tree.
+This is also a complete binary tree. If you think about it as a decision tree, it may be easier to see the reason why. The first bit can be either true of false, for each case the second bit can be true or false too; if one is true, it is highlighted, otherwise it's black. The number of different leaves is exactly the number of all possible binary strings with `H` bits, where `H` is equal to the height of the tree.
