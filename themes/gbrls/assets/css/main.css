@@ -26,6 +26,12 @@ h1 {
     -webkit-transform: rotate(1360deg);
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 a {
     text-decoration: none;
 }
@@ -88,4 +94,8 @@ a:hover {
 
 .ul {
     text-align: left;
+}
+
+img {
+    max-width: 80vw;
 }

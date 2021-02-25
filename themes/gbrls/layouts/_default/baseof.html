@@ -12,6 +12,20 @@
 <body>
     <!-- Code that all your templates share, like a header -->
 
+
+    <div class="header">
+        {{ block "header" .}}
+        <div>
+            {{if .PrevInSection}}<a href="{{.PrevInSection.Permalink}}">previous ({{.PrevInSection.Title}})</a>{{end}}
+        </div>
+        <div>
+            {{if .Parent}}<a href="{{.Parent.Permalink}}">up ({{.Parent.Title}})</a>{{end}}
+        </div>
+        <div>
+            {{if .NextInSection}}<a href="{{.NextInSection.Permalink}}">next ({{.NextInSection.Title}})</a>{{end}}
+        </div>
+        {{ end }}
+    </div>
     <div class="main-content">
         {{ block "main" . }}
         <!-- The part of the page that begins to differ between templates -->
