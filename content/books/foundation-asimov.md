@@ -1,7 +1,6 @@
 ---
 title: "Foundation - Isaac Asimov"
 date: 2021-02-24T10:57:52-03:00
-draft: true
 ---
 
 This was my first Asimov book and my first Sci-fi book at all.
