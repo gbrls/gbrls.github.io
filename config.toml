@@ -3,6 +3,8 @@ languageCode = "en-us"
 title = "Gabriel Schneider's website"
 theme = "gbrls"
 
+googleAnalytics = "UA-116679276-1" 
+
 [markup]
   [markup.highlight]
     anchorLineNos = false
