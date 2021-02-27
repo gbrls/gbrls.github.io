@@ -5,7 +5,9 @@ date: 2021-02-24T10:57:52-03:00
 
 This was my first Asimov book and my first Sci-fi book at all.
 I expected a book about how the future, about how technology will change the way we live, etc.
-But it was very different, not in a bad way. I soon realized that one of the powerful things about Sci-fi
+But it was very different, not in a bad way. 
+
+I soon realized that one of the powerful things about Sci-fi
 is that the author can talk about historical facts in a new light. 
 e.g: Asimov talks about the fall of empires without talking directly about anything that existed (like the Roman Empire),
 this means that we as the reader can have new views about it, untaited by our previous conceptions.
@@ -16,7 +18,6 @@ Despite this, they have public phones with video, people deliver messages by pho
 That public phone with video calling capabilities made me chuckle.
 
 **I believe that Asimov didn't think that our relationship with technology would change the way it did**, but he foresaw something very interesting.
-
 In the books, there's an organization (_The Foundation_) that is trying to eventually dominate the whole galaxy.
 There's a point in the story that they are the most technologically advanced society in their region and they use that power to control their neighbours and
 they make them rely on their technology without teaching them how it works. This strategy worked really well for them.
