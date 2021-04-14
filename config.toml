@@ -1,6 +1,6 @@
 baseURL = "https://gbrls.github.io"
 languageCode = "en-us"
-title = "Gabriel Schneider's website"
+title = "Gabriel Schneider's homepage"
 theme = "gbrls"
 
 googleAnalytics = "UA-116679276-1" 
