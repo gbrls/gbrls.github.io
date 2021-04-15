@@ -8,7 +8,8 @@ date: 2020-03-26
 Hi! My name is __Gabriel Schneider__ and I study Computer Engineering at __[CIn](https://www3.cin.ufpe.br/en/) - UFPE__.  
 
 My first experience with programming was in my school's robotics team when I was about 12. To this day, I remember how amazed I was when I discovered that I could increment variables, that I could name variables any way I wanted to like `int VaquinhaVoando;`, and that  I could write functions that do anything and return anything! 
-That experience kindled a flame that has never ceased but grown larger. I felt like a had the tools to make anything.
+I felt like I had the tools to make anything.
+That experience kindled a flame that has never ceased but grown larger. 
 
 <!--
  At that time Flash games were pretty popular and I used to spend a lot of time in websites like [newgrounds](newgrounds.com) and [clickjogos](clickjogos.com.br). I learnt Flash (and it's language _ActionScript_) watching youtube tutorials and made a lot of animations, games and school assignments with it. And I remember when HTML5 launched and everybody was talking about how it would kill Flash.

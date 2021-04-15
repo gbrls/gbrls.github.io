@@ -27,7 +27,7 @@ We want it to draw more current and not disturb the rest of the circuit, thus we
 
 The least resistive resistor that I have is a `330Ohm` one, so a single Resistor in parallel would draw `5v/330Ohm = 15.1mA`. So through the methods of an advanced technique called trial and error I discoreved that four `330Ohm` resistors do the job.
 
-Here is what is looks like.
+Here is what it looks like.
 
 
 ![image](/gallery/dummy-load.jpeg)
