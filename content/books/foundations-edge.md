@@ -1,5 +1,5 @@
 ---
-title: "Foundation's Edge"
+title: "Foundation's Edge - Isaac Asimov"
 date: 2021-04-16T10:11:10-03:00
 ---
 
