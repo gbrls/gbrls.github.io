@@ -10,8 +10,8 @@ This bad boy here, he's too smart.
 
 I bought it in Israel for about 70 NIS, it was a good deal.
  I was really happy with this purchase and it had served me well for a long time.
- ## The issue
  I recently got back to the hobby of making hardware projects. I have a tiny power supply that has an USB port and this Power Bank would connect to it and power what is connected to the power supply. It would work really well because this powerbank has a capacity of 10,000mAh, _so I thought_.
+ ## The issue
 
  The thing is, when connected to an Arduino Nano the powerbank works for about 10 seconds and then shuts off. Inicially I thought that it had to do with the power supply not handling the power output or something, but then after a [little research](https://arduino.stackexchange.com/questions/34865/power-bank-turns-off-spontaneously/34878) I realized what was going on.
 
