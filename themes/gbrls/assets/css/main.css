@@ -1,29 +1,49 @@
+:root {
+    --Indigo: #6F00FF;
+    --DarkIndigo: #22004F;
+    /*
+    --Yellow: #EBBC17;
+    */
+    --Yellow: #B87112;
+}
+
 html, body {
-    background-color: blanchedalmond;
-    color: blue;
+    background-color: #EDE0FF;
+    color: var(--Indigo);
     font-family: 'Barlow', sans-serif;
     font-size: 105%;
 }
 
 h1 {
-
+    color: var(--Yellow);
     /*
     font-family: 'Libre Baskerville 32px', serif !important;
     */
     font-family: 'Playfair Display', serif !important;
 }
 
+h2 {
+
+    color: var(--Yellow);
+    font-family: 'Playfair Display', serif !important;
+}
+
+h3 {
+    color: var(--Yellow);
+    font-family: 'Playfair Display', serif !important;
+}
+
 .ra {
-    background-color: rgba(255, 255, 255, 0);
-    transition: background-color 1s, transform 10s;
+    /*background-color: var(--Yellow);*/
+    transition: background-color 1s, transform 0.5s;
     /*outline: 2px dashed;*/
     width: max-content;
 }
 
 .ra:hover {
-    background-color: rgb(255, 174, 0);
-    transform: rotate(1360deg);
-    -webkit-transform: rotate(1360deg);
+    background-color: grey;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
 }
 
 .header {
@@ -33,7 +53,7 @@ h1 {
 }
 
 a {
-    color: blue;
+    color: var(--Yellow);
     text-decoration: underline;
 }
 
@@ -74,13 +94,13 @@ a:hover {
 .right {
     outline: 2px dashed;
     flex: 20%;
-    background-color: burlywood;
+    background-color: var(--DarkIndigo);
 }
 
 .footer{
 
     margin-top: 30px;
-    border-top: 2px dotted burlywood;
+    border-top: 2px dotted lightgrey;
     width: 100%;
     position: relative;
     bottom: 0;
