@@ -1,5 +1,5 @@
 :root {
-    --Indigo: #6F00FF;
+    --Indigo: #3B7EF7;
     --DarkIndigo: #22004F;
     /*
     --Yellow: #EBBC17;
@@ -8,10 +8,11 @@
 }
 
 html, body {
-    background-color: #EDE0FF;
-    color: var(--Indigo);
+    background-color: #F2EFE4;
+    color: var(--DarkIndigo);
     font-family: 'Barlow', sans-serif;
     font-size: 105%;
+    font-weight: 500;
 }
 
 h1 {
