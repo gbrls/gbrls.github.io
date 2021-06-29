@@ -11,7 +11,7 @@ going to be a series of posts about weird (and maybe useful) stuff in C.
 
 ## Homoiconicity
 It's a word known by Lisp users and Programming Language nerds. It's a
-really important feature of Lisp (I [talked a bit about it](/mk-lisp-0) in my Make a Lisp
+really important feature of Lisp ([I talked a bit about it](/mk-lisp-0) in my Make a Lisp
 Interpreter series). The basic idea is that you can use code as data and data as code,
 e.g: In languages where you have an eval function, you can read a string and then
 eval it, doing this you're using data as code, one way to use code as data are

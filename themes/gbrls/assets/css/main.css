@@ -11,8 +11,12 @@ html, body {
     background-color: #F2EFE4;
     color: var(--DarkIndigo);
     font-family: 'Barlow', sans-serif;
-    font-size: 105%;
+    font-size: 103.5%;
     font-weight: 500;
+}
+
+p {
+    line-height: 1.75;
 }
 
 h1 {
@@ -75,8 +79,8 @@ a:hover {
 }
 @media (min-aspect-ratio: 1/1) {
     .single-content {
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
     }
 }
 
