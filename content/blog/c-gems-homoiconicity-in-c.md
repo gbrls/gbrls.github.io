@@ -11,7 +11,7 @@ going to be a series of posts about weird (and maybe useful) stuff in C.
 
 ## Homoiconicity
 It's a word known by Lisp users and Programming Language nerds. It's a
-really important feature of Lisp (I [talked a bit about it](/mk-lisp-0) in my Make a Lisp
+really important feature of Lisp ([I talked a bit about it](/mk-lisp-0) in my Make a Lisp
 Interpreter series). The basic idea is that you can use code as data and data as code,
 e.g: In languages where you have an eval function, you can read a string and then
 eval it, doing this you're using data as code, one way to use code as data are
@@ -105,13 +105,13 @@ highlighted the actual function code:
                            v--------------v
     f3 f 1e fa 55 48 89 e5 b8 2a 0 0 0 5d c3 f3
 
-I was expecting `gcc` to optimize the function definition and discard the
+Hmmmm, I was expecting `gcc` to optimize the function definition and discard the
 [function's boilerplate
 code](https://en.wikibooks.org/wiki/X86_Disassembly/Functions_and_Stack_Frames),
-which is those bytes at the beginning and the `5d` before the `c3`.
+which is those bytes at the beginning and the `5d` before the `c3`, go figure.
 
-So, now that we know where the `42` is in the 10th position in the binary code
-(it's the `2a, 16 * 2 + 10 = 42`) then we can change it in our code.
+So, now that we know that the `42` is in the 10th position in the binary code
+(`2a, 16 * 2 + 10 = 42`) then we can change it in our code.
 
 **Disclaimer**: This code also only runs on Unix systems due to the way that we
 allow the text segment to be writable.
@@ -156,4 +156,5 @@ And the output is:
     a = 42, b = 16
 
 Yay! Now we've used code as data completing the homoiconicity cycle.
-
+I hope after reading this your view of the C programming language has changed,
+at least a bit. What kinds of cool stuff you can think that are made possible by this feature?
