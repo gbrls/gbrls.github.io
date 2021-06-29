@@ -1,7 +1,6 @@
 ---
 title: "C Wizardry - Homoiconicity in C"
 date: 2021-05-22T20:52:39-03:00
-draft: true
 ---
 
 ## C Wizardry intro
