@@ -157,4 +157,55 @@ And the output is:
 
 Yay! Now we've used code as data completing the homoiconicity cycle.
 I hope after reading this your view of the C programming language has changed,
-at least a bit. What kinds of cool stuff you can think that are made possible by this feature?
+at least a bit. 
+
+## Wait but C is NOT homoiconic!
+After I discovered these two features I was almost sure that C was homoiconic,
+but I had to do some research to publish this and then I realized why it is
+not.
+> _"data as code and code as data"_
+
+This definition of homoiconicity is not very accurate, here I present a better one:
+
+> _"In a homoiconic language, the primary representation of programs is also a
+> data structure in a primitive type of the language itself [...]"_
+
+Believe it or not this is actually from Wikipedia. So, why doesn't C fit in
+this definition?  This is because the arrays that we read, wrote and executed
+were not C code, they were machine code.
+
+Let's create a simple abstraction, imagine there's a simple homoiconic language.
+Here we're declaring an expression, note that `expr` holds the expression `1 +
+2 * 3` and not `7`.
+
+    let expr = BuildExpr (1 + 2 * 3)
+
+And to execute it we would have to do this:
+
+    expr.compile()
+    vm.run(expr.compiled_code) // returns 7
+
+Because this language is homoiconic we could do things like this:
+
+    get_literals(expr.ast)  // returns [1, 2, 3]
+    get_operators(expr.ast) // returns [+, *]
+    BuildString (expr.ast)  // "(+ 1 (* 2 3))"
+
+    
+Note that we can manipulate the expression in a high-level representation of
+the **language itself**. The operations that we're doing in C would look like
+this:
+
+    expr.complile()
+    expr.compiled_code[9] = 0x10
+    vm.run(expr.compiled_code)
+
+    some_code = [0xb8, 0x99, 0x00, 0x00, 0x00, 0xc3]
+    vm.run(some_code)
+
+As you can see this is not the same kind of abstration that we have with this
+hypothetical homoiconic language. In C we can manipulate the compiled code in a
+"high-level" representation (if you consider arrays high level) but it's not
+the C code that we're manipulating, it's just the machine code.
+
+This is why C is not homoiconic
