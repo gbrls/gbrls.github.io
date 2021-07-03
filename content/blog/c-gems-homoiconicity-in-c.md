@@ -163,12 +163,12 @@ at least a bit.
 After I discovered these two features I was almost sure that C was homoiconic,
 but I had to do some research to publish this and then I realized why it is
 not.
-> _"data as code and code as data"_
+> _data as code and code as data_
 
 This definition of homoiconicity is not very accurate, here I present a better one:
 
-> _"In a homoiconic language, the primary representation of programs is also a
-> data structure in a primitive type of the language itself [...]"_
+> _In a homoiconic language, the primary representation of programs is also a
+> data structure in a primitive type of the language itself [...]_
 
 Believe it or not this is actually from Wikipedia. So, why doesn't C fit in
 this definition?  This is because the arrays that we read, wrote and executed
@@ -209,3 +209,8 @@ hypothetical homoiconic language. In C we can manipulate the compiled code in a
 the C code that we're manipulating, it's just the machine code.
 
 This is why C is not homoiconic
+
+## Appendix: Two Homoiconic languages
+
+### Machine code
+### Lisp
