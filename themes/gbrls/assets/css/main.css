@@ -5,6 +5,7 @@
     --Yellow: #EBBC17;
     */
     --Yellow: #B87112;
+    --Gray: #C1C1C1;
 }
 
 html, body {
@@ -99,7 +100,7 @@ a:hover {
 .right {
     outline: 2px dashed;
     flex: 20%;
-    background-color: var(--DarkIndigo);
+    background-color: var(--Gray);
 }
 
 .footer{
