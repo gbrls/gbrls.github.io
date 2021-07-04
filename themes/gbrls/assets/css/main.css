@@ -169,11 +169,12 @@ aside {
     align-self: start;
 }
 
-.c-container {
-    display: grid;
-    grid-template-columns: 1fr 12em;
-    max-width: 100em;
-    width: 90%;
+
+@media (min-aspect-ratio: 1/1) {
+    .c-container {
+        display: grid;
+        grid-template-columns: 1fr 12em;
+        max-width: 100em;
+        width: 90%;
+    }
 }
-
-
