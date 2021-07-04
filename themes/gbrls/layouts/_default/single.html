@@ -3,9 +3,13 @@
 {{ end }}
 
 {{ define "main" }}
-<div class="single-content">
-    <h1>{{ .Title }}</h1>
-    {{ .TableOfContents }}
-    {{ .Content }}
+<div class="c-container">
+    <div class="single-content">
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+    </div>
+    <aside>
+        {{ .TableOfContents }}
+    </aside>
 </div>
 {{ end }}

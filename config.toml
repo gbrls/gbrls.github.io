@@ -16,5 +16,5 @@ googleAnalytics = "UA-116679276-1"
     lineNos = true
     lineNumbersInTable = true
     noClasses = true
-    style = "abap"
+    style = "dracula"
     tabWidth = 4

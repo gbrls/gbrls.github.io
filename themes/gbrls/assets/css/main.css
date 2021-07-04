@@ -14,6 +14,7 @@ html, body {
     font-family: 'Barlow', sans-serif;
     font-size: 103.5%;
     font-weight: 500;
+    scroll-behavior: smooth;
 }
 
 p {
@@ -48,8 +49,10 @@ h3 {
 
 .ra:hover {
     background-color: grey;
+    /*
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
+    */
 }
 
 .header {
@@ -158,3 +161,19 @@ blockquote:after {
   margin-left: 0.25em;
   vertical-align: -0.4em;
 }
+
+aside {
+    background: #00000008;
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+}
+
+.c-container {
+    display: grid;
+    grid-template-columns: 1fr 12em;
+    max-width: 100em;
+    width: 90%;
+}
+
+
