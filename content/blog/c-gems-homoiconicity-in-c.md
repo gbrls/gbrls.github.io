@@ -211,6 +211,9 @@ the C code that we're manipulating, it's just the machine code.
 This is why C is not homoiconic
 
 ## Appendix: Two Homoiconic languages
-
+I talked about how homoiconicity works and why C is not homoiconic so I thought
+this article was missing some examples of it.
 ### Machine code
+_TODO_
 ### Lisp
+_TODO_
