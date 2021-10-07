@@ -5,12 +5,121 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
 
-<div class="column">
+<div class="column" style="z-index: 5;">
     <div class="left">
-        {{ .Content }}
+        <div class="index-div">
+            {{ .Content }}
+        </div>
     </div>
     <div class="right">
         {{partial "list.html" .}}
     </div>
 </div>
+<script src="three.min.js"></script>
+<script>
+var camera, scene, renderer;
+var geometry, material, mesh, material2;
+var mouse;
+var x, y;
+var px, py;
+
+init();
+animate();
+
+const myPics = document.getElementById('faq');
+
+
+
+document.addEventListener('mousedown', e => {
+    x = e.offsetX;
+    y = e.offsetY;
+});
+
+document.addEventListener('mousemove', e => {
+
+    px = x;
+    py = y;
+
+    x = e.offsetX;
+    y = e.offsetY;
+});
+
+function getPoints() {
+    points = [];
+
+    for (let i = 0; i < 80; i++) {
+        let x = (i/5.0);
+        points.push(new THREE.Vector3(Math.random() - 0.5,
+         Math.random() - 0.5,
+          Math.random() - 0.5
+          ));
+    }
+
+
+    return points;
+}
+
+function init() {
+
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+    camera.position.z = 5;
+
+
+    scene = new THREE.Scene();
+
+    const _vs = `
+uniform float u_time;
+void main() {
+    vec3 npos = position + vec3(0, 0, 0.8*sin(u_time/5.));
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(npos, 1.0);
+}
+`;
+
+    const _fs = `
+uniform float u_time;
+void main() {
+    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+`;
+
+    material2 = new THREE.ShaderMaterial({
+        uniforms: {
+            "u_time" : {value: 8.1}
+        },
+        vertexShader: _vs,
+        fragmentShader: _fs,
+    });
+
+    //geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+    //material = new THREE.MeshNormalMaterial();
+    material = new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 5.0 });
+    points = getPoints();
+
+    //geometry = new THREE.BufferGeometry().setFromPoints(points);
+    geometry = new THREE.SphereGeometry(1, 32, 16);
+
+    //mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.LineSegments(geometry, material2);
+    scene.add( mesh );
+
+    renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+    renderer.setClearColor(0xff0000, 0.0); // the default
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+    document.body.appendChild( renderer.domElement );
+
+
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    material2.uniforms.u_time.value += 0.1;
+
+    renderer.render( scene, camera );
+
+}
+
+</script>
 {{ end }}
