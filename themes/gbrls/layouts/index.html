@@ -12,6 +12,12 @@
         </div>
     </div>
     <div class="right">
+     <div class="slidecontainer">
+          <input type="range" min="-100" max="100" value="0" class="slider" id="range0">
+          <p id="pr0"></p>
+          <input type="range" min="-100" max="100" value="0" class="slider" id="range1">
+          <p id="pr1"></p>
+     </div>
         {{partial "list.html" .}}
     </div>
 </div>
@@ -22,12 +28,34 @@ var geometry, material, mesh, material2;
 var mouse;
 var x, y;
 var px, py;
+var s0, s1;
+
 
 init();
 animate();
 
 const myPics = document.getElementById('faq');
 
+var htmls0 = document.getElementById("range0");
+var htmls1 = document.getElementById("range1");
+
+var pr0 = document.getElementById("pr0");
+var pr1 = document.getElementById("pr1");
+
+htmls0.oninput = function() {
+    s0 = this.value / 100.0;
+    // we want it from 0 to PI
+    s0 = (s0 / 2. + 0.5) * Math.PI;
+    pr0.innerHTML = (s0 / Math.PI).toFixed(2) + " * PI";
+    console.log(s0);
+}
+
+htmls1.oninput = function() {
+    s1 = this.value / 100.0;
+    s1 = (s1 / 2.) * Math.PI * 2.0;
+    pr1.innerHTML = (s1 / Math.PI).toFixed(2) + " * PI";
+    console.log(s1);
+}
 
 
 document.addEventListener('mousedown', e => {
@@ -61,6 +89,8 @@ function getPoints() {
 
 function init() {
 
+    s0 = 0.05;
+    s1 = 0.05;
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
     camera.position.z = 5;
 
@@ -69,22 +99,53 @@ function init() {
 
     const _vs = `
 uniform float u_time;
+uniform float input1;
+out vec3 UV;
 void main() {
-    vec3 npos = position + vec3(0, 0, 0.8*sin(u_time/5.));
+    vec3 npos = position; //+ vec3(0, 0, 0.8*sin(u_time/5.));
     gl_Position = projectionMatrix * modelViewMatrix * vec4(npos, 1.0);
+    //@TODO: use spherical coordinates.
+    UV = position / length(position); // normalizing the coordinates
 }
 `;
 
     const _fs = `
 uniform float u_time;
+uniform float input1;
+in vec3 UV;
+float pi = 3.14;
+float PI = 3.14;
+
+float atan2(float y, float x) {
+    bool s = (abs(x) > abs(y));
+    return mix(PI/2.0 - atan(x,y), atan(y,x), s);
+}
+
 void main() {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    float phi = acos(UV.y / length(UV));
+    float theta = atan(UV.z, UV.x);
+
+    vec4 myCol;
+
+    vec2 point = vec2(input1, u_time);
+
+    float d = distance(point, vec2(theta, phi));
+
+    if (d > 0.2) {
+        myCol = vec4(vec3(0.0), 1.0);
+    } else {
+        myCol = vec4(vec3(1.0), 1.0);
+    }
+    
+    gl_FragColor = mix(vec4(UV.x, UV.y, UV.z, 1.0), myCol, 0.8);
+    //gl_FragColor = vec4(UV.x/2.0 + 0.5, UV.y/2.0 + 0.5, UV.z/2.0 + 0.5, 1.0);
 }
 `;
 
     material2 = new THREE.ShaderMaterial({
         uniforms: {
-            "u_time" : {value: 8.1}
+            "u_time" : {value: 8.1},
+            "input1" : {value: 0.0},
         },
         vertexShader: _vs,
         fragmentShader: _fs,
@@ -98,8 +159,8 @@ void main() {
     //geometry = new THREE.BufferGeometry().setFromPoints(points);
     geometry = new THREE.SphereGeometry(1, 32, 16);
 
-    //mesh = new THREE.Mesh( geometry, material );
-    mesh = new THREE.LineSegments(geometry, material2);
+    mesh = new THREE.Mesh( geometry, material2);
+    //mesh = new THREE.LineSegments(geometry, material2);
     scene.add( mesh );
 
     renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -115,7 +176,10 @@ function animate() {
 
     requestAnimationFrame( animate );
 
-    material2.uniforms.u_time.value += 0.1;
+    material2.uniforms.u_time.value = s0;
+    material2.uniforms.input1.value = s1;
+    mesh.rotation.y += 0.01; 
+    //mesh.rotation.x = 1.51;
 
     renderer.render( scene, camera );
 
