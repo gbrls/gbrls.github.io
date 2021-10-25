@@ -148,8 +148,8 @@ float atan2(float y, float x) {
 }
 
 void main() {
-    float phi = acos(UV.y / length(UV));
-    float theta = atan(UV.z, UV.x);
+    float phi = PI - acos(UV.y / length(UV));
+    float theta = - atan(UV.z, UV.x);
     vec3 oceanC = vec3(0.1, 0.3, 0.8);
     vec3 groundC = vec3(0.5, 0.5, 0.3);
 
@@ -169,8 +169,8 @@ void main() {
         }
     }
 
-    if (d > 0.02) {
-        myCol = vec4(vec3(0.0), 1.0);
+    if (d > 0.045) {
+        myCol = vec4(vec3(0.0), 0.3);
     } else {
         if(ground > 0.5) {
             myCol = vec4(oceanC, 1.0);
@@ -180,7 +180,7 @@ void main() {
         myCol = vec4(vec3(ground + 0.5), 1.0);
     }
     
-    gl_FragColor = mix(vec4(UV.x, UV.y, UV.z, 1.0), myCol, 0.8);
+    gl_FragColor = mix(vec4(UV.x, UV.y, UV.z, 1.0), myCol, 1.0);
     //gl_FragColor = vec4(UV.x/2.0 + 0.5, UV.y/2.0 + 0.5, UV.z/2.0 + 0.5, 1.0);
 }
 `;
@@ -222,9 +222,9 @@ function animate() {
 
     material2.uniforms.u_time.value = s0;
     material2.uniforms.input1.value = s1;
-    //mesh.rotation.y += 0.01; 
-    mesh.rotation.y = 4;
-    //mesh.rotation.x = 1.51;
+    mesh.rotation.y += 0.01; 
+    //mesh.rotation.y = 4;
+    //mesh.rotation.x += 0.04;
 
     renderer.render( scene, camera );
 
@@ -249,15 +249,16 @@ function getData(LA, LO) {
 
     material2.uniforms.npoints.value += 1;
     material2.uniforms.npoints.value %= 1000;
-    material2.uniforms.points.value[material2.uniforms.npoints.value] = new THREE.Vector3(LA, LO, 0.),
-    console.log(material2.uniforms.npoints.value);
+    let idx = material2.uniforms.npoints.value;
+    material2.uniforms.points.value[idx] = new THREE.Vector3(LA, LO, 0.),
+    console.log(idx);
 
     //let api_arg = "https://api.geoapify.com/v1/geocode/reverse?lat=51.21709661403662&lon=6.7782883744862374&apiKey=38d0b06048b14039b7e4abba032b29b2";
     let api_arg = "https://api.geoapify.com/v1/geocode/reverse?lat={0}&lon={1}&apiKey=38d0b06048b14039b7e4abba032b29b2".format(toLat(LO), toLong(LA));
     console.log(api_arg);
     fetch(api_arg, requestOptions)
         .then(response => response.json())
-        .then(result => updateWithResult(result))
+        .then(result => updateWithResult(result, idx))
         .catch(error => console.log('error', error));
 
     console.log("Resultado aí ó");
@@ -265,15 +266,15 @@ function getData(LA, LO) {
     //console.log(res);
 }
 
-function updateWithResult(result) {
+function updateWithResult(result, idx) {
     let r = result.features[0].properties;
     console.log("Updating");
-    console.log(r);
     if ('country' in r) {
+        console.log(r);
         console.log('Land!');
-        material2.uniforms.points.value[material2.uniforms.npoints.value].z = 1.0;
+        material2.uniforms.points.value[idx].z = 1.0;
     } else {
-        material2.uniforms.points.value[material2.uniforms.npoints.value].z = 0.0;
+        material2.uniforms.points.value[idx].z = 0.0;
     }
 }
 
@@ -282,10 +283,10 @@ function sleep(ms) {
 }
 
 async function query() {
-    for (let i = 0; i < 5; i += 0.3) {
-        for (let j = 0; j < 8; j += 0.3) {
+    for (let i = 0; i < 18; i += 0.8) {
+        for (let j = 0; j < 18; j += 0.8) {
             //setTimeout(() => { getData(s1 + (i / 10.), s0); }, 2000);
-            await sleep(1200);
+            //await sleep(50);
             getData(s1 + (i / 10.), s0 + (-j / 10.));
         }
     }
