@@ -1,5 +1,5 @@
 ---
-name: Secrets of the autistic millionaire
+title: Secrets of the autistic millionaire
 date: 2021-11-17
 ---
 
