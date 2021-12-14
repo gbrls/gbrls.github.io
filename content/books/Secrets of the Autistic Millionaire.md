@@ -1,7 +1,6 @@
 ---
 name: Secrets of the autistic millionaire
 date: 2021-11-17
-draft: true
 ---
 
 Despite the title being very clickbaity, the book is really genuine.
