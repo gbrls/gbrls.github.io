@@ -1,10 +1,13 @@
 :root {
     --Indigo: #3B7EF7;
-    --TextCol: #ffffff;
+    --TextCol: #4a4c87;
+    --TextColAlt: #4a4c87;
+    --BgCol: #e1e7ec;
     /*
     --Accent1: #EBBC17;
     */
-    --Accent1: #ffffff;
+    --Accent1: #baa79e;
+    --Accent2: #efcaa8;
     /*--Gray: #C1C1C120;*/
 }
 
@@ -20,11 +23,17 @@
     src: url('/fonts/range-mono-medium.ttf');
 }
 
+@font-face {
+    font-family: 'Rubik';
+    /*src: url("/fonts/Hermit-Regular.otf");*/
+    src: url('/fonts/Rubik.ttf');
+}
+
 html, body {
-    background-color: #1e3985;
+    background-color: var(--BgCol);
     color: var(--TextCol);
     /*font-family: 'Barlow', sans-serif;*/
-    font-family: 'Hermit', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 103.5%;
     font-weight: 500;
     scroll-behavior: smooth;
@@ -37,22 +46,23 @@ p {
 
 h1 {
 
-    color: var(--Accent1);
+    color: var(--BgCol);
+    background-color: var(--Accent1);
     /*
     font-family: 'Libre Baskerville 32px', serif !important;
     */
-    font-family: 'Range-Mono', serif !important;
+    font-family: 'Rubik', serif !important;
 }
 
 h2 {
 
     color: var(--Accent1);
-    font-family: 'Range-Mono', serif !important;
+    font-family: 'Rubik', serif !important;
 }
 
 h3 {
     color: var(--Accent1);
-    font-family: 'Range-Mono', serif !important;
+    font-family: 'Rubik', serif !important;
 }
 
 .ra {
@@ -82,7 +92,8 @@ a {
 }
 
 a:visited {
-    text-decoration: none;
+    color: var(--Accent1);
+    text-decoration: underline;
 }
 
 a:hover {
