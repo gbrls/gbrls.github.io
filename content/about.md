@@ -5,6 +5,9 @@ date: 2020-03-26
 ---
 
 ![image](/me.jpeg)  
+
+## About me
+
 Hi! My name is __Gabriel Schneider__ and I study Computer Engineering at __[CIn](https://www3.cin.ufpe.br/en/) - UFPE__.  
 
 My first experience with programming was in my school's robotics team when I was about 12. To this day, I remember how amazed I was when I discovered that I could increment variables, that I could name variables any way I wanted to like `int VaquinhaVoando;`, and that  I could write functions that do anything and return anything! 
@@ -20,5 +23,11 @@ After some time, while procrastinating on Youtube I discovered [The Coding Train
 
 I my current interests are Programming Languages, Compilers, Computer Graphics, [Gamedev](https://gbrls.itch.io/), and Competitive Programming.
 
+# Tools
+- This website was build using Hugo.
+- My personal workstation runs Fedora Workstation 35.
+- I mostly use Neovim as my IDE and CLion and VSCode when needed.
+- Rust is my favourive language by far and I try to use it as much as possible.
+- In my shell I use `fzf` a lot and my own tool [`pplaces`](https://github.com/gbrls/pplaces).
 
 [github](https://github.com/gbrls), [CV](/CV.pdf)
