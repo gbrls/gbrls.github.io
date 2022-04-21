@@ -5,25 +5,28 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
 
-<div class="column" style="z-index: 5;">
-    <div class="left">
-        <div class="index-div">
-            {{ .Content }}
+<div class="homepage">
+    <div class="column" style="z-index: 5;">
+        <div class="left">
+            <h2>gbrls</h2>
+            <div class="index-div">
+                {{ .Content }}
+            </div>
+            <div class="previews">
+                {{ range .Site.Pages }}
+                    {{ if ge (len .Title) 10}}
+                    <a href="{{.Permalink}}">
+                    <div class="preview" >
+                        {{ .Title }}
+                    </div>
+                    </a>
+                    {{ end }}
+                {{ end }}
+            </div>
         </div>
-    </div>
-    <div class="right">
-        <!--
-     <div class="slidecontainer">
-          <input type="range" min="-100" max="100" value="0" class="slider" id="range0">
-          <p id="pr0"></p>
-          <input type="range" min="-100" max="100" value="0" class="slider" id="range1">
-          <p id="pr1"></p>
-          <button onclick="getData(s1, s0)">get data</button>
-          <button onclick="query()">query</button>
-          <p id="geodata"></p>
-     </div>
-        -->
-        {{partial "list.html" .}}
+        <div class="right">
+            {{partial "list.html" .}}
+        </div>
     </div>
 </div>
 <script src="three.min.js"></script>

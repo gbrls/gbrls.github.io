@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
 :root {
     --Indigo: #3B7EF7;
-    --TextCol: #4a4c87;
-    --TextColAlt: #4a4c87;
-    --BgCol: #e1e7ec;
+    --TextCol: #313131;
+    --TextColAlt: #670000;
+    --BgCol: #eae7e4;
     /*
     --Accent1: #EBBC17;
     */
-    --Accent1: #baa79e;
+    --Accent1: #000000;
     --Accent2: #efcaa8;
     /*--Gray: #C1C1C120;*/
 }
@@ -15,6 +17,11 @@
     font-family: 'Hermit';
     /*src: url("/fonts/Hermit-Regular.otf");*/
     src: url('/fonts/range-regular.ttf');
+}
+
+@font-face {
+    font-family: 'Garamond';
+    src: url('/fonts/Garamond.ttf');
 }
 
 @font-face {
@@ -33,9 +40,9 @@ html, body {
     background-color: var(--BgCol);
     color: var(--TextCol);
     /*font-family: 'Barlow', sans-serif;*/
-    font-family: 'Rubik', sans-serif;
-    font-size: 103.5%;
-    font-weight: 500;
+    font-family: 'Garamond', serif;
+    font-size: 112%;
+    font-weight: 400;
     scroll-behavior: smooth;
 }
 
@@ -46,23 +53,36 @@ p {
 
 h1 {
 
+    /*
     color: var(--BgCol);
     background-color: var(--Accent1);
+     */
     /*
     font-family: 'Libre Baskerville 32px', serif !important;
     */
-    font-family: 'Rubik', serif !important;
+    font-family: 'Garamond', serif !important;
+
+    animation: fadeIn 1s;
 }
 
 h2 {
 
+    animation: fadeIn 1s;
+
     color: var(--Accent1);
-    font-family: 'Rubik', serif !important;
+    font-family: 'Garamond', serif !important;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 100%;}
 }
 
 h3 {
     color: var(--Accent1);
-    font-family: 'Rubik', serif !important;
+    font-family: 'Garamond', serif !important;
+
+    animation: fadeIn 1s;
 }
 
 .ra {
@@ -111,8 +131,8 @@ a:hover {
 }
 @media (min-aspect-ratio: 1/1) {
     .single-content {
-        margin-left: 30%;
-        margin-right: 30%;
+        padding-left: 35vw;
+        padding-right: 35vw;
     }
 }
 
@@ -201,10 +221,6 @@ aside {
 
 @media (min-aspect-ratio: 1/1) {
     .c-container {
-        display: grid;
-        grid-template-columns: 1fr 12em;
-        max-width: 100em;
-        width: 90%;
     }
 }
 
@@ -212,4 +228,49 @@ canvas {
     position: absolute;
     top: 10px;
     z-index: 1;
+}
+
+.previews {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+    gap: 0.6vw 0.6vw;
+}
+
+.preview {
+    color: var(--BgCol);
+    height: 15vw;
+    width: 15vw;
+    text-transform: uppercase;
+    padding: 0.3em;
+    font-family: 'Garamond', serif;
+    font-weight: 600;
+    font-size: 2.5vw;
+
+    overflow-wrap: break-word;
+
+    background: linear-gradient(to right, black 50%, var(--TextCol) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+}
+
+a.preview:link {
+    text-decoration: none;
+}
+
+.previews a { text-decoration: none }
+
+.preview:hover {
+    transition: all .2s linear;
+    background-position: left bottom;
+}
+
+.homepage {
+    padding-left: 5vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 10vh;
+
+    margin-bottom: 5vh;
 }

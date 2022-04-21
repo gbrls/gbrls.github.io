@@ -16,13 +16,24 @@
     <div class="header">
         {{ block "header" .}}
         <div>
-            {{if .PrevInSection}}<a href="{{.PrevInSection.Permalink}}">previous ({{.PrevInSection.Title}})</a>{{end}}
+            previous:
+            {{if .PrevInSection}}<a href="{{.PrevInSection.Permalink}}">{{.PrevInSection.Title}}</a>{{end}}
         </div>
         <div>
-            {{if .Parent}}<a href="{{.Parent.Permalink}}">up ({{.Parent.Title}})</a>{{end}}
+            <h2>
+            {{if .Parent}}
+
+                {{ if ge (len .Title) 1}}
+                <a href="{{.Parent.Permalink}}">{{.Parent.Title}}</a>
+                {{ else }}
+                <a href="{{.Parent.Permalink}}">Home</a>
+                {{ end }}
+            {{end}}
+            </h2>
         </div>
         <div>
-            {{if .NextInSection}}<a href="{{.NextInSection.Permalink}}">next ({{.NextInSection.Title}})</a>{{end}}
+            next:
+            {{if .NextInSection}}<a href="{{.NextInSection.Permalink}}">{{.NextInSection.Title}}</a>{{end}}
         </div>
         {{ end }}
     </div>
