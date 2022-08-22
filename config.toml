@@ -1,20 +1,51 @@
-baseURL = "https://gbrls.github.io"
-languageCode = "en-us"
-title = "Gabriel Schneider's homepage"
-theme = "gbrls"
+# The URL the site will be built for
+base_url = "https://gbrls.github.io"
+title = "gbrls"
+theme = "adidoks"
+default_language = "en"
+lang = "en"
 
-googleAnalytics = "UA-116679276-1" 
 
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ""
-    lineAnchors = ""
-    lineNoStart = 1
-    lineNos = true
-    lineNumbersInTable = true
-    noClasses = true
-    style = "dracula"
-    tabWidth = 4
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[markdown]
+highlight_code = true
+highlight_theme = "base16-ocean-dark"
+
+
+[extra]
+default_language = "en"
+lang = "en"
+
+[[extra.menu.social]]
+name = "Twitter"
+pre = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>'
+url = "https://twitter.com/gabrSchn"
+weight = 10
+
+[[extra.menu.social]]
+name = "GitHub"
+pre = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>'
+url = "https://github.com/gbrls"
+post = "v0.1.0"
+weight = 20
+
+[[extra.menu.social]]
+name = "Medium"
+url = "https://medium.com/@gabrielschneider100"
+post = "v0.1.0"
+weight = 20
+
+pre = 'M'
+#pre = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm12.3 10.94l.955.954v.05h-4.921v-.05l1.004-.954c.1-.1.15-.2.15-.351V9.664c0-.252 0-.603.051-.904l-3.314 8.285h-.05L7.76 9.412c-.05-.2-.1-.2-.15-.3v5.02c-.051.352 0 .653.15.955l1.356 1.807v.05H5.5v-.05l1.356-1.858c.15-.3.2-.652.15-.954V8.56c0-.251-.05-.553-.25-.753L5.851 6.55V6.5h3.515l2.912 6.478L14.84 6.5h3.415v.05l-.954 1.105c-.1.1-.15.251-.15.351v7.633c0 .1.05.251.15.301z"/></g></svg>'
+
+# Footer contents
+[extra.footer]
+info = 'Made in Recife 🦀'

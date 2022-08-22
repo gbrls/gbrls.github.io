@@ -1,7 +1,6 @@
 ---
 title: "Binary Binary Tree"
 date: 2021-02-23T20:22:52-03:00
-draft: false
 ---
 ### The trick
 I really like tricks with binary numbers. This one I was using to test digital systems.
