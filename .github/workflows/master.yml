@@ -1,4 +1,4 @@
-name: github pages
+name: Build website with Zola
 
 on:
   workflow_dispatch:
