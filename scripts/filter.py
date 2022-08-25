@@ -33,7 +33,7 @@ def path_in_website(post, filepath):
 
 def add_metadata_to_file(file):
     post = fmatter(file)
-    can = can_publish(post, 'publish_to_web')
+    can = can_publish(post, 'publish')
 
     path = path_in_website(post, file)
 
