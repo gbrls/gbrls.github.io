@@ -1,3 +1,6 @@
 ./public
 ./public/
 ./public/*
+*/ignore/*
+./scripts/ignore
+./scripts/ignore/*
