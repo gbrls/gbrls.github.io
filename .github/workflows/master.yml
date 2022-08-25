@@ -16,11 +16,11 @@ jobs:
         with:
           dropbox-refresh-token: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
           source-path: '/journal'
-          destination-path: 'from-dropbox'
+          destination-path: '/tmp/from-dropbox'
           
       - name: 'Filter files to publish'
         run: |
           pip install -r scripts/requirements.txt
-          ./scripts/filter.py ./from-dropbox ./content
+          ./scripts/filter.py /tmp/from-dropbox ./content
       
         
