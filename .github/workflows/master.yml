@@ -17,6 +17,7 @@ jobs:
         run: |
           pip install -r scripts/requirements.txt
           ./scripts/filter.py /tmp/from-dropbox ./content
+          find content
       - name: Zola Deploy to Pages
         uses: shalzz/zola-deploy-action@v0.16.1
         env:
