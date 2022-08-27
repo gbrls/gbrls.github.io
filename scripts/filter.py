@@ -46,6 +46,9 @@ def add_metadata_to_file(file):
 
     if can:
         mp['path'] = path
+
+    print(mp)
+
     return mp
 
 
