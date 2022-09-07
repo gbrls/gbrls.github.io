@@ -17,6 +17,7 @@ jobs:
         run: |
           ls
           pip install -r scripts/requirements.txt
+          chmod 777 from-dropbox
           ./scripts/filter.py from-dropbox ./content > p-output.txt
           cat p-output.txt
           find content
