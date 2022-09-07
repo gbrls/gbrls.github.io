@@ -12,14 +12,12 @@ jobs:
         with:
           dropbox-refresh-token: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
           source-path: '/journal'
-          destination-path: '/tmp/from-dropbox'   
+          destination-path: 'from-dropbox'   
       - name: 'Filter files to publish'
         run: |
-          ls /tmp
-          find /tmp
           ls
           pip install -r scripts/requirements.txt
-          ./scripts/filter.py /tmp/from-dropbox ./content > p-output.txt
+          ./scripts/filter.py from-dropbox ./content > p-output.txt
           cat p-output.txt
           find content
       - name: Zola Deploy to Pages
