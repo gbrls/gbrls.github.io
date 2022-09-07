@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Usage ./filter.py source_dir dest_dir
+
 import frontmatter, os, sys, pathlib
 
 def files_in(dir):
@@ -76,5 +78,7 @@ if len(sys.argv) > 2:
 
 all_files = list(map(add_metadata_to_file, files_in(source)))
 
-delete_unpublished(all_files)
+print(f'{len(all_files)} found in {source}')
+
 move_published(all_files, dest)
+delete_unpublished(all_files)
