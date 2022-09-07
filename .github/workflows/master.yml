@@ -1,4 +1,4 @@
-name: Build website with Zola
+name: Full website build (Dropbox, Zola)
 
 on:
   workflow_dispatch:
@@ -16,7 +16,8 @@ jobs:
       - name: 'Filter files to publish'
         run: |
           pip install -r scripts/requirements.txt
-          ./scripts/filter.py /tmp/from-dropbox ./content
+          ./scripts/filter.py /tmp/from-dropbox ./content > p-output.txt
+          cat p-output.txt
           find content
       - name: Zola Deploy to Pages
         uses: shalzz/zola-deploy-action@v0.16.1
