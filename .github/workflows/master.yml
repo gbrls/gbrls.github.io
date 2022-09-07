@@ -15,6 +15,9 @@ jobs:
           destination-path: '/tmp/from-dropbox'   
       - name: 'Filter files to publish'
         run: |
+          ls /tmp
+          find /tmp
+          ls
           pip install -r scripts/requirements.txt
           ./scripts/filter.py /tmp/from-dropbox ./content > p-output.txt
           cat p-output.txt
