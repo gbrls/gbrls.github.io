@@ -9,7 +9,7 @@ def files_in(dir):
     for path, _, files in os.walk(dir):
         for file in files:
             _, ext = os.path.splitext(file)
-            if ext == '.md':
+            if ext == '.md' and not path.endswith('templates'):
                 ans.append(f'{path}/{file}')
     return ans
 
