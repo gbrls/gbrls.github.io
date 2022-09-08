@@ -14,7 +14,12 @@ def files_in(dir):
     return ans
 
 def fmatter(filepath):
-    with open(filepath) as f:
+    with open(filepath, 'r', encoding='utf-8') as f:
+
+        # Debugging
+        print(f'reading {filepath}')
+        sys.stdout.flush()
+
         data = f.read()
         post = frontmatter.loads(data)
         return post
