@@ -16,6 +16,7 @@ jobs:
       - name: 'Filter files to publish'
         run: |
           ls
+          chmod -R 666 from-dropbox
           find from-dropbox
           pip install -r scripts/requirements.txt
           ./scripts/filter.py from-dropbox ./content > p-output.txt
