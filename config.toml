@@ -26,6 +26,7 @@ highlight_theme = "base16-ocean-dark"
 [extra]
 default_language = "en"
 lang = "en"
+math = "katex"
 
 [[extra.menu.social]]
 name = "Twitter"
