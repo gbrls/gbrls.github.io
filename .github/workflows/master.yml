@@ -17,10 +17,10 @@ jobs:
         run: |
           ls
           sudo chmod -R 666 from-dropbox
-          find from-dropbox
+          sudo find from-dropbox
           pip install -r scripts/requirements.txt
-          ./scripts/filter.py from-dropbox ./content > p-output.txt
-          cat p-output.txt
+          sudo ./scripts/filter.py from-dropbox ./content > p-output.txt
+          sudo cat p-output.txt
           find content
       - name: Zola Deploy to Pages
         uses: shalzz/zola-deploy-action@v0.16.1
