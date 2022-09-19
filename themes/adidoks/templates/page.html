@@ -53,9 +53,12 @@
 
         </article>
 
-        {% if page.backlinks %}
-        backlinks: {{ page.backlinks }}
-        {% endif %}
+        {%- if page.backlinks -%}
+        <h3> Backlinks </h3>
+            {% for blink in page.backlinks -%}
+            <a href={{ blink.permalink }}> {{blink.title}} </a>
+            {%- endfor %}
+        {%- endif %}
       </div>
     </div>
   </div>

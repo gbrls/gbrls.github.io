@@ -1,4 +1,5 @@
 +++
+title = "about me"
 +++
 
 Hey there I'm Gabriel Schneider, I was born in Recife. 
@@ -12,5 +13,3 @@ Feel free to reach me out on social media or at:
 gbrls stands for **g**a**br**ie**l** **s**chneider.
 
 {{ img(url="/gallery/recife.png", width=400 )}}
-
-
