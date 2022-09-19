@@ -29,5 +29,5 @@ here](https://github.com/gbrls/gbrls.github.io).
 
 
 
-[Se here](/blog/current-organizational-structure/) for a historic backgroud of
+[Se here](@/blog/Current Organizational Structure.md) for a historic backgroud of
 how my notes system evolved.
