@@ -1,2 +1,5 @@
-- RSS Feed
-- Raytracing
+- Implement threejs shortcode
+- Fix top bar
+- Implement search
+    - [how gleam docs did it](https://gleam.run/news/gleam-v0.23-released/)
+    -  [how mkdocs did it](https://squidfunk.github.io/mkdocs-material/blog/2021/09/13/search-better-faster-smaller/#search-previews)
