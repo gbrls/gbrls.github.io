@@ -28,8 +28,8 @@ def can_publish(post, key):
     return key in post.to_dict() and (post[key] == True)
 
 def path_in_website(post, filepath):
-    if 'website_path' in post.to_dict():
-        return post['website_path']
+    if 'path' in post.to_dict() and len(post['path']) > 0:
+        return post['path']
     else:
         (tail, head) = os.path.split(filepath)
         if len(tail) == 0:
