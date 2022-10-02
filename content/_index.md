@@ -37,5 +37,17 @@ url = "/gallery/"
 weight = 20
 
 
+[[extra.menu.main]]
+name = "Projects"
+section = "projects"
+url = "/projects/"
+weight = 20
+
+[[extra.menu.main]]
+name = "TODO"
+section = "todo"
+url = "/todo/"
+weight = 20
+
 +++
 
