@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://gbrls.github.io"
+base_url = "https://blog.gbrls.space"
 title = "gbrls"
 theme = "adidoks"
 default_language = "en"
