@@ -1,3 +1,4 @@
+- add CNAME to blog.gbrls.space
 - Implement threejs shortcode
 - Fix top bar
 - Implement search
