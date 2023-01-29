@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GP26XDB8FY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GP26XDB8FY');
+</script>
+
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://gbrls.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://gbrls.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://gbrls.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>myLisp Interpreter 1: Lexer and Parser | gbrls</title>
+<meta name="description" content="">
+<link rel="canonical" href="https://gbrls.github.io/blog/mk-lisp-1/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://gbrls.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Blog",
+            "item": "https://gbrls.github.io/blog/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Mk Lisp 1",
+            "item": "https://gbrls.github.io/blog/mk-lisp-1/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://gbrls.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://gbrls.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://gbrls.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://gbrls.github.io/site.webmanifest" crossorigin>
+  
+
+
+  
+    
+      <!-- KaTeX -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    
+  
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://gbrls.github.io/rss.xml">
+
+
+</head>
+
+  
+    
+  
+
+<body class="page single">
+  
+    
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://gbrls.github.io">gbrls</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://twitter.com/gabrSchn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg><span class="ms-2 visually-hidden">Twitter</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/gbrls"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://medium.com/@gabrielschneider100">M<span class="ms-2 visually-hidden">Medium</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://gbrls.github.io/rss.xml"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>ionicons-v5_logos</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg><span class="ms-2 visually-hidden">RSS</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+				
+				
+				
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/about-me/">About me</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/about-here/">About Here</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/blog/">Blog</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/books/">Books</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/gallery/">Gallery</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/projects/">Projects</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/todo/">TODO</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search..."
+						aria-label="Search..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+  
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xxl-8">
+        <article>
+          <div class="page-header">
+            <h1>myLisp Interpreter 1: Lexer and Parser</h1>
+          </div>
+          
+          <p>This is the second part of a series of articles that I'm writing to document by
+progress on building a Interpreter for myLisp, a lisp-like language. For the previous post <a href="/mk-lisp-0">click
+here</a>.</p>
+<h3 id=""></h3>
+<h3 id="what-is-an-interpreter">What is an interpreter?</h3>
+<p>An Interpreter is a program that takes souce code as input and executes it. It
+is composed of several parts, today we are going to write a lexer and a parser.</p>
+<p>The lexer will read a string of characters and output a vector of tokens, with
+some information attached to them like its type. The lexer is important to the
+parser because it returns the soure code in a better representation, holding
+only information that matters to it, <em>(this is a very important pattern in
+programming, thowing away information that is not important for what we want, by
+keeping the data in a more convenient representation)</em>.</p>
+<p>The parser will take the vector of tokens created by the lexer and create a data
+structure <em>(in our case S-Expressions)</em> which can then be executed by another part of the interpreter.</p>
+<h3 id="the-interpreter-s-implementation">The interpreter's implementation</h3>
+<p>I will be writing this interpreter in C. The most important reason for it is that
+this is a learning project more than anything else, and in C provides us with
+the bare minimum to create what we want.<br />
+It is important to note that there are better ways to implement it, but I don't
+like to read other people's code before I try my own way. Maybe in the future when I'm done,
+I'll change it.</p>
+<h3 id="lexer">Lexer</h3>
+<p>First, lets define a little macro to help us debug.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">#ifdef</span><span> DEBUG_F
+</span><span>
+</span><span style="color:#b48ead;">#define </span><span style="color:#8fa1b3;">DEBUG</span><span>(</span><span style="color:#bf616a;">fmt</span><span>, </span><span style="color:#bf616a;">args</span><span>...)						\
+</span><span>    </span><span style="color:#96b5b4;">printf</span><span>(&quot;</span><span style="color:#a3be8c;">(</span><span style="color:#d08770;">%s</span><span style="color:#a3be8c;">:</span><span style="color:#d08770;">%d</span><span style="color:#a3be8c;">) </span><span>&quot; fmt, __FILE__,__LINE__, ##args)
+</span><span>
+</span><span style="color:#b48ead;">#else
+</span><span>
+</span><span style="color:#b48ead;">#define </span><span style="color:#8fa1b3;">DEBUG</span><span>(</span><span style="color:#bf616a;">f</span><span>, </span><span style="color:#bf616a;">fmt</span><span>, </span><span style="color:#bf616a;">args</span><span>...) </span><span style="color:#65737e;">/* Do nothing */
+</span><span>
+</span><span style="color:#b48ead;">#endif
+</span><span>
+</span></code></pre>
+<p>Next, we need to create a few data types to store the tokens.
+<em>As you can see our Lisp won't support strings and floats for now</em>.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">enum </span><span>Token_Type {
+</span><span>    TOKEN_OPEN=</span><span style="color:#d08770;">0</span><span>,
+</span><span>    TOKEN_CLOSE=</span><span style="color:#d08770;">1</span><span>,
+</span><span>    TOKEN_NUMBER=</span><span style="color:#d08770;">2</span><span>,
+</span><span>    TOKEN_SYMBOL=</span><span style="color:#d08770;">3</span><span>,
+</span><span>};
+</span><span>
+</span><span style="color:#65737e;">/*
+</span><span style="color:#65737e;">** Used to debug the lexer
+</span><span style="color:#65737e;">*/
+</span><span style="color:#b48ead;">char</span><span>* Token_Type_Str[</span><span style="color:#d08770;">4</span><span>] = {&quot;</span><span style="color:#a3be8c;">(</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">)</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">NUM</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">SYM</span><span>&quot;};
+</span><span>
+</span><span style="color:#b48ead;">typedef struct </span><span>{
+</span><span>	</span><span style="color:#b48ead;">enum</span><span> Token_Type type;
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">union </span><span>{
+</span><span>		</span><span style="color:#b48ead;">int</span><span> number;
+</span><span>		</span><span style="color:#b48ead;">char</span><span>* name;
+</span><span>	}data;
+</span><span>
+</span><span>}Token;
+</span></code></pre>
+<p>And then the tokenize fuction, there are a few details about it that need to be discussed.
+Usually in Lisp, symbol names can be in some written in some formats, like +1, +$,
+10@b.com. But for simplicity's sake we have a different set of rules: They must start
+with an alphabetical character and not contain any whitespace or parenthesis.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span>Token* </span><span style="color:#8fa1b3;">tokenize</span><span>(</span><span style="color:#b48ead;">char</span><span>* </span><span style="color:#bf616a;">in</span><span>, </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ret_sz</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">int</span><span> cursor = </span><span style="color:#d08770;">0</span><span>;
+</span><span>	</span><span style="color:#b48ead;">int</span><span> sz = </span><span style="color:#d08770;">0</span><span>, alloc=</span><span style="color:#d08770;">1</span><span>;
+</span><span>	Token* vec = (Token*) </span><span style="color:#96b5b4;">malloc</span><span>(sizeof(Token));
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">while</span><span>(in[cursor] != &#39;</span><span style="color:#96b5b4;">\0</span><span>&#39;) {
+</span><span>
+</span><span>		Token cur;
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">if</span><span>(in[cursor]==&#39;</span><span style="color:#a3be8c;">(</span><span>&#39;) {
+</span><span>			cur.</span><span style="color:#bf616a;">type </span><span>= TOKEN_OPEN;
+</span><span>			cursor++;
+</span><span>
+</span><span>		} </span><span style="color:#b48ead;">else if</span><span>(in[cursor]==&#39;</span><span style="color:#a3be8c;">)</span><span>&#39;) {
+</span><span>			cur.</span><span style="color:#bf616a;">type </span><span>= TOKEN_CLOSE;
+</span><span>			cursor++;
+</span><span>
+</span><span>		} </span><span style="color:#b48ead;">else if</span><span>(</span><span style="color:#96b5b4;">isdigit</span><span>(in[cursor])) {
+</span><span>			</span><span style="color:#b48ead;">int</span><span> number;
+</span><span>			</span><span style="color:#96b5b4;">sscanf</span><span>(in+cursor,&quot;</span><span style="color:#d08770;">%d</span><span>&quot;,&amp;number);
+</span><span>
+</span><span>
+</span><span>			</span><span style="color:#b48ead;">while</span><span>(in[cursor] != &#39;</span><span style="color:#96b5b4;">\0</span><span>&#39;
+</span><span>				  &amp;&amp; </span><span style="color:#96b5b4;">isdigit</span><span>(in[cursor])) {
+</span><span>				cursor++;
+</span><span>			}
+</span><span>
+</span><span>			cur.</span><span style="color:#bf616a;">type </span><span>= TOKEN_NUMBER;
+</span><span>			cur.</span><span style="color:#bf616a;">data</span><span>.</span><span style="color:#bf616a;">number </span><span>= number;
+</span><span>			</span><span style="color:#bf616a;">DEBUG</span><span>(&quot;</span><span style="color:#a3be8c;">TOKEN_NUMBER: </span><span style="color:#d08770;">%d</span><span style="color:#96b5b4;">\n</span><span>&quot;, number);
+</span><span>
+</span><span>		} </span><span style="color:#b48ead;">else if</span><span>(</span><span style="color:#96b5b4;">isalpha</span><span>(in[cursor])) {
+</span><span>
+</span><span>			</span><span style="color:#b48ead;">char</span><span>* name = (</span><span style="color:#b48ead;">char</span><span>*) </span><span style="color:#96b5b4;">malloc</span><span>(MAX_SYM_SZ);
+</span><span>			</span><span style="color:#96b5b4;">assert</span><span>(name!=</span><span style="color:#d08770;">NULL</span><span>);
+</span><span>		
+</span><span>			</span><span style="color:#b48ead;">int</span><span> ptr = </span><span style="color:#d08770;">0</span><span>;
+</span><span>
+</span><span>			</span><span style="color:#b48ead;">while</span><span>(in[cursor] != &#39;</span><span style="color:#a3be8c;">(</span><span>&#39;
+</span><span>				  &amp;&amp; in[cursor] != &#39;</span><span style="color:#a3be8c;">)</span><span>&#39;
+</span><span>		 		  &amp;&amp; in[cursor] != &#39; &#39;
+</span><span>				  &amp;&amp; in[cursor] != &#39;</span><span style="color:#96b5b4;">\0</span><span>&#39;)
+</span><span>			  {
+</span><span>
+</span><span>				</span><span style="color:#b48ead;">if</span><span>(</span><span style="color:#96b5b4;">isalpha</span><span>(in[cursor])) in[cursor] = </span><span style="color:#96b5b4;">toupper</span><span>(in[cursor]);
+</span><span>				name[ptr] = in[cursor];
+</span><span>				ptr++, cursor++;
+</span><span>			}
+</span><span>
+</span><span>			name[ptr] = &#39;</span><span style="color:#96b5b4;">\0</span><span>&#39;;
+</span><span>
+</span><span>			cur.</span><span style="color:#bf616a;">type </span><span>= TOKEN_SYMBOL;
+</span><span>			cur.</span><span style="color:#bf616a;">data</span><span>.</span><span style="color:#bf616a;">name </span><span>= name;
+</span><span>			</span><span style="color:#bf616a;">DEBUG</span><span>(&quot;</span><span style="color:#a3be8c;">TOKEN_NAME: </span><span style="color:#d08770;">%s</span><span style="color:#96b5b4;">\n</span><span>&quot;, name);
+</span><span>
+</span><span>		} </span><span style="color:#b48ead;">else </span><span>{
+</span><span>			cursor++;
+</span><span>			</span><span style="color:#b48ead;">continue</span><span>;
+</span><span>		}
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">if</span><span>(alloc &lt;= sz+</span><span style="color:#d08770;">1</span><span>) {
+</span><span>
+</span><span>			alloc *= </span><span style="color:#d08770;">2</span><span>;
+</span><span>			vec = (Token*) </span><span style="color:#96b5b4;">realloc</span><span>(vec, sizeof(Token)*alloc);
+</span><span>		}
+</span><span>
+</span><span>		</span><span style="color:#bf616a;">DEBUG</span><span>(&quot;</span><span style="color:#a3be8c;">TOKEN: </span><span style="color:#d08770;">%s</span><span style="color:#96b5b4;">\n</span><span>&quot;, Token_Type_Str[cur.</span><span style="color:#bf616a;">type</span><span>]);
+</span><span>
+</span><span>		vec[sz++] = cur;
+</span><span>	}
+</span><span>
+</span><span>	*ret_sz = sz;
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return</span><span> vec;
+</span><span>}
+</span></code></pre>
+<p>And that's about it for the lexer.</p>
+<h3 id="representing-s-expressions">Representing S-Expressions</h3>
+<p>Before we start to implement the parser we need to write the data types for it.
+But this time it is a little bit different because the parser will generate a
+data structure which can be executed. We are going to represent those structures
+as lisp S-Expressions.</p>
+<p>First, let's define the type <code>Lisp_Object</code>, <em>(it has nothing to do with OOP's
+objects)</em>, which will represent everything that a cons cell can hold as its car
+or cdr.</p>
+<h3 id="tagged-pointers">Tagged Pointers</h3>
+<p>There are a few ways that we could choose to represent <code>Lisp_Object</code>, we are
+going to use tagged pointers, which are common in many Lisp implementations.</p>
+<p>Every variable in C has at least 8 bits, so every valid pointer points to an
+address which is a multiple of 8. This means that the least significant bits of
+a valid address will aways end with three zeros. So we can use these bits to
+store additional information about what the pointer is pointing to. When we need
+to deference it we just mask out those three bits.</p>
+<p>They are useful because a pointer usually occupies eight bytes and an <code>int</code> or
+<code>float</code> just 4, so we can embed ints and floats into them, all we have to do is to
+shift them up three bits. That's a huge improvement over deferencing a pointer
+to an integer which is allocated on the heap. Using tagged pointers we can
+utilize ints and floats on the stack.</p>
+<p>Now, we will define a variable that will represent everything that a cons cell
+can hold as its car and cdr: <code>Lisp_Object</code>.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">typedef </span><span>uintptr_t Lisp_Object;
+</span><span style="color:#b48ead;">#define </span><span>NIL (Lisp_Object)</span><span style="color:#d08770;">0</span><span>;
+</span></code></pre>
+<p><code>Lisp_Object</code> is a tagged pointer, that's why we used <code>uintptr_t</code> <em>(it is
+defined be a variable that can store a pointer)</em>. And now a few functions to
+operate on it.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">enum </span><span>Tag {
+</span><span>	TAG_SYMBOL = </span><span style="color:#d08770;">0</span><span>,
+</span><span>	TAG_NUMBER = </span><span style="color:#d08770;">1</span><span>,
+</span><span>	TAG_CONS = </span><span style="color:#d08770;">2
+</span><span>	</span><span style="color:#65737e;">/* ... */
+</span><span>};
+</span><span>
+</span><span>Lisp_Object </span><span style="color:#8fa1b3;">ptr_tag</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>, </span><span style="color:#b48ead;">enum</span><span> Tag </span><span style="color:#bf616a;">tag</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">return</span><span> obj | (</span><span style="color:#b48ead;">int</span><span>)tag;
+</span><span>}
+</span><span>
+</span><span>Lisp_Object </span><span style="color:#8fa1b3;">ptr_untag</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">return</span><span> obj &amp; ~((Lisp_Object) </span><span style="color:#d08770;">7</span><span>);
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">ptr_getTag</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">return </span><span>(</span><span style="color:#b48ead;">int</span><span>)(obj&amp;</span><span style="color:#d08770;">7</span><span>);
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>Those are the basic operations that we are going to be doing with them. But now we
+need a few helper functions and macros to help us create new objects.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">#define </span><span style="color:#8fa1b3;">OBJ</span><span>(</span><span style="color:#bf616a;">val</span><span>, </span><span style="color:#bf616a;">type</span><span>)							\
+</span><span>	Obj_New_ ## </span><span style="color:#bf616a;">type </span><span>(val)
+</span><span>
+</span><span>Lisp_Object </span><span style="color:#8fa1b3;">Obj_New_symbol</span><span>(</span><span style="color:#b48ead;">char</span><span>* </span><span style="color:#bf616a;">str</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">char</span><span>* nstr = (</span><span style="color:#b48ead;">char</span><span>*) </span><span style="color:#96b5b4;">malloc</span><span>(sizeof(str));
+</span><span>	</span><span style="color:#96b5b4;">strcpy</span><span>(nstr, str);
+</span><span>	Lisp_Object ret = </span><span style="color:#bf616a;">ptr_tag</span><span>((Lisp_Object)nstr, TAG_SYMBOL);
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return</span><span> ret;
+</span><span>}
+</span><span>
+</span><span>Lisp_Object </span><span style="color:#8fa1b3;">Obj_New_number</span><span>(</span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">val</span><span>) {
+</span><span>	Lisp_Object nval = val;
+</span><span>	nval = val&lt;&lt;</span><span style="color:#d08770;">3</span><span>;
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ptr_tag</span><span>(nval, TAG_NUMBER);
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">typedef struct </span><span>{
+</span><span>
+</span><span>	Lisp_Object car;
+</span><span>	Lisp_Object cdr;
+</span><span>
+</span><span>}Lisp_Cons_Cell;
+</span><span>
+</span><span>Lisp_Object </span><span style="color:#8fa1b3;">fcons</span><span>(Lisp_Object </span><span style="color:#bf616a;">a</span><span>, Lisp_Object </span><span style="color:#bf616a;">b</span><span>) {
+</span><span>	Lisp_Cons_Cell* cell = (Lisp_Cons_Cell*) </span><span style="color:#96b5b4;">malloc</span><span>(sizeof(Lisp_Cons_Cell));
+</span><span>	cell-&gt;car = a, cell-&gt;cdr = b;
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">ptr_tag</span><span>((Lisp_Object)&amp;cell, TAG_CONS);
+</span><span>}
+</span><span>
+</span></code></pre>
+<p><code>OBJ</code> is a little helper macro do help us create new objects. We use it like
+this:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Lisp_Object a = OBJ(&quot;hello-there&quot;, symbol);
+</span><span>Lisp_Object b = OBJ(42, number);
+</span></code></pre>
+<p>I didn't write a <code>Obj_New_cons</code> because we will be using the fcons function to
+create new conses.</p>
+<h3 id="printing-s-expressions">Printing S-Expressions</h3>
+<p>Before we start the parser itself we need to create a function to print
+S-Expressions, in order to debug it. There's an algorithm for it but I won't get
+into detail. Here it is:</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">_Lisp_Print</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">head</span><span>);
+</span><span>
+</span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">Lisp_Print_cons</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">head</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">if</span><span>(head) </span><span style="color:#96b5b4;">putchar</span><span>(&#39;</span><span style="color:#a3be8c;">(</span><span>&#39;);
+</span><span>
+</span><span>	</span><span style="color:#bf616a;">_Lisp_Print</span><span>(</span><span style="color:#bf616a;">fcar</span><span>(obj), </span><span style="color:#d08770;">1</span><span>);
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">if</span><span>(</span><span style="color:#bf616a;">ptr_untag</span><span>(</span><span style="color:#bf616a;">fcdr</span><span>(obj))==NIL) {
+</span><span>		</span><span style="color:#96b5b4;">putchar</span><span>(&#39;</span><span style="color:#a3be8c;">)</span><span>&#39;);
+</span><span>	} </span><span style="color:#b48ead;">else if</span><span>(</span><span style="color:#bf616a;">ptr_getTag</span><span>(</span><span style="color:#bf616a;">fcdr</span><span>(obj))!=TAG_CONS) {
+</span><span>		</span><span style="color:#96b5b4;">printf</span><span>(&quot;</span><span style="color:#a3be8c;"> . </span><span>&quot;);
+</span><span>		</span><span style="color:#bf616a;">_Lisp_Print</span><span>(</span><span style="color:#bf616a;">fcdr</span><span>(obj), </span><span style="color:#d08770;">0</span><span>);
+</span><span>		</span><span style="color:#96b5b4;">putchar</span><span>(&#39;</span><span style="color:#a3be8c;">)</span><span>&#39;);
+</span><span>	} </span><span style="color:#b48ead;">else </span><span>{
+</span><span>		</span><span style="color:#96b5b4;">putchar</span><span>(&#39; &#39;);
+</span><span>		</span><span style="color:#bf616a;">_Lisp_Print</span><span>(</span><span style="color:#bf616a;">fcdr</span><span>(obj), </span><span style="color:#d08770;">0</span><span>);
+</span><span>	}
+</span><span>}
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">_Lisp_Print</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">head</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">enum</span><span> Tag tag = </span><span style="color:#bf616a;">ptr_getTag</span><span>(obj);
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">switch</span><span>(tag) {
+</span><span>		</span><span style="color:#b48ead;">case</span><span> TAG_NUMBER:
+</span><span>			</span><span style="color:#96b5b4;">printf</span><span>(&quot;</span><span style="color:#d08770;">%d</span><span>&quot;, </span><span style="color:#bf616a;">GET_VAL</span><span>(obj, number));
+</span><span>			</span><span style="color:#b48ead;">break</span><span>;
+</span><span>		</span><span style="color:#b48ead;">case</span><span> TAG_SYMBOL:
+</span><span>			</span><span style="color:#96b5b4;">printf</span><span>(&quot;</span><span style="color:#d08770;">%s</span><span>&quot;, </span><span style="color:#bf616a;">GET_VAL</span><span>(obj, symbol));
+</span><span>			</span><span style="color:#b48ead;">break</span><span>;
+</span><span>		</span><span style="color:#b48ead;">case</span><span> TAG_CONS:
+</span><span>			</span><span style="color:#bf616a;">Lisp_Print_cons</span><span>(obj, head);
+</span><span>			</span><span style="color:#b48ead;">break</span><span>;
+</span><span>		</span><span style="color:#b48ead;">default</span><span>:
+</span><span>			</span><span style="color:#b48ead;">break</span><span>;
+</span><span>	}
+</span><span>}
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">void </span><span style="color:#8fa1b3;">Lisp_Print</span><span>(Lisp_Object </span><span style="color:#bf616a;">obj</span><span>) {
+</span><span>	</span><span style="color:#bf616a;">_Lisp_Print</span><span>(obj, </span><span style="color:#d08770;">1</span><span>);
+</span><span>	</span><span style="color:#96b5b4;">putchar</span><span>(&#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;);
+</span><span>}
+</span><span>
+</span></code></pre>
+<h3 id="the-parser">The parser</h3>
+<p>I really liked implementing a Lisp parser a for another interpreter a few days
+ago, the algorithm is so simple!</p>
+<p>If a S-Expression is a list, whe can think of it as a list of atoms and for each
+atom we parse it recursively. So, how do we parse a simple list? This is how it
+would like in ~~py~~pseudocode:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>def parse (n):
+</span><span>	obj = get_obj(n)
+</span><span>
+</span><span>	if obj == nil:
+</span><span>		return obj
+</span><span>
+</span><span>	else:
+</span><span>		return cons(obj, parse(n+1))
+</span></code></pre>
+<p>It doesn't work for every S-Expression <em>yet</em>, but the main takeaway for it is that
+you cons the current object with the rest of the list recursively. The only
+difference between this and a complete parser is that the latter handles
+parenthesis by parsing what is inside the current block and consing it with the
+rest of the list.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span>Lisp_Object </span><span style="color:#8fa1b3;">parse</span><span>(Token* </span><span style="color:#bf616a;">tokens</span><span>, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">pos</span><span>, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">sz</span><span>) {
+</span><span>	</span><span style="color:#b48ead;">if</span><span>(pos==sz) </span><span style="color:#b48ead;">return</span><span> NIL; </span><span style="color:#65737e;">/* the stop condition */
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">if</span><span>(tokens[pos].</span><span style="color:#bf616a;">type </span><span>== TOKEN_OPEN) {
+</span><span>
+</span><span>		Lisp_Object car = </span><span style="color:#bf616a;">parse</span><span>(tokens,pos+</span><span style="color:#d08770;">1</span><span>,sz);
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">int</span><span> aux = </span><span style="color:#d08770;">1</span><span>, balance = -</span><span style="color:#d08770;">1</span><span>;
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">while</span><span>(balance != </span><span style="color:#d08770;">0</span><span>) { </span><span style="color:#65737e;">/*  Looking for the matching ) */
+</span><span>
+</span><span>			</span><span style="color:#96b5b4;">assert</span><span>(aux+pos &lt; sz);
+</span><span>
+</span><span>			</span><span style="color:#b48ead;">if</span><span>(tokens[pos+aux].</span><span style="color:#bf616a;">type </span><span>== TOKEN_OPEN)
+</span><span>				balance--;
+</span><span>			</span><span style="color:#b48ead;">if</span><span>(tokens[pos+aux].</span><span style="color:#bf616a;">type </span><span>== TOKEN_CLOSE)
+</span><span>				balance ++;
+</span><span>
+</span><span>			aux++;
+</span><span>		}
+</span><span>
+</span><span>		Lisp_Object cdr = </span><span style="color:#bf616a;">parse</span><span>(tokens, pos+aux, sz);
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">fcons</span><span>(car, cdr);
+</span><span>
+</span><span>	} </span><span style="color:#b48ead;">else if</span><span>(tokens[pos].</span><span style="color:#bf616a;">type </span><span>== TOKEN_CLOSE) {
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">return</span><span> NIL;
+</span><span>
+</span><span>	} </span><span style="color:#b48ead;">else if</span><span>(tokens[pos].</span><span style="color:#bf616a;">type </span><span>== TOKEN_NUMBER) {
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">int</span><span> n = tokens[pos].</span><span style="color:#bf616a;">data</span><span>.</span><span style="color:#bf616a;">number</span><span>;
+</span><span>		Lisp_Object car = </span><span style="color:#bf616a;">OBJ</span><span>(n, number);
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">fcons</span><span>(car, </span><span style="color:#bf616a;">parse</span><span>(tokens, pos+</span><span style="color:#d08770;">1</span><span>, sz));
+</span><span>
+</span><span>	} </span><span style="color:#b48ead;">else if</span><span>(tokens[pos].</span><span style="color:#bf616a;">type </span><span>== TOKEN_SYMBOL) {
+</span><span>
+</span><span>		</span><span style="color:#b48ead;">char</span><span>* str = tokens[pos].</span><span style="color:#bf616a;">data</span><span>.</span><span style="color:#bf616a;">name</span><span>;
+</span><span>
+</span><span>		Lisp_Object car = </span><span style="color:#bf616a;">OBJ</span><span>(str, symbol);
+</span><span>		</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">fcons</span><span>(car, </span><span style="color:#bf616a;">parse</span><span>(tokens, pos+</span><span style="color:#d08770;">1</span><span>, sz));
+</span><span>
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#b48ead;">return</span><span> NIL;
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>This code isn't that much different from the pseudocode that I've written
+before, the main difference is the parenthesis handling. The code for this
+article can be seen
+<a href="https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c">here</a>.</p>
+<p>Every cons and symbol in which we allocate are not fred, so our interpreter is
+leaking memory. The solution for this is called garbage collection, we are going
+to implement it in a latter article.</p>
+
+
+
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Made in Recife 🦀</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script type="text/javascript" src="https://gbrls.github.io/js/main.js" defer></script>
+
+  <script type="text/javascript" src="https://gbrls.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script type="text/javascript" src="https://gbrls.github.io/search_index.en.js" defer></script>
+  <script type="text/javascript" src="https://gbrls.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>

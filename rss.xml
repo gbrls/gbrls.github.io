@@ -1,0 +1,1719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>gbrls</title>
+        <link>https://gbrls.github.io</link>
+        <description></description>
+        <generator>Zola</generator>
+        <language>en</language>
+        <atom:link href="https://gbrls.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Wed, 21 Dec 2022 00:00:00 +0000</lastBuildDate>
+        <item>
+            <title>Port Scanning like a Pro</title>
+            <pubDate>Wed, 21 Dec 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/post-scanning-like-a-pro/</link>
+            <guid>https://gbrls.github.io/blog/post-scanning-like-a-pro/</guid>
+            <description>&lt;h1 id=&quot;port-scanning-like-a-pro&quot;&gt;Port Scanning like a Pro&lt;&#x2F;h1&gt;
+&lt;p&gt;I&#x27;m writing about this because it seems to me that many people overlook this
+crucial step. There&#x27;s also a lot of bad information about it on the Internet.
+So let&#x27;s get to it.&lt;&#x2F;p&gt;
+&lt;p&gt;Port scanning is the first step when approaching a target IP. The IP might&#x27;ve
+come from many sources like resolving domains &amp;amp; subdomains or scanning IP
+ranges for active hosts.&lt;&#x2F;p&gt;
+&lt;p&gt;So, with an IP address we just need to run a portscanner tool such as
+&lt;a href=&quot;https:&#x2F;&#x2F;nmap.org&#x2F;&quot;&gt;nmap&lt;&#x2F;a&gt;, &lt;strong&gt;but&lt;&#x2F;strong&gt; there&#x27;s a mistake that&#x27;s very common to make
+when running those tools: &lt;strong&gt;Not testing all ports&lt;&#x2F;strong&gt;. You should test all ports.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You should test all ports!&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;When fuzzing other things such as subdomains, subdirectories, we&#x27;re never sure
+when to stop, there&#x27;s always more to test, a better wordlist. But with
+portscanning is different, there are only (2^16) ports (65635), so why do we
+say to only test a fraction of those?&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve heard people say:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;It&#x27;s hidden, when I run &lt;code&gt;nmap&lt;&#x2F;code&gt; it doesn&#x27;t even show up!&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;It&#x27;s not hidden, that just happens because &lt;code&gt;nmap&lt;&#x2F;code&gt; doesn&#x27;t test all ports by
+default. I think you always should do so, we spend a lot of time running all
+sorts of tools, why are we so hasty when it comes to port scanning?&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;a-practical-example&quot;&gt;A practical example&lt;&#x2F;h1&gt;
+&lt;p&gt;I always check all the ports, and right now I&#x27;m using &lt;code&gt;naabu&lt;&#x2F;code&gt; + &lt;code&gt;nmap&lt;&#x2F;code&gt; with the
+command &lt;code&gt;naabu -host HOST -p - -nmap-cli &#x27;nmap -sV -oX nmap.xml&#x27;&lt;&#x2F;code&gt;. &lt;code&gt;naabu&lt;&#x2F;code&gt; will
+check for all the open ports and then invoke &lt;code&gt;nmap&lt;&#x2F;code&gt; to enumerate the running
+services in the found ports. The &lt;code&gt;-sV&lt;&#x2F;code&gt; option provided to &lt;code&gt;nmap&lt;&#x2F;code&gt; is very
+important, because it&#x27;ll show us which kind and version of service is running
+in each port, &lt;a href=&quot;https:&#x2F;&#x2F;nmap.org&#x2F;book&#x2F;man-version-detection.html&quot;&gt;documentation here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;PORT     STATE SERVICE VERSION
+&lt;&#x2F;span&gt;&lt;span&gt;8002&#x2F;tcp open  http    nginx 1.22.0
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;em&gt;This is how the &lt;code&gt;nmap&lt;&#x2F;code&gt; version &amp;amp; service enumeration output looks like.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The command above will spit out a &lt;code&gt;nmap.xml&lt;&#x2F;code&gt; file with that juicy data in xml
+format. I find XML hard to work with, so I convert it to JSON using something
+like &lt;a href=&quot;https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;xq&#x2F;&quot;&gt;xq&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Some interesting idea would be to have a &lt;code&gt;cronjob&lt;&#x2F;code&gt; to run &lt;code&gt;nmap&lt;&#x2F;code&gt; once a day and
+diff the results. There&#x27;s a lot more that you can do with port scanning,
+specially with a powerful tool like nmap and some good scripts. But as it is,
+this is a good starting point.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Getting Hands Dirty with Hacking</title>
+            <pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/getting-hands-dirty-with-hacking/</link>
+            <guid>https://gbrls.github.io/blog/getting-hands-dirty-with-hacking/</guid>
+            <description>&lt;h1 id=&quot;getting-hands-dirty-with-hacking&quot;&gt;Getting Hands Dirty with Hacking&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;intro-motivation&quot;&gt;Intro &amp;amp; Motivation&lt;&#x2F;h2&gt;
+&lt;p&gt;For a a while now I have been thinking about writing this. Earlier I&#x27;ve written
+about &lt;a href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@gabrielschneider100&#x2F;going-to-cybersecurity-as-a-software-engineer-intern-d416881ab2a2&quot;&gt;getting into
+Cybersecurity&lt;&#x2F;a&gt;,
+I was about a month into my internship and it was much more about my reaction
+to: &amp;quot;You&#x27;re going to Security now, good luck young one&amp;quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;Now I&#x27;m five months in, and many things have changed. I&#x27;m still here (literally
+here, I work from home), I&#x27;m still an intern, but still, things are very
+different.&lt;&#x2F;p&gt;
+&lt;p&gt;So, I&#x27;m writing this here because there were many times where I had to stop,
+grab a piece of paper and just dump the new things that were clouding my head.
+I still wrote almost daily markdown notes on the new things  that I was
+learning, but still, it&#x27;s different, sometimes all I need is a blank piece of
+paper and a nice pen. The same way I write a lot to myself, it&#x27;s not enough,
+from time to time I feel the need to share what I&#x27;ve learned, so this is it.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;processes-techniques&quot;&gt;Processes &amp;amp; Techniques&lt;&#x2F;h2&gt;
+&lt;p&gt;In the start I was: &amp;quot;I want to get really good at hacking, so I&#x27;m going to
+learn new techniques and get really good at them, SQL Injection, XSS, wait for
+me I&#x27;m coming after you!&amp;quot;. And while there&#x27;s value to that, by itself,
+practicing those techniques wasn&#x27;t really going to help me that much. I was
+trying to turn into a good fighter just by repeatedly punching a punch bag,
+it&#x27;s not going to work just by itself, I&#x27;m going to get my ass kicked this way.&lt;&#x2F;p&gt;
+&lt;p&gt;The thing that was missing in my approach was actually deeper than I expected,
+to be a hacker you have to think like one. For a very long time my mind was set
+on building things and solving problems, I wanted to make robots, games, and
+explore maths; that was basically it. Software Engineering was a straight path
+ahead, it&#x27;s different, but at the end it&#x27;s just building things and solving
+problems. That&#x27;s not the case with Hacking, at all.&lt;&#x2F;p&gt;
+&lt;p&gt;To think like a hacker honestly is like listening to your inner devil. When you
+come across something, you want to take advantage of it, I want to learn about
+it until you know enough to break it. It took a while, but I can feel the
+effects of my &lt;em&gt;self corruption&lt;&#x2F;em&gt;, this inner evil voice is already talking &lt;em&gt;all
+the fucking time&lt;&#x2F;em&gt; in my head. &lt;&#x2F;p&gt;
+&lt;p&gt;On the Internet you see hackers doing stuff with Software and then doing
+crazier stuff with Hardware, it didn&#x27;t made much sense to me how those people
+could change domains like that, now it does. It&#x27;s like coding in Clojure and
+then going to embedded C, the mindset is &lt;em&gt;basically&lt;&#x2F;em&gt; the same, it&#x27;s the
+enviroment and the tools for it that changed.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-first-big-project&quot;&gt;My first Big Project&lt;&#x2F;h2&gt;
+&lt;p&gt;When I started to notice a big improvement in my &lt;em&gt;Dark Arts&lt;&#x2F;em&gt; fighting
+techniques was when I stopped to think about my thought process and it write
+down. A month ago I was faced with: &amp;quot;You have 4-5 weeks to test those websites
+and write a report, good luck pal&amp;quot;. I work in a &lt;em&gt;great&lt;&#x2F;em&gt; team, but I felt like
+they had put way too much faith in me at the time. For the first week I was
+just testing with the techniques that I had learned, I was much better at those
+than I was before, but still.&lt;&#x2F;p&gt;
+&lt;p&gt;I had &lt;em&gt;one&lt;&#x2F;em&gt; good finding and that was it. I had a motivation rush after finding
+it, but soon it started to feel like I was trying to climb a huge wall with my
+bare hands. It as then that I stopped, grabbed a piece of paper, a nice pen,
+did some research about the &lt;em&gt;pentesting process&lt;&#x2F;em&gt;, read some checklists and
+started building my own. The thought process was forming in my head from
+working with my peers, from the things that I was learning from the internet,
+my head was getting cloudy with it. Writing it down was like making those
+clouds rain, condensating them to water and clearing up my mind.&lt;&#x2F;p&gt;
+&lt;p&gt;The project is done now and it was a great success. This kind of &lt;em&gt;&amp;quot;process
+organization&amp;quot;&lt;&#x2F;em&gt; was very important to it&#x27;s success.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.myinstants.com&#x2F;media&#x2F;instants_images&#x2F;boratgs.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;things-i-ve-learned&quot;&gt;Things I&#x27;ve learned&lt;&#x2F;h2&gt;
+&lt;p&gt;So, Gabriel, you say; what do you have to show to us? You climbed that wall,
+wrote some shit in some stone slabs, now share it with us!&lt;&#x2F;p&gt;
+&lt;p&gt;So... I say; beware of the golden calfs out there in Security, there are many!&lt;&#x2F;p&gt;
+&lt;p&gt;The first things that I liked is that &lt;strong&gt;it feels like war&lt;&#x2F;strong&gt;. There are clearly
+two sides: We (usually a small team or single person) vs them (A company or a
+specific product). Some of the processes we use for hacking are actually used
+by military intelligence. Lo and behold these are my commandments:&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The fist commandment is: &lt;strong&gt;Information is Key&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s say there&#x27;s a Pizza shop which has their own delivery service. They hired
+us to test its security. The first thing is that we need to do is to gather
+information about it. &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;How does it work?&lt;&#x2F;li&gt;
+&lt;li&gt;Which features does it have?&lt;&#x2F;li&gt;
+&lt;li&gt;Can I order Pizza to my neighbour?&lt;&#x2F;li&gt;
+&lt;li&gt;Do they check if I&#x27;m the person I&#x27;m claiming to be?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;And then you discover: Oh, if the delivery takes more than 30 minutes the pizza
+is free. What happens if I order pizza from somewhere far away? Will  they
+deliever to me? What if it&#x27;s not that far away, but I keep making changes to
+the order so it takes longer?&lt;&#x2F;p&gt;
+&lt;p&gt;You can also find hidden things this way, i.e. They have lower prices if it&#x27;s
+your birthday, but they only change the price if you ask for it, they keep this
+promotion hidden for some reason. Can I fake my ID to always get lower prices?&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You need to understand how it&#x27;s supposed to work, its features and
+functionalities. So you know what to break and exploit.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The second commandment is: &lt;strong&gt;Organization is Key&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;We&#x27;ll gather a lot of information, it will be needed for writing a report to
+our Pizza shop client, to our attacks, and to share it with our team.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, for every domain that we are working there will be lots and lots of
+information about the specific tools and processes for it. Better organization
+means more efficient tests, the next time you do them, because information is
+accessible and searchable. My setup is described
+&lt;a href=&quot;https:&#x2F;&#x2F;gbrls.github.io&#x2F;blog&#x2F;current-organizational-structure&#x2F;&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Organization is also important to keep track of the tests you&#x27;ve done, the time
+you did them, and which tests are still left to do.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The third commandment is: &lt;strong&gt;Know your domain&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Pizza Delivery Services is a very specific domain. Knowing well your domain
+will greatly improve your chances of success in an attack. Think how having
+worked on the phone in a Pizza Delivery Service would help you exploit another
+Pizza delivery companies.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The forth commandment is: &lt;strong&gt;Attack fast and with precision&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Many times you&#x27;ll need to execute an attack as a proof of concept. The attack
+should be well planned, precise and fast.&lt;&#x2F;p&gt;
+&lt;p&gt;Most of the time you&#x27;ll need to take care to not cause disruption to the
+regular services. &lt;&#x2F;p&gt;
+&lt;p&gt;You&#x27;ll need to be fast to not give enough time for them to
+react to it.&lt;&#x2F;p&gt;
+&lt;p&gt;You&#x27;ll need to be &lt;strong&gt;very&lt;&#x2F;strong&gt; careful with &lt;a href=&quot;https:&#x2F;&#x2F;www.cloudflare.com&#x2F;en-gb&#x2F;learning&#x2F;privacy&#x2F;what-is-pii&#x2F;&quot;&gt;PII&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h1&gt;
+&lt;p&gt;Those commandments are maturing, I&#x27;m still very new at this and different
+people have different styles. Despite those things, I hope they are helpful.&lt;&#x2F;p&gt;
+&lt;p&gt;Security is very big and exciting. Have fun and take care.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;references&quot;&gt;References&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.amazon.com.br&#x2F;Web-Application-Hackers-Handbook-Exploiting&#x2F;dp&#x2F;1118026470&quot;&gt;The Web Application Hacker&#x27;s Handbook&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+        </item>
+        <item>
+            <title>Making and Writing Games</title>
+            <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/making-and-writing-games/</link>
+            <guid>https://gbrls.github.io/blog/making-and-writing-games/</guid>
+            <description>&lt;h1 id=&quot;making-and-writing-games&quot;&gt;Making and Writing Games&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;&#x2F;h2&gt;
+&lt;p&gt;Making games has been big part of my motivation to code since the start. One of
+the first things that I did was to write games in ActionScript 2 in Flash, they
+weren&#x27;t good and I didn&#x27;t even publish them, but it was an important stepping
+stone for me.&lt;&#x2F;p&gt;
+&lt;p&gt;I love writing &lt;em&gt;and&lt;&#x2F;em&gt; programming, so the project to make a story driven game
+has been for a long time in the back of my head. They&#x27;re are also &lt;em&gt;easier&lt;&#x2F;em&gt; to
+make as a single person or small team.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-game-s-story&quot;&gt;The Game&#x27;s Story&lt;&#x2F;h3&gt;
+&lt;p&gt;The game&#x27;s story is going to take place in Recife, the city where I was born
+and currently live. It&#x27;s going to be about doing errands around the city,
+meeting weird and interesting characters, going to old abandoned places, etc.
+It&#x27;s going to be a way to distill and present expeciences that I&#x27;ve had here,
+other people&#x27;s expeciences, a tribute to Recife in game form.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;It may or may not be linear.&lt;&#x2F;li&gt;
+&lt;li&gt;It&#x27;s going to political, it won&#x27;t be a direct representation of reality
+though.&lt;&#x2F;li&gt;
+&lt;li&gt;I&#x27;ll try to make it quirky and funny.&lt;&#x2F;li&gt;
+&lt;li&gt;It&#x27;s going to be full of different characters and different places.&lt;&#x2F;li&gt;
+&lt;li&gt;It&#x27;s going to take place in a &lt;em&gt;odd&lt;&#x2F;em&gt; reality, maybe a bit scifi &#x2F; cyberpunk.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;the-game-s-gameplay&quot;&gt;The Game&#x27;s Gameplay&lt;&#x2F;h3&gt;
+&lt;p&gt;Uhhh... So... I don&#x27;t know. It&#x27;s going to be made in a pixel art style
+(probably), maybe 2d or 3d.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-problem&quot;&gt;The Problem&lt;&#x2F;h2&gt;
+&lt;p&gt;So, I have this ideia of the game laid out, so I just have to start working on
+it, right? The problem is that I did try to do just that, a few times, but
+everytime that I plan to start the game my engineering brain just starts
+screaming and I waste a few weeks just writing code that&#x27;ll never end up in the
+game.&lt;&#x2F;p&gt;
+&lt;p&gt;I start trying to make the basic systems of the game and some basic graphics so
+I can start working on the story, but it doesn&#x27;t make sense. I don&#x27;t know how
+the gameplay&#x27;ll be, I just want it to be simple, so the story is the game&#x27;s
+main element. This difference between wanting to write the story and going at
+full speed to write the game&#x27;s code breaks my motivation after a while and I
+just stop and forget about it for a few months.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;proposed-solution&quot;&gt;Proposed Solution&lt;&#x2F;h2&gt;
+&lt;p&gt;Recently programming in Clojure and Elixir changed how I think about some things (more info &lt;a href=&quot;https:&#x2F;&#x2F;gbrls.github.io&#x2F;blog&#x2F;psychedelic-programming-languages&#x2F;&quot;&gt;here&lt;&#x2F;a&gt;.
+I&#x27;m giving more importance to data and the separation between data and
+behaviour because of those languages, and I can apply this to this game
+project.&lt;&#x2F;p&gt;
+&lt;p&gt;Yes it&#x27;s a big project, but the most important thing is the story and the art,
+and that&#x27;s just data. I can start making those already, writing simple
+(probably disposable) systems to test them and later I&#x27;ll figure out how those
+things will get into the game.&lt;&#x2F;p&gt;
+&lt;p&gt;For now I think I&#x27;ll make those assets in Clojure, it makes very easy to change
+between code and data, serialization happens for free. It&#x27;s almost like JSON
+files that are alive.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Pinging Servers from Recife</title>
+            <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/pinging-servers-from-recife/</link>
+            <guid>https://gbrls.github.io/blog/pinging-servers-from-recife/</guid>
+            <description>&lt;h1 id=&quot;pinging-servers-from-recife&quot;&gt;Pinging Servers from Recife&lt;&#x2F;h1&gt;
+&lt;p&gt;I&#x27;m setting up a VPS in Vultr and testing different locations for it.&lt;&#x2F;p&gt;
+&lt;p&gt;Those are my results pinging from Recife to anyone who&#x27;s interested:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;71 ms&lt;&#x2F;code&gt; Recife - São Paulo&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;168 ms&lt;&#x2F;code&gt; Recife - Miami &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;183 ms&lt;&#x2F;code&gt; Recife - New Jersey &lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;283 ms&lt;&#x2F;code&gt; Recife - Madrid &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+        </item>
+        <item>
+            <title>Psychedelic Programming Languages</title>
+            <pubDate>Fri, 09 Sep 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/psychedelic-programming-languages/</link>
+            <guid>https://gbrls.github.io/blog/psychedelic-programming-languages/</guid>
+            <description>&lt;h1 id=&quot;a-bit-of-background&quot;&gt;A bit of background&lt;&#x2F;h1&gt;
+&lt;p&gt;I started programming to make simple webpages and Flash games. To me it was
+about interacting with those systems, adding automation to them. Not long after
+that I started coding robots with Arduino and it was still just that,
+automating turning on a led, reading a value, writing something to a terminal,
+etc.&lt;&#x2F;p&gt;
+&lt;p&gt;It started to change when I discovered &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;c&#x2F;TheCodingTrain&quot;&gt;The Coding
+Train&lt;&#x2F;a&gt;, through that I started to
+see, actually &lt;em&gt;see&lt;&#x2F;em&gt; how complex and amazing could be the things you did with
+code. It was then that I started  to get concerned with abstractions, my code
+grew bigger and everything was so messy! I needed some help. Processing is
+&lt;em&gt;based&lt;&#x2F;em&gt; on Java which means the tools that I used to handle that complexity
+were Functions, Classes and Methods, it was actually fun.&lt;&#x2F;p&gt;
+&lt;p&gt;At the same time, I was part of a team making Arduino robots to compete. I
+quickly applied the tools that I learnt with Processing to Arduino, afterall
+they&#x27;re similar. I had no notion of state machines and agents, so the code was
+a mess and it didn&#x27;t work well. But, you know, all was good, I felt in control
+of the code, still very fun.&lt;&#x2F;p&gt;
+&lt;p&gt;During that time I met with some people that blew my mind my showing me how
+&lt;em&gt;&amp;quot;real programmign&amp;quot;&lt;&#x2F;em&gt; was like with C# and machine learning. I felt like I
+needed to learn some real programming... and I wanted to code my own &lt;em&gt;Dwarf
+Fortress&lt;&#x2F;em&gt;. I searched online, Dwarf Fortress was made in C++, Arduino was
+&lt;em&gt;based&lt;&#x2F;em&gt; on C++ so it shouldn&#x27;t be that hard, right? Right??  Well, I printed a
+C++ book, &lt;em&gt;Jumping into C++&lt;&#x2F;em&gt; and ate it; it taught the basics of pointers,
+structs, methods, classes and templates, it&#x27;s a nice book.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;making-games&quot;&gt;Making games&lt;&#x2F;h2&gt;
+&lt;p&gt;Armed with my fresh new C++ knowledge and the amazing &lt;a href=&quot;https:&#x2F;&#x2F;lazyfoo.net&#x2F;tutorials&#x2F;SDL&#x2F;&quot;&gt;LazyFoo&#x27;s SDL
+tutorials&lt;&#x2F;a&gt;, I was ready to tackle any 2D
+game that I could think of.
+What is the game called you ask? &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gbrls&#x2F;2dGame&quot;&gt;2dGame&lt;&#x2F;a&gt; of
+course, why not? If you know something about C++, you already know that it
+didn&#x27;t work as I expected. Even though I grasped the language&#x27;s syntax and
+basic abstractions, &lt;em&gt;even though I KNEW pointers&lt;&#x2F;em&gt; there was some giant beast
+that destroyed me, the &lt;em&gt;&lt;em&gt;RUNTIME&lt;&#x2F;em&gt;&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;There were &lt;em&gt;segmentation faults&lt;&#x2F;em&gt; all around, some predictable, some very
+unpredictable. The issue was that before my code interacted with a small domain
+(The flash engine, A small embedded system with Arduino helping me, the JVM
+with Processing helping me) and now it interacted directly with the whole
+computer system, &lt;em&gt;&amp;quot;real programming&amp;quot;&lt;&#x2F;em&gt;, or in fact, Systems Programming (I wish
+I knew that back then). Classes and methods didn&#x27;t help me if I dont&#x27;t
+understand the stack or the heap.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;having-fun-with-gophers&quot;&gt;Having fun with Gophers&lt;&#x2F;h2&gt;
+&lt;p&gt;I moved on to other things: Web programming in Go. When I discovered Go I felt
+the same thing that I did when I started coding Processing. It was novel, fun,
+and powerful. Some things struck me as essential to Go&#x27;s joy:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;How simple it was.&lt;&#x2F;li&gt;
+&lt;li&gt;Easy parallelism.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;How easy it was to use other peoples&#x27; code together with mine&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Due to those things I was making games easily, and interacting with the web 
+with joy. I learnt a lot of things and had a great time, thanks Go.&lt;&#x2F;p&gt;
+&lt;p&gt;One of the things was semantic versioning of dependencies. I love immutable
+things, Go was creating some sort of global registry for all of those different
+versions and I got involved in some open source project related to it. It was
+very little but it still felt nice.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;a-lot-of-systems-programming&quot;&gt;A lot of Systems Programming&lt;&#x2F;h2&gt;
+&lt;p&gt;I can&#x27;t recall why or how, but I started going back to Systems Programming, I
+learnt &lt;em&gt;the basics&lt;&#x2F;em&gt; of Rust and understood why programming C++ was so hard back
+then.
+I was making steady progress learning about systems and programming in C. I&#x27;d
+say that was the most formative time for me in terms of how much effort I
+investest learning about programming and computers in general.&lt;&#x2F;p&gt;
+&lt;p&gt;I don&#x27;t know why but I started reading &lt;em&gt;Land of Lisp&lt;&#x2F;em&gt; and it really did fuck me up.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;psychedelic-programming-languages&quot;&gt;Psychedelic Programming Languages&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;my-first-trip&quot;&gt;My first trip&lt;&#x2F;h2&gt;
+&lt;p&gt;Common Lisp is a psychedelic programming language, and &lt;em&gt;Land of Lisp&lt;&#x2F;em&gt; really
+did show that. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.lisperati.com&#x2F;different.jpg&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s an
+amazing book and it opened up my mind with Lisp. It presented itself in a very
+&amp;quot;Look how amazing, cool, and different Lisp is!!&amp;quot; it clicked for me. Now the
+walls seemed to breathe and I love parenthesis man! It also opened up my mind
+to functional programming, that for a long time seemed to be only
+reserved to academics obsessed with &lt;em&gt;proofs, purity and elegance(?)&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This experience changed how I programmed and thought about programming. But I
+still felt like the same Gabriel that breathed Systems Programming... but this
+time a lot more confident in my programming skills. I decided to code a
+minecraft clone from scratch using only C++, SDL, and OpenGL. This time, I want
+to show the old Gabriel how good of a programmer I am now, how much I can do. I
+still had some issues with the runtime, specially related to performance and
+allocations, but this time I was able to &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gbrls&#x2F;myncraft&quot;&gt;succeed
+somewhat&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;my-second-trip&quot;&gt;My second trip&lt;&#x2F;h2&gt;
+&lt;p&gt;My second psychedelic programming experience was not given by a book or
+something made by nature, but by this fella named &lt;a href=&quot;https:&#x2F;&#x2F;www.coursera.org&#x2F;instructor&#x2F;~873260&quot;&gt;Dan
+Grossman&lt;&#x2F;a&gt;. He has a three part
+course in Coursera named, you guessed it, &lt;em&gt;Programming Languages&lt;&#x2F;em&gt;. He&#x27;s like
+a Programming Languages god and taught ML, Scheme, and Ruby in an amazing way.&lt;&#x2F;p&gt;
+&lt;p&gt;ML is a psychedelic language. It opened my eyes to what a good type system is
+capable of. Fuck C&#x27;s,  C++&#x27;s fuck Java&#x27;s and fuck Java. ML has a &lt;strong&gt;REAL&lt;&#x2F;strong&gt; type
+system. To me this really shows how powerful this experience was, when after it
+you are fuck this fuck that I know better, fuck you. And ML gave me that.&lt;&#x2F;p&gt;
+&lt;p&gt;I guess I could&#x27;ve had that same experience from learning Haskell, but I never
+was able to get into it, I guess it was just too... uptight, too square, too
+self conscious.&lt;&#x2F;p&gt;
+&lt;p&gt;That course also taught me a lot of vocabulary and mechanisms to compare
+programming languages fairly. It made me look Rust with new eyes, like dude, it
+has &lt;em&gt;Sum Types&lt;&#x2F;em&gt;, &lt;strong&gt;good&lt;&#x2F;strong&gt; &lt;em&gt;Type Inference&lt;&#x2F;em&gt; and all of those goodies. This time
+I fell in love for Rust, for real (that&#x27;s funny because the course had nothing
+to do with it).&lt;&#x2F;p&gt;
+&lt;p&gt;I felt blessed by the Programming Languages teaching, I was watching long
+theoretical Programming Languages youtube videos, reading papers, writing
+compilers, oh boy. That second trip really got me well, it changed me deeply.
+Heck I even went to a conference (By luck that was 2020 and many important
+conferences were being conducted remotely, even for free) and got to ask
+questions to important people related to Programming Languages history. I was
+in the same slack channel as Rich Hickey! isn&#x27;t it crazy?&lt;&#x2F;p&gt;
+&lt;p&gt;With some time my interests shifted a little from Systems Programming, those
+languages that by the time were already my old friends like C++ and Rust became
+too heavy, I&#x27;m not thinking about performance nor memory that much, so why are
+you getting in the way?&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;finding-your-home&quot;&gt;Finding your home&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;my-third-trip&quot;&gt;My third trip&lt;&#x2F;h2&gt;
+&lt;p&gt;This one wasn&#x27;t as crazy as the other ones, it felt like searching and finding
+for my own home. I came across the book &lt;a href=&quot;https:&#x2F;&#x2F;www.manning.com&#x2F;books&#x2F;data-oriented-programming&quot;&gt;Data Oriented
+Programming&lt;&#x2F;a&gt; by
+Yehonathan Sharvit, it talked about the style of programming that&#x27;s commonly
+adopted by Clojure programmers, they tend to focus on the data and
+transformations to it.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Things should be simpler, data organized only as plain data. Arrays, maps,
+&lt;&#x2F;span&gt;&lt;span&gt;tuples. Functions transform data (never mutate it) and worry about the
+&lt;&#x2F;span&gt;&lt;span&gt;runtime later.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s Clojure&#x27;s way (it even has two differents runtimes) and I feel like
+that&#x27;s also the Data Oriented Programming way. Elixir also fit in this niche
+pretty nicely. So this time it&#x27;s not even a just Programming Language, it&#x27;s a
+mix of a Programming Paradigm, a Language, and a Runtime.&lt;&#x2F;p&gt;
+&lt;p&gt;I even feel somewhat disconnected from that old Systems Programmer Gabriel,
+we&#x27;re not the same person. My head is so tuned to programming this way now.
+Clojure is a psychedelic programming language . Of course I still face some
+problems, but they&#x27;re different and better now.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;&#x2F;h1&gt;
+&lt;p&gt;That&#x27;s what I wanted to say with this blogpost, how some experiences with
+Programming feel so much &lt;em&gt;Psyschedelic&lt;&#x2F;em&gt;. They change the way
+you think permanently, that they may feel even religious, they&#x27;re powerful.&lt;&#x2F;p&gt;
+&lt;p&gt;Programming Languages, ideas about Programming in general can be crazy, very
+philosophical, and practical at the same time. I think most of them should be
+given a chance, they may change you.&lt;&#x2F;p&gt;
+&lt;p&gt;Thanks for reading. Hope you had a good time.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>New things here</title>
+            <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/new-things-here/</link>
+            <guid>https://gbrls.github.io/blog/new-things-here/</guid>
+            <description>&lt;h1 id=&quot;new-things-here&quot;&gt;New things here&lt;&#x2F;h1&gt;
+&lt;p&gt;Hey there, this website has been through some changes recently. Most of them
+came from insights that I had from learning Github Actions.
+Others came from me applying the &lt;em&gt;Unix philosophy&lt;&#x2F;em&gt; in my note-taking systems.&lt;&#x2F;p&gt;
+&lt;p&gt;I finally with integrated my
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Personal_knowledge_management&quot;&gt;PKMS&lt;&#x2F;a&gt;. This means
+that my personal notes can be very easily put here, no need to copy them to
+somewhere else, this website will update itself directly from my Dropbox.&lt;&#x2F;p&gt;
+&lt;p&gt;I have a &lt;a href=&quot;https:&#x2F;&#x2F;gbrls.github.io&#x2F;rss.xml&quot;&gt;rss feed&lt;&#x2F;a&gt; now.&lt;&#x2F;p&gt;
+&lt;p&gt;The CSS was made by someone who understands what they&#x27;re doing (not me).&lt;&#x2F;p&gt;
+&lt;p&gt;I moved away from Hugo to now use Zola.&lt;&#x2F;p&gt;
+&lt;p&gt;And that&#x27;s pretty much it, cheers.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Rendezvous with Rama - Arthur C. Clarke</title>
+            <pubDate>Thu, 10 Feb 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/rama/</link>
+            <guid>https://gbrls.github.io/books/rama/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Ra - qntm</title>
+            <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/ra/</link>
+            <guid>https://gbrls.github.io/books/ra/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Homo Deus - Yuval Noah Harari</title>
+            <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/homo-deus-harari/</link>
+            <guid>https://gbrls.github.io/books/homo-deus-harari/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Secrets of the autistic millionaire</title>
+            <pubDate>Wed, 17 Nov 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/secrets-of-the-autistic-millionaire/</link>
+            <guid>https://gbrls.github.io/books/secrets-of-the-autistic-millionaire/</guid>
+            <description>&lt;p&gt;Despite the title being very clickbaity, the book is really genuine.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;his-business&quot;&gt;His business&lt;&#x2F;h2&gt;
+&lt;p&gt;He started a software business around a tool (it&#x27;s not very clear what is does) in the early 2000&#x27;s and after not very long he was making tens of thousands of dollars a month.
+This makes me wonder if making an online business today is harder or easier... Of course it&#x27;s easier now, but why is it seems to me so hard to start one?&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Israel, A consice History of a Nation Reborn</title>
+            <pubDate>Fri, 22 Oct 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/israel-a-concise-history-of-a-nation-reborn/</link>
+            <guid>https://gbrls.github.io/books/israel-a-concise-history-of-a-nation-reborn/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>The End of Eternity - Isaac Asimov</title>
+            <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/the-end-of-eternity-asimov/</link>
+            <guid>https://gbrls.github.io/books/the-end-of-eternity-asimov/</guid>
+            <description>&lt;p&gt;I expected this book to no be really connected to other Asimov&#x27;s novels and in some ways it&#x27;s by itself a great book, but it&#x27;s like a cornerstone were many many books are built upon.&lt;&#x2F;p&gt;
+&lt;p&gt;In this book Asimov talks explicitly about some ideas of greatness and the mediocre. Mankind can never evolve the ability of control of it&#x27;s future because it&#x27;ll always take the safest and most mediocre path, and this will eventually lead to self destruction (by depression basically). 
+To achieve greatness there must be trouble, hard times and randomness.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-eternity-itself&quot;&gt;The Eternity itself	&lt;&#x2F;h2&gt;
+&lt;p&gt;The eternity is also shown as a very abrasive and hostile organization, where people detached from their times work in the whole eternity like it&#x27;s their own toy. In some ways it seems almost like a military organization. There&#x27;s a passage where &lt;em&gt;Noys&lt;&#x2F;em&gt; speaks to &lt;em&gt;Harlan&lt;&#x2F;em&gt; that everybody in eternity is an psychopath and he remembers that someone he knew despite being basically mentaly broken in his training made important decisions inside the organization, this came across to me as very realistic, it&#x27;s that kind of truth that hurts a little to just know it.&lt;&#x2F;p&gt;
+&lt;p&gt;The chast system that exists in eternity also shows this sick nature of their organization, they discount their grief of not having a past, of their memories never existed in the inferior chasts. How it&#x27;s expected that their morality is any better than nothing? Spaceships are bad because they lead to high drug use, and nuclear technology is bad because it&#x27;s &lt;em&gt;too risky&lt;&#x2F;em&gt;. Asimov even talks about the lower chast, the &lt;em&gt;Maintenence&lt;&#x2F;em&gt;, their are the largest chast in number are are problably the chast that have the most well rounded people because &amp;quot;their hobbies aren&#x27;t expcted to be related to their work activities&amp;quot;, I think it&#x27;s kind of funny that Asimov talks about this because this thing about being interested in different things is one of the things that &lt;em&gt;I believe&lt;&#x2F;em&gt; makes him a great writer ([[Different areas of Interest | more]]).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;quotes&quot;&gt;Quotes&lt;&#x2F;h2&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;Out of danger and restless insecurity comes the force that pushes mankind to newer and loftier conquests&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;In a system [...] which allows men to choose their own future, will end by choosing safety and mediocrity&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;![[eoe1.png]]
+&lt;img src=&quot;&#x2F;gallery&#x2F;eoe1.png&quot; alt=&quot;image&quot; &#x2F;&gt;
+![[eoe2.png]]
+&lt;img src=&quot;&#x2F;gallery&#x2F;eoe2.png&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;tags: #digest&#x2F;book
+links: [[Asimov]]
+finished: 16 sept 2021&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Current Organizational Structure</title>
+            <pubDate>Fri, 27 Aug 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/current-organizational-structure/</link>
+            <guid>https://gbrls.github.io/blog/current-organizational-structure/</guid>
+            <description>&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Metadata:&lt;&#x2F;strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Organization&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;pre-history&quot;&gt;Pre-history&lt;&#x2F;h3&gt;
+&lt;p&gt;My first concious effort to store data online was through Google Drive, Google
+Keep and Evernote, most are those are lost and are garbage.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2019-vim-emacs&quot;&gt;2019 - Vim &#x2F; Emacs&lt;&#x2F;h3&gt;
+&lt;p&gt;In this period I was using vimwiki and org-mode to write some notes and they&#x27;re
+here. Some of them stil are stored in their formats (not Markdown). This was
+also when I first started using Dropbox to sync and store notes.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2020-notion&quot;&gt;2020 - Notion&lt;&#x2F;h3&gt;
+&lt;p&gt;I instantly fell in love with notion (thanks Mateus), and quick made everything
+in it, but it was a sort of bitter love. Notion is all on the cloud and this
+makes it slow and not trustworthy.&lt;&#x2F;p&gt;
+&lt;p&gt;I still have many things there that I just didn&#x27;t take the time to move here.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2021-2022-obsidian&quot;&gt;2021 - 2022 (Obsidian)&lt;&#x2F;h3&gt;
+&lt;p&gt;Just a bunch of markdown files. For a while there were basically no hierarchy
+between files, but now I&#x27;m using the [[The PARA Method]] to organize them in a
+flexible an simple structure that I hope wil improve my workflow.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;march-2022-aug-2022-logseq&quot;&gt;March 2022 - Aug 2022 (Logseq)&lt;&#x2F;h3&gt;
+&lt;p&gt;Since Febuary I&#x27;ve started [[Using Logseq]], I discovered it by [[Filipe
+Calegario]].&lt;&#x2F;p&gt;
+&lt;p&gt;This meant that my current workflow changed a little bit to accommodate the
+differences in the tool. So I use the journal daily entries as a homepage for
+my TODOs and there&#x27;s no directory hierarchy anymore, I really like this way of
+[[doing things without hierarchies]].&lt;&#x2F;p&gt;
+&lt;p&gt;For a few weeks I haven&#x27;t used this as much and I think this is because of the
+mess that I have with the daily journal entry. I wonder what can be done, but
+for now  I&#x27;ll just force myself to use it more and get used to it.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;aug-2022-now&quot;&gt;Aug 2022 - Now&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;m once again going back to Vim or Obsidian. Logseq is too opinionated and it
+doesn&#x27;t work really well with my vision.
+I&#x27;m steering torwards smaller tools that are composable, such as
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;mickael-menu&#x2F;zk&quot;&gt;zk&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;After a couple of weeks I can say that it&#x27;s working fine, even though some
+things are not configured properly, e.g:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;things-to-do&quot;&gt;Things to do&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+follow links from nvim&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+create notes easily from nvim&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+        </item>
+        <item>
+            <title>Forward the Foundation - Isaac Asimov</title>
+            <pubDate>Wed, 25 Aug 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/forward-the-foundation-asimov/</link>
+            <guid>https://gbrls.github.io/books/forward-the-foundation-asimov/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Prelude to Foundation - Isaac Asimov</title>
+            <pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/books/prelude-to-foundation-asimov/</link>
+            <guid>https://gbrls.github.io/books/prelude-to-foundation-asimov/</guid>
+            <description>&lt;p&gt;This is the second time that I&#x27;m writing this because the first text was stored in WSL, and I forgot about it when I was deleting WSL.&lt;&#x2F;p&gt;
+&lt;p&gt;What I found most interesting about this book are the allegories that it makes to other generes.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-book-itself&quot;&gt;The book itself&lt;&#x2F;h2&gt;
+&lt;p&gt;The book is structured like a legend or a myth, it&#x27;s structured like the Hero&#x27;s Journey and it quite resembles the Odyssey: Hari Seldon goes through a few different places, tries to understand them better, gets in trouble and then has to run away. I quite like this style of writing because if fits really well with the theme of the book: The myth of creation of psychohistory.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mycogeneans&quot;&gt;Mycogeneans&lt;&#x2F;h2&gt;
+&lt;p&gt;They like in a closed society, following old rules and they worship a distant past in a distant planet and they adore this book that tell them all about this place.
+They&#x27;re basically Orthodox Jews, women even shave their heads!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dahl&quot;&gt;Dahl&lt;&#x2F;h2&gt;
+&lt;p&gt;Dahl is basically any 3rd world country, I can&#x27;t even call this developing anymore because it seems to me that Brazil is just getting worse. Everybody carries knives even though it&#x27;s illegal and the police doesn&#x27;t care, &lt;strong&gt;only when they want to incriminate someone&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>C Wizardry - Homoiconicity in C</title>
+            <pubDate>Sat, 22 May 2021 20:52:39 -0300</pubDate>
+            <link>https://gbrls.github.io/blog/c-gems-homoiconicity-in-c/</link>
+            <guid>https://gbrls.github.io/blog/c-gems-homoiconicity-in-c/</guid>
+            <description>&lt;h2 id=&quot;c-wizardry-intro&quot;&gt;C Wizardry intro&lt;&#x2F;h2&gt;
+&lt;p&gt;Sometimes I find some neat, crazy, cryptic features of the C programming
+language.  As a Teaching Assistant for it, I believe I must become a C
+wizard and scare the students with some esoteric magical spells. So, this is
+going to be a series of posts about weird (and maybe useful) stuff in C.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;homoiconicity&quot;&gt;Homoiconicity&lt;&#x2F;h2&gt;
+&lt;p&gt;It&#x27;s a word known by Lisp users and Programming Language nerds. It&#x27;s a
+really important feature of Lisp (&lt;a href=&quot;&#x2F;mk-lisp-0&quot;&gt;I talked a bit about it&lt;&#x2F;a&gt; in my Make a Lisp
+Interpreter series). The basic idea is that you can use code as data and data as code,
+e.g: In languages where you have an eval function, you can read a string and then
+eval it, doing this you&#x27;re using data as code, one way to use code as data are
+macros, they manipulate code in compile time as data, though when talking about
+homoiconicity it also means to manipulate code as data in the runtime.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;homoiconicity-in-c&quot;&gt;Homoiconicity in C&lt;&#x2F;h2&gt;
+&lt;p&gt;This week I was studying &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Just-in-time_compilation&quot;&gt;JIT
+Compilers&lt;&#x2F;a&gt; and came
+across &lt;a href=&quot;https:&#x2F;&#x2F;blog.reverberate.org&#x2F;2012&#x2F;12&#x2F;hello-jit-world-joy-of-simple-jits.html&quot;&gt;this
+post&lt;&#x2F;a&gt;,&lt;&#x2F;p&gt;
+&lt;!---
+Show here an example usage of mmap, &quot;I encourage you to run this code and see
+what it does&quot; ---&gt;
+&lt;p&gt;The article shows this code, that demonstrates how to execute memory in C,
+(&lt;strong&gt;disclaimer:&lt;&#x2F;strong&gt; This only works on Unix systems).&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;stdio.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;stdlib.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;string.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;sys&#x2F;mman.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;argc&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char &lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;argv&lt;&#x2F;span&gt;&lt;span&gt;[]) {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Machine code for:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F;   mov eax, 0
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F;   ret
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;unsigned char&lt;&#x2F;span&gt;&lt;span&gt; code[] = {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0xb8&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0x00&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0x00&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0x00&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0x00&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0xc3&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(argc &amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;fprintf&lt;&#x2F;span&gt;&lt;span&gt;(stderr, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Usage: jit1 &amp;lt;integer&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Overwrite immediate value &amp;quot;0&amp;quot; in the instruction
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; with the user&amp;#39;s value.  This will make our code:
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F;   mov eax, &amp;lt;user&amp;#39;s value&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F;   ret
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; num = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;atoi&lt;&#x2F;span&gt;&lt;span&gt;(argv[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;memcpy&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;code[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;], &amp;amp;num, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Allocate writable&#x2F;executable memory.
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Note: real programs should not map memory both writable
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; and executable because it is a security risk.
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span&gt;*mem = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mmap&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;NULL&lt;&#x2F;span&gt;&lt;span&gt;, sizeof(code), PROT_WRITE | PROT_EXEC,
+&lt;&#x2F;span&gt;&lt;span&gt;                   MAP_ANON | MAP_PRIVATE, -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;memcpy&lt;&#x2F;span&gt;&lt;span&gt;(mem, code, sizeof(code));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; The function will return the user&amp;#39;s value.
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span&gt;(*func)() = mem;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;func&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I encourage you to run this code to get a feeling of it, but what it means is
+that &lt;strong&gt;you can create an array, manipulate it as a regular array and then
+execute it as code&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;Now, the other way around (manipulate code as data) it&#x27;s also possible.
+With the help of &lt;a href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;27581279&#x2F;make-text-segment-writable-elf&quot;&gt;this stack overflow thread&lt;&#x2F;a&gt;,
+I was able to get it working. The first thing that I did was to try to read a function&#x27;s bytes:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;stdio.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;string.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f0&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;42&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; padding[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;memset&lt;&#x2F;span&gt;&lt;span&gt;(padding, -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, sizeof(padding));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* p = f0;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; i &amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span&gt;; i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%x &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt;)(p[i] &amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0xff&lt;&#x2F;span&gt;&lt;span&gt;));
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And this is the output (on my my machine running 20.04 Ubuntu with &lt;code&gt;gcc&lt;&#x2F;code&gt;), I
+highlighted the actual function code:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;                       v--------------v
+&lt;&#x2F;span&gt;&lt;span&gt;f3 f 1e fa 55 48 89 e5 b8 2a 0 0 0 5d c3 f3
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Hmmmm, I was expecting &lt;code&gt;gcc&lt;&#x2F;code&gt; to optimize the function definition and discard the
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikibooks.org&#x2F;wiki&#x2F;X86_Disassembly&#x2F;Functions_and_Stack_Frames&quot;&gt;function&#x27;s boilerplate
+code&lt;&#x2F;a&gt;,
+which is those bytes at the beginning and the &lt;code&gt;5d&lt;&#x2F;code&gt; before the &lt;code&gt;c3&lt;&#x2F;code&gt;, go figure.&lt;&#x2F;p&gt;
+&lt;p&gt;So, now that we know that the &lt;code&gt;42&lt;&#x2F;code&gt; is in the 10th position in the binary code
+(&lt;code&gt;2a, 16 * 2 + 10 = 42&lt;&#x2F;code&gt;) then we can change it in our code.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer&lt;&#x2F;strong&gt;: This code also only runs on Unix systems due to the way that we
+allow the text segment to be writable.&lt;&#x2F;p&gt;
+&lt;p&gt;You also have to compile with these flags.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;gcc --static -g -Wl,--omagic -o test test.c
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;stdio.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;string.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;f0&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;42&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; padding[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100&lt;&#x2F;span&gt;&lt;span&gt;];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;memset&lt;&#x2F;span&gt;&lt;span&gt;(padding, -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, sizeof(padding));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; a = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;f0&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* p = f0;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; changing the return value of the function
+&lt;&#x2F;span&gt;&lt;span&gt;    p[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9&lt;&#x2F;span&gt;&lt;span&gt;] = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; i &amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;16&lt;&#x2F;span&gt;&lt;span&gt;; i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%x &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt;)(p[i] &amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0xff&lt;&#x2F;span&gt;&lt;span&gt;));
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; b = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;f0&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;a = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;, b = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, a, b);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And the output is:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;f3 f 1e fa 55 48 89 e5 b8 10 0 0 0 5d c3 f3
+&lt;&#x2F;span&gt;&lt;span&gt;a = 42, b = 16
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Yay! Now we&#x27;ve used code as data completing the homoiconicity cycle.
+I hope after reading this your view of the C programming language has changed,
+at least a bit. &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wait-but-c-is-not-homoiconic&quot;&gt;Wait but C is NOT homoiconic!&lt;&#x2F;h2&gt;
+&lt;p&gt;After I discovered these two features I was almost sure that C was homoiconic,
+but I had to do some research to publish this and then I realized why it is
+not.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;data as code and code as data&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;This definition of homoiconicity is not very accurate, here I present a better one:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;In a homoiconic language, the primary representation of programs is also a
+data structure in a primitive type of the language itself [...]&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Believe it or not this is actually from Wikipedia. So, why doesn&#x27;t C fit in
+this definition?  This is because the arrays that we read, wrote and executed
+were not C code, they were machine code.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s create a simple abstraction, imagine there&#x27;s a simple homoiconic language.
+Here we&#x27;re declaring an expression, note that &lt;code&gt;expr&lt;&#x2F;code&gt; holds the expression &lt;code&gt;1 + 2 * 3&lt;&#x2F;code&gt; and not &lt;code&gt;7&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;let expr = BuildExpr (1 + 2 * 3)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And to execute it we would have to do this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;expr.compile()
+&lt;&#x2F;span&gt;&lt;span&gt;vm.run(expr.compiled_code) &#x2F;&#x2F; returns 7
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Because this language is homoiconic we could do things like this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;get_literals(expr.ast)  &#x2F;&#x2F; returns [1, 2, 3]
+&lt;&#x2F;span&gt;&lt;span&gt;get_operators(expr.ast) &#x2F;&#x2F; returns [+, *]
+&lt;&#x2F;span&gt;&lt;span&gt;BuildString (expr.ast)  &#x2F;&#x2F; &amp;quot;(+ 1 (* 2 3))&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note that we can manipulate the expression in a high-level representation of
+the &lt;strong&gt;language itself&lt;&#x2F;strong&gt;. The operations that we&#x27;re doing in C would look like
+this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;expr.complile()
+&lt;&#x2F;span&gt;&lt;span&gt;expr.compiled_code[9] = 0x10
+&lt;&#x2F;span&gt;&lt;span&gt;vm.run(expr.compiled_code)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;some_code = [0xb8, 0x99, 0x00, 0x00, 0x00, 0xc3]
+&lt;&#x2F;span&gt;&lt;span&gt;vm.run(some_code)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;As you can see this is not the same kind of abstration that we have with this
+hypothetical homoiconic language. In C we can manipulate the compiled code in a
+&amp;quot;high-level&amp;quot; representation (if you consider arrays high level) but it&#x27;s not
+the C code that we&#x27;re manipulating, it&#x27;s just the machine code.&lt;&#x2F;p&gt;
+&lt;p&gt;This is why C is not homoiconic&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;appendix-two-homoiconic-languages&quot;&gt;Appendix: Two Homoiconic languages&lt;&#x2F;h2&gt;
+&lt;p&gt;I talked about how homoiconicity works and why C is not homoiconic so I thought
+this article was missing some examples of it.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;machine-code&quot;&gt;Machine code&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;em&gt;TODO&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;lisp&quot;&gt;Lisp&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;em&gt;TODO&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Foundation and Earth</title>
+            <pubDate>Wed, 19 May 2021 14:53:28 -0300</pubDate>
+            <link>https://gbrls.github.io/books/foundation-and-earth/</link>
+            <guid>https://gbrls.github.io/books/foundation-and-earth/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Hello World</title>
+            <pubDate>Sat, 01 May 2021 09:19:42 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/hello-world/</link>
+            <guid>https://gbrls.github.io/blog/hello-world/</guid>
+            <description>&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; This is a comment, and is ignored by the compiler
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; This is the main function
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Statements here are executed when the compiled binary is called
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; Print text to the console
+&lt;&#x2F;span&gt;&lt;span&gt;    println!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Hello World!&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;code&gt;println!&lt;&#x2F;code&gt; is a macro that prints text to the console.&lt;&#x2F;p&gt;
+&lt;p&gt;A binary can be generated using the Rust compiler: &lt;code&gt;rustc&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; rustc hello.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;code&gt;rustc&lt;&#x2F;code&gt; will produce a &lt;code&gt;hello&lt;&#x2F;code&gt; binary that can be executed.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; .&#x2F;hello
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Hello&lt;&#x2F;span&gt;&lt;span&gt; World!
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+        <item>
+            <title>Foundation&#x27;s Edge - Isaac Asimov</title>
+            <pubDate>Fri, 16 Apr 2021 10:11:10 -0300</pubDate>
+            <link>https://gbrls.github.io/books/foundations-edge/</link>
+            <guid>https://gbrls.github.io/books/foundations-edge/</guid>
+            <description>&lt;h2 id=&quot;intro&quot;&gt;Intro&lt;&#x2F;h2&gt;
+&lt;p&gt;This book was released almost thirty years after &amp;quot;Second Foundation&amp;quot;, which was the latest book in the story&#x27;s chronology.
+Many things in the original trilogy that I wasn&#x27;t really happy with or that were a bit &amp;quot;outdated&amp;quot; are addressed in this book.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;asimov-s-brilliance&quot;&gt;Asimov&#x27;s brilliance&lt;&#x2F;h2&gt;
+&lt;p&gt;One of the things that I like the most about Asimov&#x27;s writing is that he&#x27;s interested in many different things and this knowlege really shows in his books.
+In the first trilogy it&#x27;s possible to see his interest in Roman history, mathematics, and his experience in the academic life. e.g. The Sack of Trantor in really similar the Sack of Rome, there are many many more similarities to Roman History.
+One thing that I really missed in the first trilogy was the advancement of the computing and communication technology.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;computers&quot;&gt;Computers&lt;&#x2F;h2&gt;
+&lt;p&gt;The years that divided the release of &amp;quot;Second Foudation&amp;quot; and &amp;quot;Foundation&#x27;s Edge&amp;quot; were full of huge technological advancements in the eletronics and computing industry.
+I think when Mayor Branno talks how Seldom couldn&#x27;t forsee the technological advancements that happened in the Foundation, Asimov was in a way talking to himself. &lt;&#x2F;p&gt;
+&lt;p&gt;There&#x27;s a point in the story were Trevize first uses the Far Star&#x27;s computer and it&#x27;s trully amazing. The computer extends his intelligence and his physical capabilities, if he thinks &lt;em&gt;&amp;quot;What&#x27;s the time now?&amp;quot;&lt;&#x2F;em&gt; then he just knows it, if he is visualizing a geometry, he can just see it phisically.
+It seems so obvious but I never thought about a Brain-Computer interface like this before. This passage made me obsessed with this concept and I started
+researching about Intelligence Augmentation, Artificial Intelligence Augmentation, and Tools for Thought.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;This is an amazing book and it has many more interesting facets. I think it shows that an interested mind produces very interesting things. The combination of all things that Asimov is fascinated about is more than the sum of it&#x27;s parts.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>When Things Are Too Smart</title>
+            <pubDate>Wed, 14 Apr 2021 15:28:33 -0300</pubDate>
+            <link>https://gbrls.github.io/blog/when-things-are-too-smart/</link>
+            <guid>https://gbrls.github.io/blog/when-things-are-too-smart/</guid>
+            <description>&lt;h2 id=&quot;the-perpetrator&quot;&gt;The Perpetrator&lt;&#x2F;h2&gt;
+&lt;p&gt;This bad boy here, he&#x27;s too smart.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;gallery&#x2F;powerbank.jpeg&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I bought it in Israel for about 70 NIS, it was a good deal.
+I was really happy with this purchase and it had served me well for a long time.
+I recently got back to the hobby of making hardware projects. I have a tiny power supply that has an USB port and this Power Bank would connect to it and power what is connected to the power supply. It would work really well because this powerbank has a capacity of 10,000mAh, &lt;em&gt;so I thought&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-issue&quot;&gt;The issue&lt;&#x2F;h2&gt;
+&lt;p&gt;The thing is, when connected to an Arduino Nano the powerbank works for about 10 seconds and then shuts off. Inicially I thought that it had to do with the power supply not handling the power output or something, but then after a &lt;a href=&quot;https:&#x2F;&#x2F;arduino.stackexchange.com&#x2F;questions&#x2F;34865&#x2F;power-bank-turns-off-spontaneously&#x2F;34878&quot;&gt;little research&lt;&#x2F;a&gt; I realized what was going on.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;it-s-just-too-smart&quot;&gt;It&#x27;s just too smart!&lt;&#x2F;h2&gt;
+&lt;p&gt;It shuts off because it detects too little current, so it thinks &lt;em&gt;&amp;quot;Just 10mA? Well, my job here is done, I&#x27;ll sleep now&amp;quot;&lt;&#x2F;em&gt; and shuts off.&lt;&#x2F;p&gt;
+&lt;p&gt;So, I thought about doing a lobotomy and making it dumber, but c&#x27;mon, poor little guy, he&#x27;s just trying to be helpful.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-solution&quot;&gt;The solution&lt;&#x2F;h2&gt;
+&lt;p&gt;The solution  is simple: Make it  work harder, this way it won&#x27;t think it has fully charged something and will never sleep.&lt;&#x2F;p&gt;
+&lt;p&gt;We want it to draw more current and not disturb the rest of the circuit, thus we connect a load in parallel from the GND to VCC. The additional current it&#x27;ll draw will be &lt;code&gt;V&#x2F;R&lt;&#x2F;code&gt;, where &lt;code&gt;V&lt;&#x2F;code&gt; is the power supply&#x27;s voltage and &lt;code&gt;R&lt;&#x2F;code&gt; is the resistance of our load.&lt;&#x2F;p&gt;
+&lt;p&gt;The least resistive resistor that I have is a &lt;code&gt;330Ohm&lt;&#x2F;code&gt; one, so a single Resistor in parallel would draw &lt;code&gt;5v&#x2F;330Ohm = 15.1mA&lt;&#x2F;code&gt;. So through the methods of an advanced technique called trial and error I discoreved that four &lt;code&gt;330Ohm&lt;&#x2F;code&gt; resistors do the job.&lt;&#x2F;p&gt;
+&lt;p&gt;Here is what it looks like.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;gallery&#x2F;dummy-load.jpeg&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Maybe there&#x27;s a moral to this story, like: &lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;&lt;em&gt;Tinkerers have to expect to tinker more than what they think they&#x27;ll tinker&lt;&#x2F;em&gt;&amp;quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;or like:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;&lt;em&gt;Don&#x27;t use stuff to do what it wasn&#x27;t inteded to&lt;&#x2F;em&gt;&amp;quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;But I can&#x27;t find any. Have a nice day.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Second Foundation - Isaac Asimov</title>
+            <pubDate>Sat, 20 Mar 2021 17:18:02 -0300</pubDate>
+            <link>https://gbrls.github.io/books/second-foundation-asimov/</link>
+            <guid>https://gbrls.github.io/books/second-foundation-asimov/</guid>
+            <description></description>
+        </item>
+        <item>
+            <title>Foundation and Empire - Isaac Asimov</title>
+            <pubDate>Thu, 11 Mar 2021 20:57:09 -0300</pubDate>
+            <link>https://gbrls.github.io/books/foundation-and-empire-asimov/</link>
+            <guid>https://gbrls.github.io/books/foundation-and-empire-asimov/</guid>
+            <description>&lt;p&gt;This is the second book from the foundation&#x27;s original trilogy. The pacing is way slower compared to the first book, and in some way it executes it nicely, going into more detail about each character and how the events happened. It makes sense too, because this book marks a huge turning point in the story, that happens very quickly, hence the change of pacing.&lt;&#x2F;p&gt;
+&lt;p&gt;That said, I think it loses some of the novelty from the first one and it seldom gave me a deep insight like the first one did. I fell that I have to finish the &lt;em&gt;Second Foundation&lt;&#x2F;em&gt; to make my mind about this book and put it into perspective. But for now I give it a &lt;em&gt;ok&lt;&#x2F;em&gt; out of &lt;em&gt;meh&lt;&#x2F;em&gt; rating, as compared to the first one, that (to me) is much more interesting as it presents many new concepts and ideas that aren&#x27;t built upon in &lt;em&gt;Foundation and Empire&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Foundation - Isaac Asimov</title>
+            <pubDate>Wed, 24 Feb 2021 10:57:52 -0300</pubDate>
+            <link>https://gbrls.github.io/books/foundation-asimov/</link>
+            <guid>https://gbrls.github.io/books/foundation-asimov/</guid>
+            <description>&lt;p&gt;This was my first Asimov book and my first Sci-fi book at all.
+I expected a book about how the future, about how technology will change the way we live, etc.
+But it was very different, not in a bad way. &lt;&#x2F;p&gt;
+&lt;p&gt;I soon realized that one of the powerful things about Sci-fi
+is that the author can talk about historical facts in a new light. 
+e.g: Asimov talks about the fall of empires without talking directly about anything that existed (like the Roman Empire),
+this means that we as the reader can have new views about it, untaited by our previous conceptions.&lt;&#x2F;p&gt;
+&lt;p&gt;Tech is portrayed in the book basically like the 1950&#x27;s, but more powerful. 
+The informational era never reached that universe, a universe were there&#x27;s an empire that controls a whole Galaxy.
+Despite this, they have public phones with video, people deliver messages by phone, by letters, by tv, or by just going into one&#x27;s room and talking to them.
+That public phone with video calling capabilities made me chuckle.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;I believe that Asimov didn&#x27;t think that our relationship with technology would change the way it did&lt;&#x2F;strong&gt;, but he foresaw something very interesting.
+In the books, there&#x27;s an organization (&lt;em&gt;The Foundation&lt;&#x2F;em&gt;) that is trying to eventually dominate the whole galaxy.
+There&#x27;s a point in the story that they are the most technologically advanced society in their region and they use that power to control their neighbours and
+they make them rely on their technology without teaching them how it works. This strategy worked really well for them.
+I can&#x27;t help but link that to our relationship with Computers and the Internet. This whole mobile&#x2F;social media transformation came in a fast wave,
+most people are imersed in it, but it came so fast that they couldn&#x27;t learn about how it works, and this is scary. It&#x27;s scary because whomever controls the tech 
+has an disproportionate amout of control agains who uses it.&lt;&#x2F;p&gt;
+&lt;p&gt;The main point of the book is about the fall of Empires, and this is a thing that I think a lot about.
+As a Programmer and Computer Engineering student I often think about the many different systems that are the backbone of our computing technology and how very few people know how to &lt;strong&gt;build&lt;&#x2F;strong&gt; them.
+It&#x27;s not common anymore to design new computer architectures, to design new operating systems and new programming paradigms.
+This means that with time, people will care less and less about how to &lt;strong&gt;build&lt;&#x2F;strong&gt; those systems and will only care how to &lt;strong&gt;use&lt;&#x2F;strong&gt; them.
+This happened in the Foundation&#x27;s universe (it was one of the causes of their downfall) and I fear this will happen to us too.
+This is why I think it is still very important to learn, teach and build (maybe just as an exercise) the fundamentals of our computing infrastructure, despite most people only needing to know how to operate them.&lt;&#x2F;p&gt;
+&lt;p&gt;As my grandpa always says:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;Every single company will one day fail.&amp;quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Sometimes he sounds like Hari Seldom, I hope he&#x27;s wrong about this one.
+Well, my goal is to to help avoid or postpone this (maybe inevitable) fall, by injecting new inovations in the systems that are the backbone of our world.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Binary Binary Tree</title>
+            <pubDate>Tue, 23 Feb 2021 20:22:52 -0300</pubDate>
+            <link>https://gbrls.github.io/blog/binbin-tree/</link>
+            <guid>https://gbrls.github.io/blog/binbin-tree/</guid>
+            <description>&lt;h3 id=&quot;the-trick&quot;&gt;The trick&lt;&#x2F;h3&gt;
+&lt;p&gt;I really like tricks with binary numbers. This one I was using to test digital systems.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;gallery&#x2F;binbin-tree.png&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;So, were does this come from? Is this generated by some &lt;em&gt;slow&lt;&#x2F;em&gt; recursive algorithm? No! This complete binary tree is generated by this code:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;    if (col &amp;amp; (1 &amp;lt;&amp;lt; line)) != 0 {
+&lt;&#x2F;span&gt;&lt;span&gt;        *pixel = c[line % c.len()];
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;how-it-works&quot;&gt;How it works&lt;&#x2F;h3&gt;
+&lt;p&gt;So, how does this work? Well, let&#x27;s count binary numbers.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;    111
+&lt;&#x2F;span&gt;&lt;span&gt;    110
+&lt;&#x2F;span&gt;&lt;span&gt;    101
+&lt;&#x2F;span&gt;&lt;span&gt;    100
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    011
+&lt;&#x2F;span&gt;&lt;span&gt;    010
+&lt;&#x2F;span&gt;&lt;span&gt;    001
+&lt;&#x2F;span&gt;&lt;span&gt;    000
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The leftmost bit changes every four lines, the middle bit every two lines and the rightmost every other line. From this pattern it&#x27;s clear that every combination of the three bits will be generated once, for this reason and because it&#x27;s very easy to generate I was using it to test my digital circuit.&lt;&#x2F;p&gt;
+&lt;p&gt;But how do we generate these numbers? Just count from 0 up to 2^n - 1, in this case from 0 to 7:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;    000 = 0
+&lt;&#x2F;span&gt;&lt;span&gt;    001 = 1
+&lt;&#x2F;span&gt;&lt;span&gt;    010 = 2
+&lt;&#x2F;span&gt;&lt;span&gt;    011 = 3
+&lt;&#x2F;span&gt;&lt;span&gt;    100 = 4
+&lt;&#x2F;span&gt;&lt;span&gt;    101 = 5
+&lt;&#x2F;span&gt;&lt;span&gt;    110 = 6
+&lt;&#x2F;span&gt;&lt;span&gt;    111 = 7
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;the-tree&quot;&gt;The tree&lt;&#x2F;h3&gt;
+&lt;p&gt;This is also a complete binary tree. If you think about it as a decision tree, it may be easier to see the reason why. The first bit can be either true of false, for each case the second bit can be true or false too; if one is true, it is highlighted, otherwise it&#x27;s black. The number of different leaves is exactly the number of all possible binary strings with &lt;code&gt;H&lt;&#x2F;code&gt; bits, where &lt;code&gt;H&lt;&#x2F;code&gt; is equal to the height of the tree.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>myLisp Interpreter 1: Lexer and Parser</title>
+            <pubDate>Mon, 30 Mar 2020 16:24:43 -0300</pubDate>
+            <link>https://gbrls.github.io/blog/mk-lisp-1/</link>
+            <guid>https://gbrls.github.io/blog/mk-lisp-1/</guid>
+            <description>&lt;p&gt;This is the second part of a series of articles that I&#x27;m writing to document by
+progress on building a Interpreter for myLisp, a lisp-like language. For the previous post &lt;a href=&quot;&#x2F;mk-lisp-0&quot;&gt;click
+here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;&quot;&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;what-is-an-interpreter&quot;&gt;What is an interpreter?&lt;&#x2F;h3&gt;
+&lt;p&gt;An Interpreter is a program that takes souce code as input and executes it. It
+is composed of several parts, today we are going to write a lexer and a parser.&lt;&#x2F;p&gt;
+&lt;p&gt;The lexer will read a string of characters and output a vector of tokens, with
+some information attached to them like its type. The lexer is important to the
+parser because it returns the soure code in a better representation, holding
+only information that matters to it, &lt;em&gt;(this is a very important pattern in
+programming, thowing away information that is not important for what we want, by
+keeping the data in a more convenient representation)&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The parser will take the vector of tokens created by the lexer and create a data
+structure &lt;em&gt;(in our case S-Expressions)&lt;&#x2F;em&gt; which can then be executed by another part of the interpreter.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-interpreter-s-implementation&quot;&gt;The interpreter&#x27;s implementation&lt;&#x2F;h3&gt;
+&lt;p&gt;I will be writing this interpreter in C. The most important reason for it is that
+this is a learning project more than anything else, and in C provides us with
+the bare minimum to create what we want.&lt;br &#x2F;&gt;
+It is important to note that there are better ways to implement it, but I don&#x27;t
+like to read other people&#x27;s code before I try my own way. Maybe in the future when I&#x27;m done,
+I&#x27;ll change it.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;lexer&quot;&gt;Lexer&lt;&#x2F;h3&gt;
+&lt;p&gt;First, lets define a little macro to help us debug.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#ifdef&lt;&#x2F;span&gt;&lt;span&gt; DEBUG_F
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#define &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;DEBUG&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fmt&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span&gt;...)						\
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%s&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; fmt, __FILE__,__LINE__, ##args)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#else
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#define &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;DEBUG&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fmt&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span&gt;...) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;* Do nothing *&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#endif
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Next, we need to create a few data types to store the tokens.
+&lt;em&gt;As you can see our Lisp won&#x27;t support strings and floats for now&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum &lt;&#x2F;span&gt;&lt;span&gt;Token_Type {
+&lt;&#x2F;span&gt;&lt;span&gt;    TOKEN_OPEN=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    TOKEN_CLOSE=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    TOKEN_NUMBER=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    TOKEN_SYMBOL=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;*
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;** Used to debug the lexer
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;*&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* Token_Type_Str[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;] = {&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;NUM&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;SYM&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;typedef struct &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum&lt;&#x2F;span&gt;&lt;span&gt; Token_Type type;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;union &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; number;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* name;
+&lt;&#x2F;span&gt;&lt;span&gt;	}data;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;}Token;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And then the tokenize fuction, there are a few details about it that need to be discussed.
+Usually in Lisp, symbol names can be in some written in some formats, like +1, +$,
+10@b.com. But for simplicity&#x27;s sake we have a different set of rules: They must start
+with an alphabetical character and not contain any whitespace or parenthesis.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;Token* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;tokenize&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;in&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt;* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ret_sz&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; cursor = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; sz = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;, alloc=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;	Token* vec = (Token*) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;malloc&lt;&#x2F;span&gt;&lt;span&gt;(sizeof(Token));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor] != &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\0&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		Token cur;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor]==&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;) {
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;= TOKEN_OPEN;
+&lt;&#x2F;span&gt;&lt;span&gt;			cursor++;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor]==&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;) {
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;= TOKEN_CLOSE;
+&lt;&#x2F;span&gt;&lt;span&gt;			cursor++;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;isdigit&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor])) {
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; number;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;sscanf&lt;&#x2F;span&gt;&lt;span&gt;(in+cursor,&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;number);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor] != &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\0&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;				  &amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;isdigit&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor])) {
+&lt;&#x2F;span&gt;&lt;span&gt;				cursor++;
+&lt;&#x2F;span&gt;&lt;span&gt;			}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;= TOKEN_NUMBER;
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;number &lt;&#x2F;span&gt;&lt;span&gt;= number;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DEBUG&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;TOKEN_NUMBER: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, number);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;isalpha&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor])) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* name = (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;*) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;malloc&lt;&#x2F;span&gt;&lt;span&gt;(MAX_SYM_SZ);
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;assert&lt;&#x2F;span&gt;&lt;span&gt;(name!=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;NULL&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;		
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; ptr = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor] != &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;				  &amp;amp;&amp;amp; in[cursor] != &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;		 		  &amp;amp;&amp;amp; in[cursor] != &amp;#39; &amp;#39;
+&lt;&#x2F;span&gt;&lt;span&gt;				  &amp;amp;&amp;amp; in[cursor] != &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\0&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;			  {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;				&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;isalpha&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor])) in[cursor] = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;toupper&lt;&#x2F;span&gt;&lt;span&gt;(in[cursor]);
+&lt;&#x2F;span&gt;&lt;span&gt;				name[ptr] = in[cursor];
+&lt;&#x2F;span&gt;&lt;span&gt;				ptr++, cursor++;
+&lt;&#x2F;span&gt;&lt;span&gt;			}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			name[ptr] = &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\0&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;= TOKEN_SYMBOL;
+&lt;&#x2F;span&gt;&lt;span&gt;			cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span&gt;= name;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DEBUG&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;TOKEN_NAME: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%s&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, name);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;			cursor++;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;continue&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;		}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(alloc &amp;lt;= sz+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			alloc *= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;			vec = (Token*) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;realloc&lt;&#x2F;span&gt;&lt;span&gt;(vec, sizeof(Token)*alloc);
+&lt;&#x2F;span&gt;&lt;span&gt;		}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;DEBUG&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;TOKEN: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%s&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, Token_Type_Str[cur.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		vec[sz++] = cur;
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	*ret_sz = sz;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; vec;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And that&#x27;s about it for the lexer.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;representing-s-expressions&quot;&gt;Representing S-Expressions&lt;&#x2F;h3&gt;
+&lt;p&gt;Before we start to implement the parser we need to write the data types for it.
+But this time it is a little bit different because the parser will generate a
+data structure which can be executed. We are going to represent those structures
+as lisp S-Expressions.&lt;&#x2F;p&gt;
+&lt;p&gt;First, let&#x27;s define the type &lt;code&gt;Lisp_Object&lt;&#x2F;code&gt;, &lt;em&gt;(it has nothing to do with OOP&#x27;s
+objects)&lt;&#x2F;em&gt;, which will represent everything that a cons cell can hold as its car
+or cdr.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;tagged-pointers&quot;&gt;Tagged Pointers&lt;&#x2F;h3&gt;
+&lt;p&gt;There are a few ways that we could choose to represent &lt;code&gt;Lisp_Object&lt;&#x2F;code&gt;, we are
+going to use tagged pointers, which are common in many Lisp implementations.&lt;&#x2F;p&gt;
+&lt;p&gt;Every variable in C has at least 8 bits, so every valid pointer points to an
+address which is a multiple of 8. This means that the least significant bits of
+a valid address will aways end with three zeros. So we can use these bits to
+store additional information about what the pointer is pointing to. When we need
+to deference it we just mask out those three bits.&lt;&#x2F;p&gt;
+&lt;p&gt;They are useful because a pointer usually occupies eight bytes and an &lt;code&gt;int&lt;&#x2F;code&gt; or
+&lt;code&gt;float&lt;&#x2F;code&gt; just 4, so we can embed ints and floats into them, all we have to do is to
+shift them up three bits. That&#x27;s a huge improvement over deferencing a pointer
+to an integer which is allocated on the heap. Using tagged pointers we can
+utilize ints and floats on the stack.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, we will define a variable that will represent everything that a cons cell
+can hold as its car and cdr: &lt;code&gt;Lisp_Object&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;typedef &lt;&#x2F;span&gt;&lt;span&gt;uintptr_t Lisp_Object;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#define &lt;&#x2F;span&gt;&lt;span&gt;NIL (Lisp_Object)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;code&gt;Lisp_Object&lt;&#x2F;code&gt; is a tagged pointer, that&#x27;s why we used &lt;code&gt;uintptr_t&lt;&#x2F;code&gt; &lt;em&gt;(it is
+defined be a variable that can store a pointer)&lt;&#x2F;em&gt;. And now a few functions to
+operate on it.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum &lt;&#x2F;span&gt;&lt;span&gt;Tag {
+&lt;&#x2F;span&gt;&lt;span&gt;	TAG_SYMBOL = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;	TAG_NUMBER = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;	TAG_CONS = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;* ... *&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;ptr_tag&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum&lt;&#x2F;span&gt;&lt;span&gt; Tag &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tag&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; obj | (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt;)tag;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;ptr_untag&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; obj &amp;amp; ~((Lisp_Object) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;7&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;ptr_getTag&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt;)(obj&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;7&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Those are the basic operations that we are going to be doing with them. But now we
+need a few helper functions and macros to help us create new objects.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#define &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;OBJ&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;val&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type&lt;&#x2F;span&gt;&lt;span&gt;)							\
+&lt;&#x2F;span&gt;&lt;span&gt;	Obj_New_ ## &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;(val)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Obj_New_symbol&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;str&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* nstr = (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;*) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;malloc&lt;&#x2F;span&gt;&lt;span&gt;(sizeof(str));
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;strcpy&lt;&#x2F;span&gt;&lt;span&gt;(nstr, str);
+&lt;&#x2F;span&gt;&lt;span&gt;	Lisp_Object ret = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_tag&lt;&#x2F;span&gt;&lt;span&gt;((Lisp_Object)nstr, TAG_SYMBOL);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; ret;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Obj_New_number&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;val&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	Lisp_Object nval = val;
+&lt;&#x2F;span&gt;&lt;span&gt;	nval = val&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_tag&lt;&#x2F;span&gt;&lt;span&gt;(nval, TAG_NUMBER);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;typedef struct &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	Lisp_Object car;
+&lt;&#x2F;span&gt;&lt;span&gt;	Lisp_Object cdr;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;}Lisp_Cons_Cell;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;fcons&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;, Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	Lisp_Cons_Cell* cell = (Lisp_Cons_Cell*) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;malloc&lt;&#x2F;span&gt;&lt;span&gt;(sizeof(Lisp_Cons_Cell));
+&lt;&#x2F;span&gt;&lt;span&gt;	cell-&amp;gt;car = a, cell-&amp;gt;cdr = b;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_tag&lt;&#x2F;span&gt;&lt;span&gt;((Lisp_Object)&amp;amp;cell, TAG_CONS);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;code&gt;OBJ&lt;&#x2F;code&gt; is a little helper macro do help us create new objects. We use it like
+this:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;Lisp_Object a = OBJ(&amp;quot;hello-there&amp;quot;, symbol);
+&lt;&#x2F;span&gt;&lt;span&gt;Lisp_Object b = OBJ(42, number);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I didn&#x27;t write a &lt;code&gt;Obj_New_cons&lt;&#x2F;code&gt; because we will be using the fcons function to
+create new conses.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;printing-s-expressions&quot;&gt;Printing S-Expressions&lt;&#x2F;h3&gt;
+&lt;p&gt;Before we start the parser itself we need to create a function to print
+S-Expressions, in order to debug it. There&#x27;s an algorithm for it but I won&#x27;t get
+into detail. Here it is:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;head&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Lisp_Print_cons&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;head&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(head) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcar&lt;&#x2F;span&gt;&lt;span&gt;(obj), &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_untag&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcdr&lt;&#x2F;span&gt;&lt;span&gt;(obj))==NIL) {
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;	} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_getTag&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcdr&lt;&#x2F;span&gt;&lt;span&gt;(obj))!=TAG_CONS) {
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt; . &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcdr&lt;&#x2F;span&gt;&lt;span&gt;(obj), &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;	} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39; &amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcdr&lt;&#x2F;span&gt;&lt;span&gt;(obj), &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;head&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum&lt;&#x2F;span&gt;&lt;span&gt; Tag tag = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;ptr_getTag&lt;&#x2F;span&gt;&lt;span&gt;(obj);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;switch&lt;&#x2F;span&gt;&lt;span&gt;(tag) {
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case&lt;&#x2F;span&gt;&lt;span&gt; TAG_NUMBER:
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GET_VAL&lt;&#x2F;span&gt;&lt;span&gt;(obj, number));
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case&lt;&#x2F;span&gt;&lt;span&gt; TAG_SYMBOL:
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%s&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;GET_VAL&lt;&#x2F;span&gt;&lt;span&gt;(obj, symbol));
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;case&lt;&#x2F;span&gt;&lt;span&gt; TAG_CONS:
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Lisp_Print_cons&lt;&#x2F;span&gt;&lt;span&gt;(obj, head);
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;break&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;obj&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;_Lisp_Print&lt;&#x2F;span&gt;&lt;span&gt;(obj, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;putchar&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;the-parser&quot;&gt;The parser&lt;&#x2F;h3&gt;
+&lt;p&gt;I really liked implementing a Lisp parser a for another interpreter a few days
+ago, the algorithm is so simple!&lt;&#x2F;p&gt;
+&lt;p&gt;If a S-Expression is a list, whe can think of it as a list of atoms and for each
+atom we parse it recursively. So, how do we parse a simple list? This is how it
+would like in ~~py~~pseudocode:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;def parse (n):
+&lt;&#x2F;span&gt;&lt;span&gt;	obj = get_obj(n)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	if obj == nil:
+&lt;&#x2F;span&gt;&lt;span&gt;		return obj
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	else:
+&lt;&#x2F;span&gt;&lt;span&gt;		return cons(obj, parse(n+1))
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It doesn&#x27;t work for every S-Expression &lt;em&gt;yet&lt;&#x2F;em&gt;, but the main takeaway for it is that
+you cons the current object with the rest of the list recursively. The only
+difference between this and a complete parser is that the latter handles
+parenthesis by parsing what is inside the current block and consing it with the
+rest of the list.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;c&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-c &quot;&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;Lisp_Object &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(Token* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tokens&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sz&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(pos==sz) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; NIL; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;* the stop condition *&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_OPEN) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		Lisp_Object car = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(tokens,pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,sz);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; aux = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, balance = -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;while&lt;&#x2F;span&gt;&lt;span&gt;(balance != &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;*  Looking for the matching ) *&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;assert&lt;&#x2F;span&gt;&lt;span&gt;(aux+pos &amp;lt; sz);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos+aux].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_OPEN)
+&lt;&#x2F;span&gt;&lt;span&gt;				balance--;
+&lt;&#x2F;span&gt;&lt;span&gt;			&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos+aux].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_CLOSE)
+&lt;&#x2F;span&gt;&lt;span&gt;				balance ++;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;			aux++;
+&lt;&#x2F;span&gt;&lt;span&gt;		}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		Lisp_Object cdr = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(tokens, pos+aux, sz);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcons&lt;&#x2F;span&gt;&lt;span&gt;(car, cdr);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_CLOSE) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; NIL;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_NUMBER) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; n = tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;number&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;		Lisp_Object car = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OBJ&lt;&#x2F;span&gt;&lt;span&gt;(n, number);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcons&lt;&#x2F;span&gt;&lt;span&gt;(car, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(tokens, pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, sz));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;== TOKEN_SYMBOL) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;char&lt;&#x2F;span&gt;&lt;span&gt;* str = tokens[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;name&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;		Lisp_Object car = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;OBJ&lt;&#x2F;span&gt;&lt;span&gt;(str, symbol);
+&lt;&#x2F;span&gt;&lt;span&gt;		&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;fcons&lt;&#x2F;span&gt;&lt;span&gt;(car, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;parse&lt;&#x2F;span&gt;&lt;span&gt;(tokens, pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, sz));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; NIL;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This code isn&#x27;t that much different from the pseudocode that I&#x27;ve written
+before, the main difference is the parenthesis handling. The code for this
+article can be seen
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;gbrls&#x2F;lisp-interpreter&#x2F;blob&#x2F;a15eb40743e64e9cc60c9e01474050ebf25b59ec&#x2F;main.c&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Every cons and symbol in which we allocate are not fred, so our interpreter is
+leaking memory. The solution for this is called garbage collection, we are going
+to implement it in a latter article.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>myLisp Interpreter 0: What is Lisp?</title>
+            <pubDate>Sun, 29 Mar 2020 02:56:40 -0300</pubDate>
+            <link>https://gbrls.github.io/blog/mk-lisp-0/</link>
+            <guid>https://gbrls.github.io/blog/mk-lisp-0/</guid>
+            <description>&lt;p&gt;This is the first part of a series of articles that I&#x27;ll be writing to document
+my progress on building a interpreter for a Lisp-like language.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve been interested in learning different programming languages for a while now, I&#x27;ve read the
+first chapters of Haskell and Lisp books recently and the one that hooked me on was &lt;a href=&quot;http:&#x2F;&#x2F;landoflisp.com&#x2F;&quot;&gt;Land
+of lisp&lt;&#x2F;a&gt;. Lisp&#x27;s simplicity really struck me: from very
+simple building blocks you can create anything in such an elegant and simple way.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-is-mylisp&quot;&gt;What is myLisp&lt;&#x2F;h3&gt;
+&lt;p&gt;myLisp is a lisp-like language, the main goal of it is to be implemented in 
+the most simple and educational way possible.&lt;br &#x2F;&gt;
+So, what is lisp?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;a-bit-of-history&quot;&gt;A bit of history&lt;&#x2F;h3&gt;
+&lt;p&gt;Lisp is a programming language that was invented in the late 50&#x27;s by John McCarthy, in 1960 he published a
+&lt;a href=&quot;http:&#x2F;&#x2F;www-formal.stanford.edu&#x2F;jmc&#x2F;recursive.html&quot;&gt;paper&lt;&#x2F;a&gt; where he defined the
+language and wrote a Lisp interpreter in Lisp! It&#x27;s crazy to think that you can
+write a interpreter for Lisp in Lisp in such an small and beautiful way using only simple
+operations, it really shows its elegance and power. There&#x27;s a more &lt;a href=&quot;http:&#x2F;&#x2F;www.paulgraham.com&#x2F;rootsoflisp.html&quot;&gt;approachable
+paper&lt;&#x2F;a&gt; by Paul Graham in which he
+explains step by step how Lisp was defined in McCarthy&#x27;s paper, here&#x27;s an
+excerpt from it:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;quot;&lt;em&gt;I wrote this article to help myself understand exactly what McCarthy
+discovered. You don&#x27;t need to know this stuff to program in Lisp, but it
+should be helpful to anyone who wants to understand the essence of Lisp - both
+in the sense of its origins and its semantic core. The fact that it has such a
+core is one of Lisp&#x27;s distinguishing features (...)&lt;&#x2F;em&gt;&amp;quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;what-is-it&quot;&gt;What is it?&lt;&#x2F;h3&gt;
+&lt;p&gt;The building blocks of Lisp are cons cells. It is a structure that holds two
+values, head and tail or as Lisp calls them: &lt;code&gt;CAR&lt;&#x2F;code&gt; and &lt;code&gt;CDR&lt;&#x2F;code&gt;. Each of them can
+either point to another cons cell or to atoms. Atoms are anything that can&#x27;t be
+divided into smaller parts (as we can with cons cells which can be divided into
+two parts) such as: &lt;code&gt;14&lt;&#x2F;code&gt;, &lt;code&gt;hello-there&lt;&#x2F;code&gt;,
+&lt;code&gt;aux&lt;&#x2F;code&gt;, &lt;code&gt;&amp;quot;I&#x27;m a string&amp;quot;&lt;&#x2F;code&gt;.
+Bellow you can see some examples on how cons cells can work together:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;cons-cell-0.png&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Example 1: List&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;cons-cell-1.jpg&quot; alt=&quot;image&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Example 2: Nested list&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;NIL is a special object which denotes the end of a list. As you can see from the first example we&#x27;ve just created a list, which is the
+single most important data structure in Lisp. That&#x27;s where it&#x27;s name comes from:
+&lt;strong&gt;LIS&lt;&#x2F;strong&gt;t &lt;strong&gt;P&lt;&#x2F;strong&gt;rocessor.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;s-expressions&quot;&gt;S-Expressions&lt;&#x2F;h3&gt;
+&lt;p&gt;Now that we know the basic concepts of the language we are going to learn how to
+represent them in Lisp code.&lt;&#x2F;p&gt;
+&lt;p&gt;S-Expressions are how Lisp represent its code and data. Code and data being
+represented in the same way is a very important concept to Lisp, it is called
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Homoiconicity&quot;&gt;homoiconicity&lt;&#x2F;a&gt;. They can be in the form of atoms or other s-expressions enclosed by
+parenthesis and separated by a whitespace.&lt;&#x2F;p&gt;
+&lt;p&gt;Lets see how the examples 1 and 2 can be represented using S-Expressions.&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;(42 69 613)
+&lt;&#x2F;span&gt;&lt;span&gt;(c-major (c e g))
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Lisp can look at these two expressions as code or as data. By default Lisp reads
+them as if they were code. The first element of an expression, (it&#x27;s &lt;code&gt;CAR&lt;&#x2F;code&gt;)
+is interpreted as a function, so &lt;code&gt;(f a b)&lt;&#x2F;code&gt; has the same meaning as &lt;code&gt;f(a, b);&lt;&#x2F;code&gt;
+have in C, for example.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;basic-functions&quot;&gt;Basic functions&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PRINT&lt;&#x2F;code&gt;: Receives an expression as its input, prints it, and then returns it.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;QUOTE&lt;&#x2F;code&gt;: Receives an expression as its input and returns it, without evaluating
+it.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Let&#x27;s try these two functions, let&#x27;s say that I want to print the list from the
+first example. If I call &lt;code&gt;(PRINT (32 69 613))&lt;&#x2F;code&gt; it will throw an error because
+Lisp will try to call the function &lt;code&gt;32&lt;&#x2F;code&gt; with &lt;code&gt;69&lt;&#x2F;code&gt; and &lt;code&gt;613&lt;&#x2F;code&gt; as its arguments.
+But if I call &lt;code&gt;(PRINT (QUOTE (32 69 613)))&lt;&#x2F;code&gt; it will work as I intended,
+because &lt;code&gt;QUOTE&lt;&#x2F;code&gt; returns &lt;code&gt;(32 69 613)&lt;&#x2F;code&gt; and then &lt;code&gt;PRINT&lt;&#x2F;code&gt; prints it, so &lt;code&gt;QUOTE&lt;&#x2F;code&gt; is
+a way to convert code into data.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CONS&lt;&#x2F;code&gt;: Takes &lt;code&gt;a&lt;&#x2F;code&gt; and &lt;code&gt;b&lt;&#x2F;code&gt; and returns a cons cell with &lt;code&gt;a&lt;&#x2F;code&gt; as it&#x27;s first part and
+&lt;code&gt;b&lt;&#x2F;code&gt; as the second.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CAR&lt;&#x2F;code&gt;: Takes a cons cell and returns it&#x27;s first part.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CDR&lt;&#x2F;code&gt;: Takes a cons cell and returns it&#x27;s second part.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CADR&lt;&#x2F;code&gt;: Same as &lt;code&gt;CAR(CDR(a))&lt;&#x2F;code&gt;, &lt;code&gt;CDDR&lt;&#x2F;code&gt;: Same as &lt;code&gt;(CDR(CDR(a)))&lt;&#x2F;code&gt;, &lt;code&gt;CADDR&lt;&#x2F;code&gt;,
+&lt;code&gt;CADAR&lt;&#x2F;code&gt;, ...&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Examples: &lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(CONS (QUOTE A) (CONS (QUOTE B) NIL))&lt;&#x2F;code&gt; returns &lt;code&gt;(A B)&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Expression to create the nested list from the second image:&lt;br &#x2F;&gt;
+&lt;code&gt;(CONS (QUOTE C-MAJOR) (CONS (CONS (QUOTE C) (CONS (QUOTE E) (CONS (QUOTE G) NIL))) NIL))&lt;&#x2F;code&gt; which returns &lt;code&gt;(C-MAJOR (C E G))&lt;&#x2F;code&gt;. &lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Sidenote: You don&#x27;t have to declare things this way, I just made this way for
+illustration purposes, in Lisp you could also just do&lt;&#x2F;em&gt; &lt;code&gt;(QUOTE (C-MAJOR (C E G)))&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;There are other important functions that we&#x27;ll be discussing later, but for the
+next article they are enough.&lt;&#x2F;p&gt;
+</description>
+        </item>
+        <item>
+            <title>Solução OBI 2018 Baldes</title>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/obi2018-baldes/</link>
+            <guid>https://gbrls.github.io/blog/obi2018-baldes/</guid>
+            <description>&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;olimpiada.ic.unicamp.br&#x2F;pratique&#x2F;pu&#x2F;2018&#x2F;f3&#x2F;baldes&#x2F;&quot;&gt;Enunciado&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho \(10^5\) e \(10^5\) queries dentro desse intervalo. Iremos fazer uma segtree para o mínimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.&lt;&#x2F;p&gt;
+&lt;p&gt;Porém após implementar a primeira solução e não funcionar fiz uma segunda leitura e percebi que o max e o min não podem estar no mesmo balde (na mesma posição no vetor). Então troquei o pair por uma struct, para guardar de qual balde o max e o min vieram. Quando o min e o max estiverem no mesmo balde temos uma certeza, um dos dois faz parte da solução. Nesse caso podemos testar, o query sem o min, mas com o max e o query sem o max, mas com o min.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bits&#x2F;stdc++.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;typedef struct&lt;&#x2F;span&gt;&lt;span&gt; ii {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; first;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; second;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; j;
+&lt;&#x2F;span&gt;&lt;span&gt;} ii;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const int&lt;&#x2F;span&gt;&lt;span&gt; MAX = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;5e5&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;50&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const int&lt;&#x2F;span&gt;&lt;span&gt; inf = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0x3f3f3f3f&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;ii tree[MAX]={};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; arr[MAX];
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;, ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    ii c = {&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;min&lt;&#x2F;span&gt;&lt;span&gt;(a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;,b.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;),&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max&lt;&#x2F;span&gt;&lt;span&gt;(a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;,b.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;),-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;==a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;) c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;=a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else&lt;&#x2F;span&gt;&lt;span&gt; c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;=b.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;==a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;) c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;=a.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else&lt;&#x2F;span&gt;&lt;span&gt; c.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;=b.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; c;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(i==j) {
+&lt;&#x2F;span&gt;&lt;span&gt;        tree[pos]={arr[i],arr[i],i,i};
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(arr[i]==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;            tree[pos]={inf,-inf,-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos,i,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,j);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        tree[pos]=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos],tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;target&lt;&#x2F;span&gt;&lt;span&gt;, ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;val&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(i==j) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(tree[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;!=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&amp;amp;tree[pos].&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;!=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;            tree[pos]=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(tree[pos],val);
+&lt;&#x2F;span&gt;&lt;span&gt;        } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            tree[pos]=val; 
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(target &amp;lt;= (i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos,i,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;,target,val);
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,j,target,val);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        tree[pos]=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos],tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;force_update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;target&lt;&#x2F;span&gt;&lt;span&gt;, ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;val&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(i==j) {
+&lt;&#x2F;span&gt;&lt;span&gt;        tree[pos]=val; 
+&lt;&#x2F;span&gt;&lt;span&gt;    } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(target &amp;lt;= (i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;force_update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos,i,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;,target,val);
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;force_update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,j,target,val);
+&lt;&#x2F;span&gt;&lt;span&gt;        tree[pos]=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos],tree[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;ii &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(i&amp;gt;b||j&amp;lt;a) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;{inf,-inf, -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;, -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;    } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else if&lt;&#x2F;span&gt;&lt;span&gt;(i&amp;gt;=a&amp;amp;&amp;amp;j&amp;lt;=b) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; tree[pos];
+&lt;&#x2F;span&gt;&lt;span&gt;    } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;merge&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos,i,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;,a,b),&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,(i+j)&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,j,a,b));
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; n,m;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;n,&amp;amp;m);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;n;i++) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;arr[i]);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;m;i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; op;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;op);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(op==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; w,p;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;w,&amp;amp;p);
+&lt;&#x2F;span&gt;&lt;span&gt;            --p;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,p,{w,w,p,p});
+&lt;&#x2F;span&gt;&lt;span&gt;        } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; a,b;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;a,&amp;amp;b);
+&lt;&#x2F;span&gt;&lt;span&gt;            --a,--b;
+&lt;&#x2F;span&gt;&lt;span&gt;            ii p = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,a,b);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;==p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;                ii tmp = p;
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; ans=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;force_update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;,{p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;,-inf,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;                ii A = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,a,b);
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;force_update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;,{inf,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;j&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;                ii B = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;query&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,a,b);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                ans=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max&lt;&#x2F;span&gt;&lt;span&gt;(A.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;-A.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;,B.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;-B.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,ans);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;update&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,n,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;,p);
+&lt;&#x2F;span&gt;&lt;span&gt;            } &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;                &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;second&lt;&#x2F;span&gt;&lt;span&gt;-p.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;first&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;            }
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;        
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+        <item>
+            <title>Solução OBI 2018 Bolas</title>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/obi2018-bolas/</link>
+            <guid>https://gbrls.github.io/blog/obi2018-bolas/</guid>
+            <description>&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;olimpiada.ic.unicamp.br&#x2F;pratique&#x2F;pu&#x2F;2018&#x2F;f3&#x2F;bolas&#x2F;&quot;&gt;Enunciado&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Como o tamano do vetor é \(8\) e temos sempre \(8\) números para escolher, existem \(8!\) permutações possíveis. Como \(8!\) é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com &lt;em&gt;next_permutation&lt;&#x2F;em&gt;. Segue uma solução de backtracking:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bits&#x2F;stdc++.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; vet[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9&lt;&#x2F;span&gt;&lt;span&gt;]={};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;n&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(pos==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; ans=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;9&lt;&#x2F;span&gt;&lt;span&gt;;i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(n != i &amp;amp;&amp;amp; vet[i]) {
+&lt;&#x2F;span&gt;&lt;span&gt;            vet[i]--;
+&lt;&#x2F;span&gt;&lt;span&gt;            ans|=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(pos+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,i);
+&lt;&#x2F;span&gt;&lt;span&gt;            vet[i]++;
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; ans;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;8&lt;&#x2F;span&gt;&lt;span&gt;;i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; aux;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;aux);
+&lt;&#x2F;span&gt;&lt;span&gt;        vet[aux]++;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; ans=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;,-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;puts&lt;&#x2F;span&gt;&lt;span&gt;(ans?&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;S&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;:&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;N&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+        <item>
+            <title>Solução OBI 2018 Cinco</title>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/obi2018-cinco/</link>
+            <guid>https://gbrls.github.io/blog/obi2018-cinco/</guid>
+            <description>&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;olimpiada.ic.unicamp.br&#x2F;pratique&#x2F;pu&#x2F;2018&#x2F;f3&#x2F;cinco&#x2F;&quot;&gt;Enunciado&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;O dígito mais significativo que for trocado por um número maior do que ele&lt;&#x2F;li&gt;
+&lt;li&gt;(na falha do primeiro) O dígito menos significativo que for trocado por um número menor do que ele&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bits&#x2F;stdc++.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; n;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;n);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; arr[n];
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;n;i++) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;arr[i]);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;n;i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(arr[i]&amp;lt;arr[n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]&amp;amp;&amp;amp;(arr[i]==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;||arr[i]==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;5&lt;&#x2F;span&gt;&lt;span&gt;)) {
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;swap&lt;&#x2F;span&gt;&lt;span&gt;(arr[i],arr[n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; j=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;j&amp;lt;n;j++) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,arr[j],j==n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;?&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;:&amp;#39; &amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i--) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(arr[i]==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;||arr[i]==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;5&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;swap&lt;&#x2F;span&gt;&lt;span&gt;(arr[i],arr[n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; j=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;j&amp;lt;n;j++) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%c&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,arr[j],j==n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;?&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;:&amp;#39; &amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;puts&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-1&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+        <item>
+            <title>Solução OBI 2018 Maximin</title>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/obi2018-maximin/</link>
+            <guid>https://gbrls.github.io/blog/obi2018-maximin/</guid>
+            <description>&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;olimpiada.ic.unicamp.br&#x2F;pratique&#x2F;pu&#x2F;2018&#x2F;f3&#x2F;maximin&#x2F;&quot;&gt;Enunciado&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+Como o tamanho máximo do vetor é \(10^5\) podemos ordená-lo. Fazendo isso podemos ver que o número que estamos procurando está
+entre dois números vizinhos no vetor ou está em alguma das extremidades.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bits&#x2F;stdc++.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; n,r,l;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d%d%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;n,&amp;amp;r,&amp;amp;l);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; arr[n];
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;n;i++) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;arr[i]);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sort&lt;&#x2F;span&gt;&lt;span&gt;(arr,arr+n);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; dif=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;i&amp;lt;n;i++) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; mid=(arr[i]+arr[i-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;])&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(mid&amp;gt;=r&amp;amp;&amp;amp;mid&amp;lt;=l) dif=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max&lt;&#x2F;span&gt;&lt;span&gt;(dif,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;min&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;abs&lt;&#x2F;span&gt;&lt;span&gt;(mid-arr[i]),&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;abs&lt;&#x2F;span&gt;&lt;span&gt;(mid-arr[i-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;])));
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(l&amp;gt;arr[n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]) dif=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max&lt;&#x2F;span&gt;&lt;span&gt;(dif, l-arr[n-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(r&amp;lt;arr[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;]) dif=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max&lt;&#x2F;span&gt;&lt;span&gt;(dif,arr[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;]-r);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%d&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,dif);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+        <item>
+            <title>Solução OBI 2018 Muro</title>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://gbrls.github.io/blog/obi2018-muro/</link>
+            <guid>https://gbrls.github.io/blog/obi2018-muro/</guid>
+            <description>&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;olimpiada.ic.unicamp.br&#x2F;pratique&#x2F;pu&#x2F;2018&#x2F;f3&#x2F;muro&#x2F;&quot;&gt;Enunciado&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+Podemos criar uma função recursiva \(f\): &lt;&#x2F;p&gt;
+&lt;p&gt;$$ f(0) = 1 $$&lt;&#x2F;p&gt;
+&lt;p&gt;$$ f(n) = f(n-1) + 4f(n-2) + 2f(n-3) \quad \text{para } n &amp;gt; 0 $$&lt;&#x2F;p&gt;
+&lt;p&gt;Como existem estados que irão se repetir, podemos
+usar um vetor para guardar o valor da função já computados.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;bits&#x2F;stdc++.h&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;#define &lt;&#x2F;span&gt;&lt;span&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;long long int
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const int&lt;&#x2F;span&gt;&lt;span&gt; mod = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1e9&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;7&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const int&lt;&#x2F;span&gt;&lt;span&gt; MAX = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1e4&lt;&#x2F;span&gt;&lt;span&gt;+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;20&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; dp[MAX]={};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pos&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(pos==&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(~dp[pos]) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; dp[pos];
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; ans=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    ans = (ans+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(pos-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;))%mod;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(pos&amp;gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;) ans = (ans+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(pos-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;))%mod;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if&lt;&#x2F;span&gt;&lt;span&gt;(pos&amp;gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;) ans = (ans+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(pos-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;))%mod;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt; dp[pos]=ans;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;int32_t &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;memset&lt;&#x2F;span&gt;&lt;span&gt;(dp,-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,sizeof(dp));
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; n;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;scanf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%lld&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&amp;amp;n);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;printf&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;%lld&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\n&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;solve&lt;&#x2F;span&gt;&lt;span&gt;(n));
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+        </item>
+    </channel>
+</rss>

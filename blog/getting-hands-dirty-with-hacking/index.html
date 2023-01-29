@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GP26XDB8FY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GP26XDB8FY');
+</script>
+
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://gbrls.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://gbrls.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://gbrls.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Getting Hands Dirty with Hacking | gbrls</title>
+<meta name="description" content="">
+<link rel="canonical" href="https://gbrls.github.io/blog/getting-hands-dirty-with-hacking/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://gbrls.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Blog",
+            "item": "https://gbrls.github.io/blog/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Getting Hands Dirty With Hacking",
+            "item": "https://gbrls.github.io/blog/getting-hands-dirty-with-hacking/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://gbrls.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://gbrls.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://gbrls.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://gbrls.github.io/site.webmanifest" crossorigin>
+  
+
+
+  
+    
+      <!-- KaTeX -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    
+  
+
+
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://gbrls.github.io/rss.xml">
+
+
+</head>
+
+  
+    
+  
+
+<body class="page single">
+  
+    
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://gbrls.github.io">gbrls</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://twitter.com/gabrSchn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg><span class="ms-2 visually-hidden">Twitter</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/gbrls"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://medium.com/@gabrielschneider100">M<span class="ms-2 visually-hidden">Medium</span></a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://gbrls.github.io/rss.xml"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>ionicons-v5_logos</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg><span class="ms-2 visually-hidden">RSS</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+				
+				
+				
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/about-me/">About me</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/about-here/">About Here</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/blog/">Blog</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/books/">Books</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/gallery/">Gallery</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/projects/">Projects</a>
+						</li>
+					
+						<li class="nav-item">
+							<a class="nav-link" href="https://gbrls.github.io/todo/">TODO</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search..."
+						aria-label="Search..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+  
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xxl-8">
+        <article>
+          <div class="page-header">
+            <h1>Getting Hands Dirty with Hacking</h1>
+          </div>
+          
+          <h1 id="getting-hands-dirty-with-hacking">Getting Hands Dirty with Hacking</h1>
+<h2 id="intro-motivation">Intro &amp; Motivation</h2>
+<p>For a a while now I have been thinking about writing this. Earlier I've written
+about <a href="https://medium.com/@gabrielschneider100/going-to-cybersecurity-as-a-software-engineer-intern-d416881ab2a2">getting into
+Cybersecurity</a>,
+I was about a month into my internship and it was much more about my reaction
+to: &quot;You're going to Security now, good luck young one&quot;.</p>
+<p>Now I'm five months in, and many things have changed. I'm still here (literally
+here, I work from home), I'm still an intern, but still, things are very
+different.</p>
+<p>So, I'm writing this here because there were many times where I had to stop,
+grab a piece of paper and just dump the new things that were clouding my head.
+I still wrote almost daily markdown notes on the new things  that I was
+learning, but still, it's different, sometimes all I need is a blank piece of
+paper and a nice pen. The same way I write a lot to myself, it's not enough,
+from time to time I feel the need to share what I've learned, so this is it.</p>
+<h2 id="processes-techniques">Processes &amp; Techniques</h2>
+<p>In the start I was: &quot;I want to get really good at hacking, so I'm going to
+learn new techniques and get really good at them, SQL Injection, XSS, wait for
+me I'm coming after you!&quot;. And while there's value to that, by itself,
+practicing those techniques wasn't really going to help me that much. I was
+trying to turn into a good fighter just by repeatedly punching a punch bag,
+it's not going to work just by itself, I'm going to get my ass kicked this way.</p>
+<p>The thing that was missing in my approach was actually deeper than I expected,
+to be a hacker you have to think like one. For a very long time my mind was set
+on building things and solving problems, I wanted to make robots, games, and
+explore maths; that was basically it. Software Engineering was a straight path
+ahead, it's different, but at the end it's just building things and solving
+problems. That's not the case with Hacking, at all.</p>
+<p>To think like a hacker honestly is like listening to your inner devil. When you
+come across something, you want to take advantage of it, I want to learn about
+it until you know enough to break it. It took a while, but I can feel the
+effects of my <em>self corruption</em>, this inner evil voice is already talking <em>all
+the fucking time</em> in my head. </p>
+<p>On the Internet you see hackers doing stuff with Software and then doing
+crazier stuff with Hardware, it didn't made much sense to me how those people
+could change domains like that, now it does. It's like coding in Clojure and
+then going to embedded C, the mindset is <em>basically</em> the same, it's the
+enviroment and the tools for it that changed.</p>
+<h2 id="my-first-big-project">My first Big Project</h2>
+<p>When I started to notice a big improvement in my <em>Dark Arts</em> fighting
+techniques was when I stopped to think about my thought process and it write
+down. A month ago I was faced with: &quot;You have 4-5 weeks to test those websites
+and write a report, good luck pal&quot;. I work in a <em>great</em> team, but I felt like
+they had put way too much faith in me at the time. For the first week I was
+just testing with the techniques that I had learned, I was much better at those
+than I was before, but still.</p>
+<p>I had <em>one</em> good finding and that was it. I had a motivation rush after finding
+it, but soon it started to feel like I was trying to climb a huge wall with my
+bare hands. It as then that I stopped, grabbed a piece of paper, a nice pen,
+did some research about the <em>pentesting process</em>, read some checklists and
+started building my own. The thought process was forming in my head from
+working with my peers, from the things that I was learning from the internet,
+my head was getting cloudy with it. Writing it down was like making those
+clouds rain, condensating them to water and clearing up my mind.</p>
+<p>The project is done now and it was a great success. This kind of <em>&quot;process
+organization&quot;</em> was very important to it's success.</p>
+<p><img src="https://www.myinstants.com/media/instants_images/boratgs.jpg" alt="" /></p>
+<h2 id="things-i-ve-learned">Things I've learned</h2>
+<p>So, Gabriel, you say; what do you have to show to us? You climbed that wall,
+wrote some shit in some stone slabs, now share it with us!</p>
+<p>So... I say; beware of the golden calfs out there in Security, there are many!</p>
+<p>The first things that I liked is that <strong>it feels like war</strong>. There are clearly
+two sides: We (usually a small team or single person) vs them (A company or a
+specific product). Some of the processes we use for hacking are actually used
+by military intelligence. Lo and behold these are my commandments:</p>
+<hr />
+<p>The fist commandment is: <strong>Information is Key</strong>.</p>
+<p>Let's say there's a Pizza shop which has their own delivery service. They hired
+us to test its security. The first thing is that we need to do is to gather
+information about it. </p>
+<ul>
+<li>How does it work?</li>
+<li>Which features does it have?</li>
+<li>Can I order Pizza to my neighbour?</li>
+<li>Do they check if I'm the person I'm claiming to be?</li>
+</ul>
+<p>And then you discover: Oh, if the delivery takes more than 30 minutes the pizza
+is free. What happens if I order pizza from somewhere far away? Will  they
+deliever to me? What if it's not that far away, but I keep making changes to
+the order so it takes longer?</p>
+<p>You can also find hidden things this way, i.e. They have lower prices if it's
+your birthday, but they only change the price if you ask for it, they keep this
+promotion hidden for some reason. Can I fake my ID to always get lower prices?</p>
+<blockquote>
+<p>You need to understand how it's supposed to work, its features and
+functionalities. So you know what to break and exploit.</p>
+</blockquote>
+<hr />
+<p>The second commandment is: <strong>Organization is Key</strong></p>
+<p>We'll gather a lot of information, it will be needed for writing a report to
+our Pizza shop client, to our attacks, and to share it with our team.</p>
+<p>Also, for every domain that we are working there will be lots and lots of
+information about the specific tools and processes for it. Better organization
+means more efficient tests, the next time you do them, because information is
+accessible and searchable. My setup is described
+<a href="https://gbrls.github.io/blog/current-organizational-structure/">here</a>.</p>
+<p>Organization is also important to keep track of the tests you've done, the time
+you did them, and which tests are still left to do.</p>
+<hr />
+<p>The third commandment is: <strong>Know your domain</strong></p>
+<p>Pizza Delivery Services is a very specific domain. Knowing well your domain
+will greatly improve your chances of success in an attack. Think how having
+worked on the phone in a Pizza Delivery Service would help you exploit another
+Pizza delivery companies.</p>
+<hr />
+<p>The forth commandment is: <strong>Attack fast and with precision</strong></p>
+<p>Many times you'll need to execute an attack as a proof of concept. The attack
+should be well planned, precise and fast.</p>
+<p>Most of the time you'll need to take care to not cause disruption to the
+regular services. </p>
+<p>You'll need to be fast to not give enough time for them to
+react to it.</p>
+<p>You'll need to be <strong>very</strong> careful with <a href="https://www.cloudflare.com/en-gb/learning/privacy/what-is-pii/">PII</a>.</p>
+<hr />
+<h1 id="conclusion">Conclusion</h1>
+<p>Those commandments are maturing, I'm still very new at this and different
+people have different styles. Despite those things, I hope they are helpful.</p>
+<p>Security is very big and exciting. Have fun and take care.</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://www.amazon.com.br/Web-Application-Hackers-Handbook-Exploiting/dp/1118026470">The Web Application Hacker's Handbook</a></li>
+</ul>
+
+
+
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Made in Recife 🦀</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script type="text/javascript" src="https://gbrls.github.io/js/main.js" defer></script>
+
+  <script type="text/javascript" src="https://gbrls.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script type="text/javascript" src="https://gbrls.github.io/search_index.en.js" defer></script>
+  <script type="text/javascript" src="https://gbrls.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>
