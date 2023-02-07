@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{% set pname = section.ancestors | first %}
+{% set parent = get_section(path=pname) %}
+
+<h1><pre><a href="{{parent.permalink}}">..</a>{{section.path}}</pre></h1>
+
+<div>
+    {{section.content | safe}}
+
+    <div>
+        <ul>
+    {% for page in section.pages %}
+    <li> <pre><a href="{{page.permalink}}">{{page.slug}}</a></pre> </li>
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+end

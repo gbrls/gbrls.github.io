@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="toplist">
+    <ul>
+        {% for sec in section.subsections %}
+
+        {%set section = get_section(path=sec) %}
+        <li><a href="{{section.permalink}}">{{section.path}}</a></li>
+
+        {% endfor %}
+    </ul>
+</div>
+
+<h1>Hey</h1>
+{{ section.title }}
+
+{% endblock %}
