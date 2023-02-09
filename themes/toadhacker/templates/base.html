@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ get_url(path="main.css", trailing_slash=false) }}">
+</head>
+
+<body>
+
+{% set rootsec = get_section(path="_index.md") %}
+
+<div class="toplist">
+    <ul>
+        {% for sec in rootsec.subsections | sort %}
+
+        {%set section = get_section(path=sec) %}
+        <li><a href="{{section.permalink}}"><code>{{section.path}}</code></a></li>
+
+        {% endfor %}
+    </ul>
+</div>
+
+    <div class="content">
+    {% block content %}{% endblock content %}
+    </div>
+</body>
+
+</html>
