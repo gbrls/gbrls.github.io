@@ -5,3 +5,4 @@ public
 */ignore/*
 ./scripts/ignore
 ./scripts/ignore/*
+.DS_Store

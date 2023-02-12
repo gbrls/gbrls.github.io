@@ -6,7 +6,11 @@
 {% set pname = section.ancestors | first %}
 {% set parent = get_section(path=pname) %}
 
+
+<div>
 <h1><pre><a href="{{parent.permalink}}">..</a>{{section.path}}</pre></h1>
+</div>
+
 
 <div>
     {{section.content | safe}}
