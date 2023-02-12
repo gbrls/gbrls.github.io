@@ -21,7 +21,8 @@ feed_filename = "rss.xml"
 
 [markdown]
 highlight_code = true
-highlight_theme = "base16-ocean-dark"
+extra_syntaxes_and_themes = ["highlight_themes"]
+highlight_theme = "rose-pine"
 
 
 [extra]

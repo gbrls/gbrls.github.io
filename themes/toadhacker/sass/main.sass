@@ -1,8 +1,10 @@
+
 div
     padding: 0.4em
     margin: 0.5em
 
 body
+    font-family: sans-serif
     margin: 0
     padding: 0 1em
     background-image: url('https://thumbs.dreamstime.com/b/frog-illustration-vintage-woodcut-engraving-th-century-frog-illustration-vintage-woodcut-128721097.jpg')
@@ -37,13 +39,15 @@ body
     ul
         margin: 0
 
-
 .footer img
     width: 20vw
 
 li
     padding: 0.2em
     margin: 0.1em
+    pre
+        a
+            color: black
 
 ul
     list-style-type: square
@@ -69,3 +73,14 @@ pre
 img
     max-width: 80%
 
+pre[class^="language-"]
+    padding: 1.2em
+    font-size: 120%
+    overflow-wrap: anywhere
+    font-family: jetbrains-mono
+    font-variant-ligatures: discretionary-ligatures
+    white-space: break-spaces
+
+@font-face
+    font-family: jetbrains-mono
+    src: url(fonts/jetbrains-mono.woff2)

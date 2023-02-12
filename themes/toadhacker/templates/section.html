@@ -18,7 +18,8 @@
     <div>
         <ul>
     {% for page in section.pages %}
-    <li> <pre><a href="{{page.permalink}}">{{page.slug}}</a></pre> </li>
+    <li> <pre>{{page.date | date}} - <a href="{{page.permalink}}">{{page.slug}}</a></pre> </li>
+    <!-- {{page.summary | safe}} -->
     {% endfor %}
     </ul>
     </div>

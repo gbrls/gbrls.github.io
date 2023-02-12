@@ -9,6 +9,8 @@ language.  As a Teaching Assistant for it, I believe I must become a C
 wizard and scare the students with some esoteric magical spells. So, this is
 going to be a series of posts about weird (and maybe useful) stuff in C.
 
+<!-- more -->
+
 ## Homoiconicity
 It's a word known by Lisp users and Programming Language nerds. It's a
 really important feature of Lisp ([I talked a bit about it](/mk-lisp-0) in my Make a Lisp
