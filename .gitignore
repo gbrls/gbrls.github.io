@@ -6,3 +6,5 @@ public
 ./scripts/ignore
 ./scripts/ignore/*
 .DS_Store
+._*
+._
