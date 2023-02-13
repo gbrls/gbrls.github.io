@@ -2,4 +2,4 @@
 title = "Gabriel Schneider"
 +++
 
-Welcome to my little corner of the internet.</p> <a href=\"/about-here\">For more info about here.
+Welcome to my little corner of the internet [More info about here](/about-here).
