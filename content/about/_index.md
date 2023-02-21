@@ -1,8 +1,7 @@
 +++
-title = "about here"
 +++
 
-## Motivations and Philosophy
+# Motivations and Philosophy
 
 This website is part of a larger of system of notes and knowledge that I'm
 maintaining for myself. What you see here is the small window that I chose to
@@ -19,7 +18,7 @@ My biggest inspirations are:
 
 ---
 
-### Tech
+## Tech
 
 For HTML generation this website uses [zola](https://github.com/getzola/zola).
 It's hosted on Github Pages and it uses Github Actions to [fetch files from my
@@ -31,3 +30,21 @@ here](https://github.com/gbrls/gbrls.github.io).
 
 [Se here](/blog/current-organizational-structure.md) for a historic backgroud of
 how my notes system evolved.
+
+# Me
+
+Hey there I'm Gabriel Schneider.
+
+I'm currently working as a Red Teamer and focusing on improving my offensive
+security skills. I have a background in compilers, competitive programming, and
+in low level, and embedded development.
+
+My main interests are
+Computers, Sci-Fi and Art.
+
+Feel free to reach me out for feedbacks, project ideas, (anything really), on
+social media or at:
+
+> `gabrielschneider100 at protonmail dot com`
+
+gbrls stands for **g**a**br**ie**l** **s**chneider.
