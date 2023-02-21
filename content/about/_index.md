@@ -21,12 +21,12 @@ My biggest inspirations are:
 ## Tech
 
 For HTML generation this website uses [zola](https://github.com/getzola/zola).
-It's hosted on Github Pages and it uses Github Actions to [fetch files from my
-Dropbox](https://github.com/gbrls/action-dropbox-download) and update the
-website. All the source code is [hosted
+Depending where you're reading this website is either on Github Pages or
+self-hosted by me. I write my blogs on my Dropbox folder in they're sent
+automatically here, I wrote a custom script for it.
+
+Most of the source code is [hosted
 here](https://github.com/gbrls/gbrls.github.io).
-
-
 
 [Se here](/blog/current-organizational-structure.md) for a historic backgroud of
 how my notes system evolved.
