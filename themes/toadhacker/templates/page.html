@@ -3,18 +3,18 @@
 
 {% block content %}
 
-
-
-<div>
-<h1>{{page.title}}</h1>
-<p class="date"> 
-{{page.date | date}}
-|
-{{page.reading_time}} min 
-</p>
-</div>
-<div>
-{{page.content | safe}}
-</div>
+<article>
+    <div>
+        <h1>{{page.title}}</h1>
+        <p class="date">
+            {{page.date | date(format="%B %u, %Y")}}
+            |
+            {{page.reading_time}} min
+        </p>
+    </div>
+    <div>
+        {{page.content | safe}}
+    </div>
+</article>
 
 {% endblock %}

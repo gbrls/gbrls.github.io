@@ -5,29 +5,34 @@
 
 <head>
     <link rel="stylesheet" href="{{ get_url(path="main.css", trailing_slash=false) }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="gbrls's hacking blog">
+    <title>gbrls's blog</title>
+
 </head>
 
 <body>
 
-{% set rootsec = get_section(path="_index.md") %}
+    {% set rootsec = get_section(path="_index.md") %}
 
-<div class="toplist">
-    <ul>
+    <nav class="toplist">
+        <ul>
 
-        <li><a href="/"><code>home</code></a></li>
-        {% for sec in rootsec.subsections | sort %}
+            <li><a href="/"><code>~/</code></a></li>
+            {% for sec in rootsec.subsections | sort %}
 
-        {%set section = get_section(path=sec) %}
-        <li><a href="{{section.permalink}}"><code>{{section.path}}</code></a></li>
+            {%set section = get_section(path=sec) %}
+            <li><a href="{{section.permalink}}"><code>{{section.path}}</code></a></li>
 
-        {% endfor %}
-    </ul>
-</div>
+            {% endfor %}
 
-    <div class="content">
-    {% block content %}{% endblock content %}
-    </div>
+            <li><a href="/rss.xml"><code>/rss/</code></a></li>
+        </ul>
+    </nav>
 
+    <main class="content">
+        {% block content %}{% endblock content %}
+    </main>
 </body>
 
 </html>

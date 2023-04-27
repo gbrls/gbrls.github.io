@@ -1,14 +1,26 @@
 +++
 +++
 
-# Motivations and Philosophy
-
-This website is part of a larger of system of notes and knowledge that I'm
-maintaining for myself. What you see here is the small window that I chose to
-show to the Internet.
+Hey there I'm Gabriel Schneider.
 
 
-My biggest inspirations are:
+I'm a long time computer person, trying to build and destroy stuff, I'm a hacker.
+
+I'm working as a Red Teamer in a ecommerce company.
+
+I have a background in compilers, programming languages, competitive programming, and
+in low level / embedded development.
+
+Feel free to reach me out for feedback, project ideas, (anything really), on
+social media or at:
+
+[PGP key](/pgp.txt).
+
+> `gabrielschneider100 at protonmail dot com`
+
+---
+
+My biggest inspirations for building this blog are:
 
 - [Andy Matuschak's work](https://andymatuschak.org/)
 - [Asimov's _"Prime Radiant"_ device](https://en.wikipedia.org/wiki/Psychohistory_(fictional)#The_Prime_Radiant)
@@ -16,9 +28,6 @@ My biggest inspirations are:
 
 
 
----
-
-## Tech
 
 For HTML generation this website uses [zola](https://github.com/getzola/zola).
 Depending where you're reading this website is either on Github Pages or
@@ -30,21 +39,3 @@ here](https://github.com/gbrls/gbrls.github.io).
 
 [Se here](/blog/current-organizational-structure.md) for a historic backgroud of
 how my notes system evolved.
-
-# Me
-
-Hey there I'm Gabriel Schneider.
-
-I'm currently working as a Red Teamer and focusing on improving my offensive
-security skills. I have a background in compilers, competitive programming, and
-in low level, and embedded development.
-
-My main interests are
-Computers, Sci-Fi and Art.
-
-Feel free to reach me out for feedbacks, project ideas, (anything really), on
-social media or at:
-
-> `gabrielschneider100 at protonmail dot com`
-
-gbrls stands for **g**a**br**ie**l** **s**chneider.
