@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: toadhacker
       - uses: gbrls/action-dropbox-download@v1.0.2
         with:
           dropbox-refresh-token: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
