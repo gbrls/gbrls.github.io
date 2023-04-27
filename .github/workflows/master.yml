@@ -21,6 +21,7 @@ jobs:
           destination-path: 'from-dropbox'   
       - name: 'Filter files to publish'
         run: |
+          git config --global --add safe.directory /github/workspace
           ls
           sudo chmod -R 666 from-dropbox
           sudo find from-dropbox
