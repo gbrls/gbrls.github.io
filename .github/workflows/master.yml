@@ -21,7 +21,6 @@ jobs:
           destination-path: 'from-dropbox'   
       - name: 'Filter files to publish'
         run: |
-          git config --global --add safe.directory /github/workspace
           ls
           sudo chmod -R 666 from-dropbox
           sudo find from-dropbox
@@ -29,6 +28,8 @@ jobs:
           sudo ./scripts/filter.py from-dropbox ./content > p-output.txt
           sudo cat p-output.txt
           sudo find content
+          git config --global --add safe.directory '*'
+
       - name: Zola Deploy to Pages
         uses: shalzz/zola-deploy-action@v0.16.1
         env:
