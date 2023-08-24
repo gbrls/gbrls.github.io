@@ -18,21 +18,21 @@ body
     top: 0
     width: 105%
     padding: 0
-    margin-top: -8px
-    margin-left: -8px
-    margin-bottom: 8px
-    color: green
-    background-color: beige
+    margin-top: -0.2em
+    margin-left: -1.1em
+    margin-bottom: 1.1em
+    color: #56949f
+    background-color: #f2e9e1
     list-style-type: hebrew
-    font-size: 1.5em
+    font-size: 1.2em
 
     a
-        color: black
+        color: #9893a5
         text-decoration: wavy
         font-weight: bold
 
     a:hover
-        color: green
+        color: #286983
 
     li
         list-style-type: hebrew
@@ -45,6 +45,7 @@ body
     width: 20vw
 
 li
+    text-wrap: wrap
     padding: 0.2em
     margin: 0.1em
     pre
@@ -52,33 +53,56 @@ li
         a
             text-decoration: none
             font-weight: bold
-            color: black
+            color: #286983
 
 ul
     list-style-type: square
     overflow: hidden
     margin: 0
 
-h1
-    margin-top: 1.2em
-
-    border-bottom: 2px solid green
-    border-image: linear-gradient(to right, green,40%, white) 1
 
 pre
     margin: 0
+
+h1
+    margin-top: 1.2em
+
+    border-bottom: 3px solid green
+    border-image: linear-gradient(to right, #286983,20%, #fffaf3) 1
+    pre
+        margin: 0
+        background-color: #fffaf3	!important
+        border-width: 0px !important
+        border-color: #908caa !important
+        border-style: none !important
+
 
 .content
     padding: 2em
     margin: 0em auto
     margin-bottom: 5em
-    background-color: #f7f7f7
-    color: #333333
-    min-width: 10em
+    background-color: #fffaf3	
+    color: #575279
+    min-width: 80vw
     max-width: 50em
 
+    pre
+        margin: 0
+        border-radius: 4% !important
+        color: #907aa9 !important
+        background-color: #faf4ed !important
+        border-width: 2px !important
+        border-color: #908caa !important
+        border-style: dashed !important
+        code
+            background-color: #faf4ed
+            span
+                padding-top:  2em
+                padding-bottom: 2em
+                border-radius: 2% !important
+
 a
-    color: #0077b6
+    color: #56949f
 
 img
     max-width: 80%
@@ -96,7 +120,7 @@ pre[class^="language-"]
     src: url(fonts/jetbrains-mono.woff2)
 
 a[href*="danger-zone"]:hover
-    color: darkred
+    color: #b4637a
 
 article
     line-height: 1.5
