@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MyLisp Interpreter on gbrls</title>
+    <link>http://localhost:1313/series/mylisp-interpreter/</link>
+    <description>Recent content in MyLisp Interpreter on gbrls</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+    <lastBuildDate>Mon, 30 Mar 2020 16:24:43 -0300</lastBuildDate><atom:link href="http://localhost:1313/series/mylisp-interpreter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>myLisp Interpreter 1: Lexer and Parser</title>
+      <link>http://localhost:1313/blog/mk-lisp-1/</link>
+      <pubDate>Mon, 30 Mar 2020 16:24:43 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/mk-lisp-1/</guid>
+      <description>This is the second part of a series of articles that I&amp;rsquo;m writing to document by progress on building a Interpreter for myLisp, a lisp-like language. For the previous post click here.
+# What is an interpreter? # An Interpreter is a program that takes souce code as input and executes it. It is composed of several parts, today we are going to write a lexer and a parser.
+The lexer will read a string of characters and output a vector of tokens, with some information attached to them like its type.</description>
+      
+    </item>
+    
+    <item>
+      <title>myLisp Interpreter 0: What is Lisp?</title>
+      <link>http://localhost:1313/blog/mk-lisp-0/</link>
+      <pubDate>Sun, 29 Mar 2020 02:56:40 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/mk-lisp-0/</guid>
+      <description>This is the first part of a series of articles that I&amp;rsquo;ll be writing to document my progress on building a interpreter for a Lisp-like language.
+I&amp;rsquo;ve been interested in learning different programming languages for a while now, I&amp;rsquo;ve read the first chapters of Haskell and Lisp books recently and the one that hooked me on was Land of lisp. Lisp&amp;rsquo;s simplicity really struck me: from very simple building blocks you can create anything in such an elegant and simple way.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Português on gbrls</title>
+    <link>http://localhost:1313/categories/portugu%C3%AAs/</link>
+    <description>Recent content in Português on gbrls</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+    <lastBuildDate>Wed, 05 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/portugu%C3%AAs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solução OBI 2018 Baldes</title>
+      <link>http://localhost:1313/blog/obi2018-baldes/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-baldes/</guid>
+      <description>Enunciado
+Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho \(10^5\) e \(10^5\) queries dentro desse intervalo. Iremos fazer uma segtree para o mínimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.
+Porém após implementar a primeira solução e não funcionar fiz uma segunda leitura e percebi que o max e o min não podem estar no mesmo balde (na mesma posição no vetor).</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Bolas</title>
+      <link>http://localhost:1313/blog/obi2018-bolas/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-bolas/</guid>
+      <description>Enunciado.
+Como o tamano do vetor é \(8\) e temos sempre \(8\) números para escolher, existem \(8!\) permutações possíveis. Como \(8!\) é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com next_permutation. Segue uma solução de backtracking:
+#include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int vet[9]={}; int solve(int pos, int n) { if(pos==8) return 1; int ans=0; for(int i=0;i&amp;lt;=9;i++) { if(n != i &amp;amp;&amp;amp; vet[i]) { vet[i]--; ans|=solve(pos+1,i); vet[i]++; } } return ans; } int main() { for(int i=0;i&amp;lt;8;i++) { int aux; scanf(&amp;#34;%d&amp;#34;,&amp;amp;aux); vet[aux]++; } int ans=solve(0,-1); puts(ans?</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Cinco</title>
+      <link>http://localhost:1313/blog/obi2018-cinco/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-cinco/</guid>
+      <description>Enunciado
+Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):
+O dígito mais significativo que for trocado por um número maior do que ele (na falha do primeiro) O dígito menos significativo que for trocado por um número menor do que ele #include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int main() { int n; scanf(&amp;#34;%d&amp;#34;,&amp;amp;n); int arr[n]; for(int i=0;i&amp;lt;n;i++) scanf(&amp;#34;%d&amp;#34;,&amp;amp;arr[i]); for(int i=0;i&amp;lt;n;i++) { if(arr[i]&amp;lt;arr[n-1]&amp;amp;&amp;amp;(arr[i]==0||arr[i]==5)) { swap(arr[i],arr[n-1]); for(int j=0;j&amp;lt;n;j++) printf(&amp;#34;%d%c&amp;#34;,arr[j],j==n-1?&amp;#39;\n&amp;#39;:&amp;#39; &amp;#39;); exit(0); } } for(int i=n-1;i&amp;gt;=0;i--) { if(arr[i]==0||arr[i]==5) { swap(arr[i],arr[n-1]); for(int j=0;j&amp;lt;n;j++) printf(&amp;#34;%d%c&amp;#34;,arr[j],j==n-1?</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Maximin</title>
+      <link>http://localhost:1313/blog/obi2018-maximin/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-maximin/</guid>
+      <description> Enunciado
+Como o tamanho máximo do vetor é \(10^5\) podemos ordená-lo. Fazendo isso podemos ver que o número que estamos procurando está entre dois números vizinhos no vetor ou está em alguma das extremidades.
+#include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int main() { int n,r,l; scanf(&amp;#34;%d%d%d&amp;#34;,&amp;amp;n,&amp;amp;r,&amp;amp;l); int arr[n]; for(int i=0;i&amp;lt;n;i++) scanf(&amp;#34;%d&amp;#34;,&amp;amp;arr[i]); sort(arr,arr+n); int dif=0; for(int i=1;i&amp;lt;n;i++) { int mid=(arr[i]+arr[i-1])/2; if(mid&amp;gt;=r&amp;amp;&amp;amp;mid&amp;lt;=l) dif=max(dif,min(abs(mid-arr[i]),abs(mid-arr[i-1]))); } if(l&amp;gt;arr[n-1]) dif=max(dif, l-arr[n-1]); if(r&amp;lt;arr[0]) dif=max(dif,arr[0]-r); printf(&amp;#34;%d\n&amp;#34;,dif); return 0; } </description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Muro</title>
+      <link>http://localhost:1313/blog/obi2018-muro/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-muro/</guid>
+      <description> Enunciado
+Podemos criar uma função recursiva \(f\):
+$$ f(0) = 1 $$
+$$ f(n) = f(n-1) + 4f(n-2) + 2f(n-3) \quad \text{para } n &amp;gt; 0 $$
+Como existem estados que irão se repetir, podemos usar um vetor para guardar o valor da função já computados.
+#include &amp;lt;bits/stdc++.h&amp;gt; #define int long long int using namespace std; const int mod = 1e9+7; const int MAX = 1e4+20; int dp[MAX]={}; int solve(int pos) { if(pos==0) return 1; if(~dp[pos]) return dp[pos]; int ans=0; ans = (ans+solve(pos-1))%mod; if(pos&amp;gt;=2) ans = (ans+4*solve(pos-2))%mod; if(pos&amp;gt;=3) ans = (ans+2*solve(pos-3))%mod; return dp[pos]=ans; } int32_t main() { memset(dp,-1,sizeof(dp)); int n; scanf(&amp;#34;%lld&amp;#34;,&amp;amp;n); printf(&amp;#34;%lld\n&amp;#34;,solve(n)); return 0; } </description>
+      
+    </item>
+    
+  </channel>
+</rss>

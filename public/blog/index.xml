@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blogs index on gbrls</title>
+    <link>http://localhost:1313/blog/</link>
+    <description>Recent content in blogs index on gbrls</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+    <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a free Burp Collaborator with Cloudflare Workers</title>
+      <link>http://localhost:1313/blog/building-a-free-burp-collaborator-with-cloudflare-workers/</link>
+      <pubDate>Thu, 02 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/building-a-free-burp-collaborator-with-cloudflare-workers/</guid>
+      <description>Burp collaborator is the thing that I miss the most in the free community version, and after that is the search. The Burp Collaborator is a tool that generates a domain and any interaction with that domain via DNS, HTTP and SMTP (maybe others are available too).
+Anyways, Burp Collaborator is really useful, but it&amp;rsquo;s paid (I can&amp;rsquo;t recommend it to everyone because of that) and it&amp;rsquo;s made to work inside Burp Suite, which comes with a whole set of limitations.</description>
+      
+    </item>
+    
+    <item>
+      <title>Thoughts after passing the OSWE</title>
+      <link>http://localhost:1313/blog/thoughts-after-passing-the-oswe/</link>
+      <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/thoughts-after-passing-the-oswe/</guid>
+      <description>Last weekend I got this email:
+Dear Gabriel, We are happy to inform you that you have successfully completed the Advanced Web Attacks and Exploitation certification exam and have obtained your Offsec Web Expert (OSWE) certification.
+There&amp;rsquo;s something weird about opening those emails which contain the result of something that I really wanted. Result in Rust&amp;rsquo;s semantics, a Sum type, which before opening it, I don&amp;rsquo;t know if it worked or not.</description>
+      
+    </item>
+    
+    <item>
+      <title>CVE-2023-33617 Writeup</title>
+      <link>http://localhost:1313/blog/cve-2023-33617-writeup/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/cve-2023-33617-writeup/</guid>
+      <description>This CVE is an Authenticated Command Injection vulnerability. It affects Parks Fiberlink 210 routers, in the firmware version V2.1.14_X000.
+This vulnerability has already been fixed in the version V2.1.15_X000, but there are several vulnerable routers on the Internet.
+Parks is a Brazillian company that sells devices for enterprise, they seem to be the only ones who sell this router.
+I&amp;rsquo;ve written an exploit in Python, here it is. It leverages the default credentials, which are admin:parks, and checks if the version is vulnerable.</description>
+      
+    </item>
+    
+    <item>
+      <title>The Inevitability of Getting Owned</title>
+      <link>http://localhost:1313/blog/the-inevitability-of-getting-owned/</link>
+      <pubDate>Tue, 09 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/the-inevitability-of-getting-owned/</guid>
+      <description>In this blog I&amp;rsquo;ll show the connections between hacking and Computing Theory to show how getting owned is inevitable.
+Basic definition of a turing machine # Let&amp;rsquo;s start with a simple definition of a turing machine. So, our basic turing machine has a few parts:
+A tape, which we can write any symbols we like. A head, which is fixed on the tape, can move left, right, read symbols from the tape, and write symbols in it.</description>
+      
+    </item>
+    
+    <item>
+      <title>Getting Hands Dirty with Hacking</title>
+      <link>http://localhost:1313/blog/getting-hands-dirty-with-hacking/</link>
+      <pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/getting-hands-dirty-with-hacking/</guid>
+      <description>Intro &amp;amp; Motivation # For a a while now I have been thinking about writing this. Earlier I&amp;rsquo;ve written about getting into Cybersecurity, I was about a month into my internship and it was much more about my reaction to: &amp;ldquo;You&amp;rsquo;re going to Security now, good luck young one&amp;rdquo;.
+Now I&amp;rsquo;m five months in, and many things have changed. I&amp;rsquo;m still here (literally here, I work from home), I&amp;rsquo;m still an intern, but still, things are very different.</description>
+      
+    </item>
+    
+    <item>
+      <title>Making and Writing Games</title>
+      <link>http://localhost:1313/blog/making-and-writing-games/</link>
+      <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/making-and-writing-games/</guid>
+      <description>Making and Writing Games # Background # Making games has been big part of my motivation to code since the start. One of the first things that I did was to write games in ActionScript 2 in Flash, they weren&amp;rsquo;t good and I didn&amp;rsquo;t even publish them, but it was an important stepping stone for me.
+I love writing and programming, so the project to make a story driven game has been for a long time in the back of my head.</description>
+      
+    </item>
+    
+    <item>
+      <title>Pinging Servers from Recife</title>
+      <link>http://localhost:1313/blog/pinging-servers-from-recife/</link>
+      <pubDate>Mon, 17 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/pinging-servers-from-recife/</guid>
+      <description> Pinging Servers from Recife # I&amp;rsquo;m setting up a VPS in Vultr and testing different locations for it.
+Those are my results pinging from Recife to anyone who&amp;rsquo;s interested:
+71 ms Recife - São Paulo 168 ms Recife - Miami 183 ms Recife - New Jersey 283 ms Recife - Madrid </description>
+      
+    </item>
+    
+    <item>
+      <title>Psychedelic Programming Languages</title>
+      <link>http://localhost:1313/blog/psychedelic-programming-languages/</link>
+      <pubDate>Fri, 09 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/psychedelic-programming-languages/</guid>
+      <description>A bit of background # I started programming to make simple webpages and Flash games. To me it was about interacting with those systems, adding automation to them. Not long after that I started coding robots with Arduino and it was still just that, automating turning on a led, reading a value, writing something to a terminal, etc.
+It started to change when I discovered The Coding Train, through that I started to see, actually see how complex and amazing could be the things you did with code.</description>
+      
+    </item>
+    
+    <item>
+      <title>New things here</title>
+      <link>http://localhost:1313/blog/new-things-here/</link>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/new-things-here/</guid>
+      <description>New things here # Hey there, this website has been through some changes recently. Most of them came from insights that I had from learning Github Actions. Others came from me applying the Unix philosophy in my note-taking systems.
+I finally with integrated my PKMS. This means that my personal notes can be very easily put here, no need to copy them to somewhere else, this website will update itself directly from my Dropbox.</description>
+      
+    </item>
+    
+    <item>
+      <title>C Wizardry - Homoiconicity in C</title>
+      <link>http://localhost:1313/blog/c-gems-homoiconicity-in-c/</link>
+      <pubDate>Sat, 22 May 2021 20:52:39 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/c-gems-homoiconicity-in-c/</guid>
+      <description>C Wizardry intro # Sometimes I find some neat, crazy, cryptic features of the C programming language. As a Teaching Assistant for it, I believe I must become a C wizard and scare the students with some esoteric magical spells. So, this is going to be a series of posts about weird (and maybe useful) stuff in C.
+Homoiconicity # It&amp;rsquo;s a word known by Lisp users and Programming Language nerds.</description>
+      
+    </item>
+    
+    <item>
+      <title>When Things Are Too Smart</title>
+      <link>http://localhost:1313/blog/when-things-are-too-smart/</link>
+      <pubDate>Wed, 14 Apr 2021 15:28:33 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/when-things-are-too-smart/</guid>
+      <description>The Perpetrator # This bad boy here, he&amp;rsquo;s too smart.
+I bought it in Israel for about 70 NIS, it was a good deal. I was really happy with this purchase and it had served me well for a long time. I recently got back to the hobby of making hardware projects. I have a tiny power supply that has an USB port and this Power Bank would connect to it and power what is connected to the power supply.</description>
+      
+    </item>
+    
+    <item>
+      <title>Binary Binary Tree</title>
+      <link>http://localhost:1313/blog/binbin-tree/</link>
+      <pubDate>Tue, 23 Feb 2021 20:22:52 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/binbin-tree/</guid>
+      <description>The trick # I really like tricks with binary numbers. This one I was using to test digital systems.
+So, were does this come from? Is this generated by some slow recursive algorithm? No! This complete binary tree is generated by this code:
+if (col &amp;amp; (1 &amp;lt;&amp;lt; line)) != 0 { *pixel = c[line % c.len()]; } How it works # So, how does this work? Well, let&amp;rsquo;s count binary numbers.</description>
+      
+    </item>
+    
+    <item>
+      <title>myLisp Interpreter 1: Lexer and Parser</title>
+      <link>http://localhost:1313/blog/mk-lisp-1/</link>
+      <pubDate>Mon, 30 Mar 2020 16:24:43 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/mk-lisp-1/</guid>
+      <description>This is the second part of a series of articles that I&amp;rsquo;m writing to document by progress on building a Interpreter for myLisp, a lisp-like language. For the previous post click here.
+# What is an interpreter? # An Interpreter is a program that takes souce code as input and executes it. It is composed of several parts, today we are going to write a lexer and a parser.
+The lexer will read a string of characters and output a vector of tokens, with some information attached to them like its type.</description>
+      
+    </item>
+    
+    <item>
+      <title>myLisp Interpreter 0: What is Lisp?</title>
+      <link>http://localhost:1313/blog/mk-lisp-0/</link>
+      <pubDate>Sun, 29 Mar 2020 02:56:40 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/mk-lisp-0/</guid>
+      <description>This is the first part of a series of articles that I&amp;rsquo;ll be writing to document my progress on building a interpreter for a Lisp-like language.
+I&amp;rsquo;ve been interested in learning different programming languages for a while now, I&amp;rsquo;ve read the first chapters of Haskell and Lisp books recently and the one that hooked me on was Land of lisp. Lisp&amp;rsquo;s simplicity really struck me: from very simple building blocks you can create anything in such an elegant and simple way.</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Baldes</title>
+      <link>http://localhost:1313/blog/obi2018-baldes/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-baldes/</guid>
+      <description>Enunciado
+Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho \(10^5\) e \(10^5\) queries dentro desse intervalo. Iremos fazer uma segtree para o mínimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.
+Porém após implementar a primeira solução e não funcionar fiz uma segunda leitura e percebi que o max e o min não podem estar no mesmo balde (na mesma posição no vetor).</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Bolas</title>
+      <link>http://localhost:1313/blog/obi2018-bolas/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-bolas/</guid>
+      <description>Enunciado.
+Como o tamano do vetor é \(8\) e temos sempre \(8\) números para escolher, existem \(8!\) permutações possíveis. Como \(8!\) é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com next_permutation. Segue uma solução de backtracking:
+#include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int vet[9]={}; int solve(int pos, int n) { if(pos==8) return 1; int ans=0; for(int i=0;i&amp;lt;=9;i++) { if(n != i &amp;amp;&amp;amp; vet[i]) { vet[i]--; ans|=solve(pos+1,i); vet[i]++; } } return ans; } int main() { for(int i=0;i&amp;lt;8;i++) { int aux; scanf(&amp;#34;%d&amp;#34;,&amp;amp;aux); vet[aux]++; } int ans=solve(0,-1); puts(ans?</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Cinco</title>
+      <link>http://localhost:1313/blog/obi2018-cinco/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-cinco/</guid>
+      <description>Enunciado
+Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):
+O dígito mais significativo que for trocado por um número maior do que ele (na falha do primeiro) O dígito menos significativo que for trocado por um número menor do que ele #include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int main() { int n; scanf(&amp;#34;%d&amp;#34;,&amp;amp;n); int arr[n]; for(int i=0;i&amp;lt;n;i++) scanf(&amp;#34;%d&amp;#34;,&amp;amp;arr[i]); for(int i=0;i&amp;lt;n;i++) { if(arr[i]&amp;lt;arr[n-1]&amp;amp;&amp;amp;(arr[i]==0||arr[i]==5)) { swap(arr[i],arr[n-1]); for(int j=0;j&amp;lt;n;j++) printf(&amp;#34;%d%c&amp;#34;,arr[j],j==n-1?&amp;#39;\n&amp;#39;:&amp;#39; &amp;#39;); exit(0); } } for(int i=n-1;i&amp;gt;=0;i--) { if(arr[i]==0||arr[i]==5) { swap(arr[i],arr[n-1]); for(int j=0;j&amp;lt;n;j++) printf(&amp;#34;%d%c&amp;#34;,arr[j],j==n-1?</description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Maximin</title>
+      <link>http://localhost:1313/blog/obi2018-maximin/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-maximin/</guid>
+      <description> Enunciado
+Como o tamanho máximo do vetor é \(10^5\) podemos ordená-lo. Fazendo isso podemos ver que o número que estamos procurando está entre dois números vizinhos no vetor ou está em alguma das extremidades.
+#include &amp;lt;bits/stdc++.h&amp;gt; using namespace std; int main() { int n,r,l; scanf(&amp;#34;%d%d%d&amp;#34;,&amp;amp;n,&amp;amp;r,&amp;amp;l); int arr[n]; for(int i=0;i&amp;lt;n;i++) scanf(&amp;#34;%d&amp;#34;,&amp;amp;arr[i]); sort(arr,arr+n); int dif=0; for(int i=1;i&amp;lt;n;i++) { int mid=(arr[i]+arr[i-1])/2; if(mid&amp;gt;=r&amp;amp;&amp;amp;mid&amp;lt;=l) dif=max(dif,min(abs(mid-arr[i]),abs(mid-arr[i-1]))); } if(l&amp;gt;arr[n-1]) dif=max(dif, l-arr[n-1]); if(r&amp;lt;arr[0]) dif=max(dif,arr[0]-r); printf(&amp;#34;%d\n&amp;#34;,dif); return 0; } </description>
+      
+    </item>
+    
+    <item>
+      <title>Solução OBI 2018 Muro</title>
+      <link>http://localhost:1313/blog/obi2018-muro/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/obi2018-muro/</guid>
+      <description> Enunciado
+Podemos criar uma função recursiva \(f\):
+$$ f(0) = 1 $$
+$$ f(n) = f(n-1) + 4f(n-2) + 2f(n-3) \quad \text{para } n &amp;gt; 0 $$
+Como existem estados que irão se repetir, podemos usar um vetor para guardar o valor da função já computados.
+#include &amp;lt;bits/stdc++.h&amp;gt; #define int long long int using namespace std; const int mod = 1e9+7; const int MAX = 1e4+20; int dp[MAX]={}; int solve(int pos) { if(pos==0) return 1; if(~dp[pos]) return dp[pos]; int ans=0; ans = (ans+solve(pos-1))%mod; if(pos&amp;gt;=2) ans = (ans+4*solve(pos-2))%mod; if(pos&amp;gt;=3) ans = (ans+2*solve(pos-3))%mod; return dp[pos]=ans; } int32_t main() { memset(dp,-1,sizeof(dp)); int n; scanf(&amp;#34;%lld&amp;#34;,&amp;amp;n); printf(&amp;#34;%lld\n&amp;#34;,solve(n)); return 0; } </description>
+      
+    </item>
+    
+  </channel>
+</rss>

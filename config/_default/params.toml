@@ -1,0 +1,32 @@
+colorScheme = "blowfish"
+
+defaultBackgroundImage = "pattern.svg"
+#defaultBackgroundImage = "pattern.svg"
+#defaultFeaturedImage = "eoe.png"
+highlightCurrentMenuArea = true
+enableCodeCopy = true
+
+footer.showCopyright = false
+footer.showThemeAttribution = false
+
+header.layout = "basic"
+
+[homepage]
+layout = "background"
+showRecent = true
+cardView = true
+layoutBackgroundBlur = true
+showRecentItems = 9
+
+
+[article]
+showAuthor = false
+showWordCount = false
+showTableOfContents = true
+heroStyle = "background"
+showHero = true
+layoutBackgroundBlur = true
+showAuthorsBadges = true
+
+
+
