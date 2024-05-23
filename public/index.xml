@@ -9,6 +9,18 @@
     
     <lastBuildDate>Thu, 27 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Hello 2024</title>
+      <link>http://localhost:1313/blog/hello-2024/</link>
+      <pubDate>Wed, 22 May 2024 23:31:59 -0300</pubDate>
+      
+      <guid>http://localhost:1313/blog/hello-2024/</guid>
+      <description>With about 40% of the year gone I say hello :)
+I&amp;rsquo;m way behind schedule for what I expected to post here this year, so I&amp;rsquo;m going to make up for it now. I&amp;rsquo;m going to try to cover topics in a cartoonish way like the book &amp;ldquo;Land of Lisp&amp;rdquo; by Conrad Barski, one of my favourites in any topics, it made me completely obsessed with Lisp.
+I want to make things which make people be interested and curious about cool stuff like that book did to me, there could be so much more books like it in so many different topics.</description>
+      
+    </item>
+    
+    <item>
       <title>Building a free Burp Collaborator with Cloudflare Workers</title>
       <link>http://localhost:1313/blog/building-a-free-burp-collaborator-with-cloudflare-workers/</link>
       <pubDate>Thu, 02 Nov 2023 00:00:00 +0000</pubDate>
