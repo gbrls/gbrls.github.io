@@ -18,20 +18,20 @@ printf("hello\n");
 
 {{< /typeit >}}
 
-Welcome to my Blog :frog: here I talk about Hacking, Programming, and Random stuff.
+
+Hi, I'm Gabriel Schneider. My main interests are in Programming, Hacking, 
+Reverse Engineering, CTFs at [ELT](https://ctftime.org/team/9061).
 
 
-This website is hosted by me, and it's programmed by me. I think it's really
-wonderful how we can build a place for ourselves on the Internet where
-everybody else can see it. Unfortunately the Web is not the Internet. It has
-enabled the centralization of content in a handful of platforms and the
-monetization of our browsing. I believe the Internet has a much bigger
-potential to create a space where we can share ideas in a descentralized way,
-follow our interests and access information. I don't have a silver bullet to
-solve those things, but I can see how things can get better. **We are the ones
-who create value to those platforms, the power is in our hands to make a
-change**. For now, this website is hosted on the Web, and until something better
-comes by, I see you there.
+
+It's really wonderful how we can build a place for ourselves on the
+Internet where everybody else can see it.
+
+
+The Internet has a potential to create a space where we can share ideas in a
+descentralized way, follow our interests and access information. **We are the
+ones who create value in it, the power is in our hands to make a
+change**. 
 
 
 If you wish to see more, see the links bellow:
