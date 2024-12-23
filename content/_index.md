@@ -19,7 +19,7 @@ printf("hello\n");
 {{< /typeit >}}
 
 
-Hi, I'm Gabriel Schneider. My main interests are in Programming, Hacking, 
+Hi, I'm [Gabriel Schneider](/about). My main interests are in Programming, Hacking, 
 Reverse Engineering, CTFs at [ELT](https://ctftime.org/team/9061).
 
 
@@ -33,10 +33,5 @@ descentralized way, follow our interests and access information. **We are the
 ones who create value in it, the power is in our hands to make a
 change**. 
 
-
-If you wish to see more, see the links bellow:
-
-- [More about me](/about).
-- [My blogs](/blog).
 
 You can find me on [mastodon](https://infosec.exchange/@gbrls).

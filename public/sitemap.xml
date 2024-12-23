@@ -3,8 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>http://localhost:1313/blog/tfc-2024/</loc>
+    <lastmod>2024-08-12T15:26:51-03:00</lastmod>
+  </url>
+  <url>
     <loc>http://localhost:1313/blog/hello-2024/</loc>
     <lastmod>2024-05-22T23:31:59-03:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/blog/umdctf-2024-cmsc430/</loc>
+    <lastmod>2024-04-28T19:19:27-03:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/blog/umdctf-2024-donations-fixed/</loc>
+    <lastmod>2024-04-28T19:18:00-03:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/blog/umdctf-2024-donations/</loc>
+    <lastmod>2024-04-28T18:57:47-03:00</lastmod>
   </url>
   <url>
     <loc>http://localhost:1313/blog/</loc>

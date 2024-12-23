@@ -10,8 +10,8 @@ Hey there I'm Gabriel Schneider.
 I have dedicated myself for a long time in compilers, programming languages,
 competitive programming, and in low level / embedded development.
 
-I also dabble in multiple forms of Art, I'm a big blender fan, drawing stuff on
-paper and digitally (sometimes with code), making some music and making some
+I also dabble in multiple forms of Art, I'm a big blender fan, [drawing](https://infosec.exchange/@gbrls/112233264149050179) and [painting](https://infosec.exchange/@gbrls/113390782007715877) on
+paper and digitally ([sometimes with code](https://www.youtube.com/watch?v=kVy6o8avAz8)), making [some music](https://www.youtube.com/watch?v=-tFeRQJ43p0) and making some
 videos too.
 
 Feel free to reach me out for feedback, project ideas, (anything really), on

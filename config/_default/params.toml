@@ -14,9 +14,9 @@ header.layout = "basic"
 [homepage]
 layout = "background"
 showRecent = true
-cardView = true
+cardView = false
 layoutBackgroundBlur = true
-showRecentItems = 9
+showRecentItems = 32
 
 
 [article]
