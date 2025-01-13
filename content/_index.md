@@ -5,19 +5,6 @@ path: _index.md
 tags:
 ---
 
-{{< typeit 
-    tag=code
-    breakLines=false
->}}
-
-console.log('hello')
-println!("hello");
-IO.puts "hello"
-printf("hello\n");
-
-
-{{< /typeit >}}
-
 
 Hi, I'm [Gabriel Schneider](/about). My main interests are in Programming, Hacking, 
 Reverse Engineering, CTFs at [ELT](https://ctftime.org/team/9061).

@@ -2,7 +2,7 @@
 title: Thoughts after passing the OSWE
 date: 2023-09-07
 publish: true
-tags: []
+tags: ["web"]
 ---
 
 Last weekend I got this email:

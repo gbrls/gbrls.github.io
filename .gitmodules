@@ -1,0 +1,3 @@
+[submodule "themes/risoto"]
+	path = themes/risoto
+	url = git@github.com:gbrls/risoto.git

@@ -1,8 +1,8 @@
 ---
 title: Solução OBI 2018 Muro
 date: 2020-02-05
-tags: ["OBI"]
-categories: ["Português"]
+tags: ["competitive_programming"]
+categories: ["portuguese"]
 ---
 [Enunciado](https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/muro/)  
 Podemos criar uma função recursiva \\(f\\): 
