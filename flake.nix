@@ -1,5 +1,5 @@
 {
-  description = "my blogging setup";
+  description = "my blogging setup...";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
