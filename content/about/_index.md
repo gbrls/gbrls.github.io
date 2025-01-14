@@ -52,15 +52,15 @@ how my notes system evolved.
 Current and past projects.
 
 
-{{< github repo ="gbrls/kurl" >}}
+github repo ="gbrls/kurl"
 
 - Simple HTTP requests for security researchers.
 
-{{< github repo ="gbrls/cabueta" >}}
+github repo ="gbrls/cabueta"
 
 - A DevSecOps tool integrated with Github Actions.
 
-{{< github repo ="gbrls/pentrop" >}}
+github repo ="gbrls/pentrop"
 
 - CLI tool which calculates the shannon entropy of the given data.
 
@@ -68,4 +68,4 @@ Current and past projects.
 
 - Collection of security focused wordlists in brazillian portuguese.
 
-{{< github repo ="gbrls/action-dropbox-download" >}}
+github repo ="gbrls/action-dropbox-download"

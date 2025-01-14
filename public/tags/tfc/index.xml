@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tfc on guest@gbrls.github.io</title>
+    <link>http://localhost:1313/tags/tfc/</link>
+    <description>Recent content in Tfc on guest@gbrls.github.io</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Aug 2024 15:26:51 -0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tfc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>license - tfc 2024</title>
+      <link>http://localhost:1313/blog/tfc-2024/</link>
+      <pubDate>Mon, 12 Aug 2024 15:26:51 -0300</pubDate>
+      <guid>http://localhost:1313/blog/tfc-2024/</guid>
+      <description>This is a writeup for the TFC CTF 2024.&#xA;For the challenge we are provided with a single binary called license.&#xA;Let&amp;rsquo;s check the file:&#xA;$ file license license: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=336b3d35e851f9b302e938e557e766e57ed406b7, for GNU/Linux 3.2.0, stripped What I expected, a regular linux ELF binary, so let&amp;rsquo;s see the security measures:&#xA;$ checksec license Arch: amd64-64-little RELRO: Full RELRO Stack: Canary found NX: NX enabled PIE: PIE enabled Ok, everything looking normal so far.</description>
+    </item>
+  </channel>
+</rss>

@@ -2,7 +2,7 @@
 title: Building a free Burp Collaborator with Cloudflare Workers
 date: 2023-11-02
 publish: true
-tags:
+tags: ["web"]
 ---
 Burp collaborator is the thing that I miss the most in the free _community
 	version_, and after that is the search. The Burp Collaborator is a tool that generates a domain and any interaction with that domain via DNS, HTTP and SMTP (maybe others are available too).

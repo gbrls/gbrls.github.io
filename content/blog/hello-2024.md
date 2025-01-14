@@ -26,5 +26,5 @@ I learned a lot of new things and joined a Security CTF team, so there are
 topics which I've never covered before. I have an itch to write about those for
 a while now.
 
-{{< youtubeLite id="HM1Zb3xmvMc" label="Land of Lisp- The Music Video!" >}}
+"HM1Zb3xmvMc" label="Land of Lisp- The Music Video!"
 
