@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portuguese on guest@gbrls.github.io</title>
+    <link>http://localhost:1313/categories/portuguese/</link>
+    <description>Recent content in Portuguese on guest@gbrls.github.io</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/portuguese/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solução OBI 2018 Muro</title>
+      <link>http://localhost:1313/blog/obi2018-muro/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/obi2018-muro/</guid>
+      <description>Enunciado&#xA;Podemos criar uma função recursiva \(f\):&#xA;$$ f(0) = 1 $$&#xA;$$ f(n) = f(n-1) + 4f(n-2) + 2f(n-3) \quad \text{para } n &amp;gt; 0 $$&#xA;Como existem estados que irão se repetir, podemos usar um vetor para guardar o valor da função já computados.&#xA;#include &amp;lt;bits/stdc++.h&amp;gt; #define int long long int using namespace std; const int mod = 1e9+7; const int MAX = 1e4+20; int dp[MAX]={}; int solve(int pos) { if(pos==0) return 1; if(~dp[pos]) return dp[pos]; int ans=0; ans = (ans+solve(pos-1))%mod; if(pos&amp;gt;=2) ans = (ans+4*solve(pos-2))%mod; if(pos&amp;gt;=3) ans = (ans+2*solve(pos-3))%mod; return dp[pos]=ans; } int32_t main() { memset(dp,-1,sizeof(dp)); int n; scanf(&amp;#34;%lld&amp;#34;,&amp;amp;n); printf(&amp;#34;%lld\n&amp;#34;,solve(n)); return 0; } </description>
+    </item>
+  </channel>
+</rss>

@@ -1,7 +1,0 @@
-# config/_default/config.toml
-
-baseURL = "https://localhost:1313"
-languageCode = "en"
-
-[taxonomies]
-    series = "series"
