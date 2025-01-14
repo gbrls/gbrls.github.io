@@ -68,10 +68,12 @@ p {
 
 a:link, a:visited {
     color: var(--link);
+    text-decoration: none;
 }
 
 a:hover, a:active, a.active {
     color: var(--hover);
+    text-decoration: none;
 }
 
 /* Lists */

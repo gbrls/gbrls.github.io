@@ -16,7 +16,7 @@ Hi, I'm [Gabriel Schneider](/about). My areas of interest are:
 
 My time is also dedicated to:
 - Offensive Security at [VTEX](https://vtex.com) 
-- CTFs at [ELT](https://ctftime.org/team/9061).
+- CTFs at [ELT](https://epicleet.team/).
 - Computer Engineering at [Centro de Informatica - UFPE](https://cin.ufpe.br)
 
 
