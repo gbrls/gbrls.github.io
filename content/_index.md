@@ -6,19 +6,26 @@ tags:
 ---
 
 
-Hi, I'm [Gabriel Schneider](/about). My main interests are in Programming, Hacking, 
-Reverse Engineering, CTFs at [ELT](https://ctftime.org/team/9061).
+Hi, I'm [Gabriel Schneider](/about). My areas of interest are:
+
+- Reverse Engineering.
+    - about anything interesting
+- Binary Exploitation.
+- Vulnerability Research.
+- Programming.
+
+My time is also dedicated to:
+- Offensive Security at [VTEX](https://vtex.com) 
+- CTFs at [ELT](https://ctftime.org/team/9061).
+- Computer Engineering at [Centro de Informatica - UFPE](https://cin.ufpe.br)
 
 
-
-It's really wonderful how we can build a place for ourselves on the
-Internet where everybody else can see it.
-
-
-The Internet has a potential to create a space where we can share ideas in a
-descentralized way, follow our interests and access information. **We are the
-ones who create value in it, the power is in our hands to make a
-change**. 
-
+My hobbies also include:
+- Painting and Drawing.
+- Playing the drums, keyboard, acoustic guitar, electric bass and harmonica.
+- Learning modern hebrew.
+- Observing and being observed by my three cats: Nyx, Flor and Piolha.
+- Sci-fi.
+- Coffee.
 
 You can find me on [mastodon](https://infosec.exchange/@gbrls).
