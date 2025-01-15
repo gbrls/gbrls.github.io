@@ -8,8 +8,7 @@ tags:
 
 Hi, I'm [Gabriel Schneider](/about). My areas of interest are:
 
-- Reverse Engineering.
-    - about anything interesting
+- Reverse Engineering (anything interesting).
 - Binary Exploitation.
 - Vulnerability Research.
 - Programming.

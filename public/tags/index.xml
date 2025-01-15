@@ -6,8 +6,22 @@
     <description>Recent content in Tags on guest@gbrls.github.io</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Aug 2024 15:26:51 -0300</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jan 2025 14:14:52 -0300</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploitation</title>
+      <link>http://localhost:1313/tags/exploitation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/exploitation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux_kernel</title>
+      <link>http://localhost:1313/tags/linux_kernel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/linux_kernel/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Ctf</title>
       <link>http://localhost:1313/tags/ctf/</link>
@@ -41,6 +55,13 @@
       <link>http://localhost:1313/tags/competitive_programming/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/competitive_programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Binary_exploitation</title>
+      <link>http://localhost:1313/tags/binary_exploitation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/binary_exploitation/</guid>
       <description></description>
     </item>
   </channel>

