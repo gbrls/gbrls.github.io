@@ -201,6 +201,8 @@ void arb_write(int fd, uint64_t addr, uint64_t* data) {
 # Heap magic
 
 
+Oops, the writeup for this part is in progress...
+
 `modprobe_path`, `KASLR`, `kmalloc-1024`
 
 
