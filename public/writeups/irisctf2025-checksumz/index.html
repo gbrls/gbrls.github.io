@@ -305,7 +305,6 @@ also override the <code>name</code> string pointer. This is going to be very use
 we can use the <code>rename</code> <code>ioctl</code> to write to that pointer 48 bytes.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">checksumz_ioctl</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> command, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> arg) {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> file<span style="color:#f92672">-&gt;</span>private_data;
-</span></span><span style="display:flex;"><span>jk
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>file<span style="color:#f92672">-&gt;</span>private_data)
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>EBADFD;
 </span></span><span style="display:flex;"><span>	

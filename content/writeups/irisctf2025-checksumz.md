@@ -168,7 +168,6 @@ we can use the `rename` `ioctl` to write to that pointer 48 bytes.
 ```c
 static long checksumz_ioctl(struct file *file, unsigned int command, unsigned long arg) {
 	struct checksum_buffer* buffer = file->private_data;
-jk
 	if (!file->private_data)
 		return -EBADFD;
 	
