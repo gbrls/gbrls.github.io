@@ -4,6 +4,9 @@ date = 2025-01-14T14:14:52-03:00
 tags = ['exploitation', 'linux_kernel']
 +++
 
+> [CTFtime task](https://ctftime.org/task/29885)
+
+
 # Problem statement
 
 ```goat
