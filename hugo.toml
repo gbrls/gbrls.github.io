@@ -1,6 +1,6 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'guest@gbrls.github.io'
+title = 'gbrls.github.io'
 theme = "risoto"
 
 [params.theme]

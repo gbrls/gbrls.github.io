@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/exploitation/</loc>
+    <lastmod>2025-01-14T14:14:52-03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writeups/irisctf2025-checksumz/</loc>
+    <lastmod>2025-01-14T14:14:52-03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linux_kernel/</loc>
+    <lastmod>2025-01-14T14:14:52-03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-01-14T14:14:52-03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/writeups/</loc>
+    <lastmod>2025-01-14T14:14:52-03:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/ctf/</loc>
     <lastmod>2024-08-12T15:26:51-03:00</lastmod>
   </url><url>
@@ -9,9 +24,6 @@
     <lastmod>2024-08-12T15:26:51-03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/reverse_engineering/</loc>
-    <lastmod>2024-08-12T15:26:51-03:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-08-12T15:26:51-03:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/blog/hello-2024/</loc>

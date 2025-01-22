@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux_kernel on guest@gbrls.github.io</title>
+    <title>Linux_kernel on gbrls.github.io</title>
     <link>http://localhost:1313/tags/linux_kernel/</link>
-    <description>Recent content in Linux_kernel on guest@gbrls.github.io</description>
+    <description>Recent content in Linux_kernel on gbrls.github.io</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 14 Jan 2025 14:14:52 -0300</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/linux_kernel/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>IrisCTF 2025 Checksumz</title>
+      <title>IrisCTF 2025 - Checksumz</title>
       <link>http://localhost:1313/writeups/irisctf2025-checksumz/</link>
       <pubDate>Tue, 14 Jan 2025 14:14:52 -0300</pubDate>
       <guid>http://localhost:1313/writeups/irisctf2025-checksumz/</guid>
-      <description>Problem statement Someone told me that I can write faster programs by putting them into kernel modules, so I replaced my checksum function with a char device.</description>
+      <description>Problem statement m &#34; o S d o u m l e e o s n , e s t o o l I d r m e e p l t a h c a e t d I m y c a c n h e w c r k i s t u e m f f a u s n t c e t r i o p n r o w g i r t a h m s a b c y h a p r u t d t e i v n i g c e t .</description>
     </item>
   </channel>
 </rss>
