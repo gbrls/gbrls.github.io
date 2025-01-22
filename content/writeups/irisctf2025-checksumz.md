@@ -5,6 +5,7 @@ tags = ['exploitation', 'linux_kernel']
 +++
 
 > [CTFtime task](https://ctftime.org/task/29885)
+> [Challenge files](https://github.com/gbrls/pwn/tree/main/iris-2025/checksumz)
 
 
 # Problem statement
