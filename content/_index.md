@@ -28,3 +28,5 @@ My hobbies also include:
 - Coffee.
 
 You can find me on [mastodon](https://infosec.exchange/@gbrls).
+
+[My wiki](https://publish.obsidian.md/0xcafe4200).
