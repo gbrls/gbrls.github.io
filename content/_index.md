@@ -23,7 +23,7 @@ My hobbies also include:
 - Painting and Drawing.
 - Playing the drums, keyboard, acoustic guitar, electric bass and harmonica.
 - Learning modern hebrew.
-- Observing and being observed by my three cats: Nyx, Flor and Piolha.
+- Observing and being observed by my four cats: Nyx, Flor, Piolha and Bilbo.
 - Sci-fi.
 - Coffee.
 
