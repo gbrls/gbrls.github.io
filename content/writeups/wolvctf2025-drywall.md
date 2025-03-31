@@ -1,7 +1,7 @@
 +++
 title = 'Wolvctf2025 Drywall'
 date = 2025-03-31T13:23:52-03:00
-draft = true
+tags = ['exploitation']
 +++
 
 writeup coming soon...
