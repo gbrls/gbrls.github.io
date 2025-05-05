@@ -6,10 +6,10 @@ tags:
 ---
 
 
-Hi, I'm [Gabriel Schneider](/about). My areas of interest are:
+Hi, I'm [Gabriel Schneider (gbrls)](/about),. My areas of interest are:
 
-- Reverse Engineering (anything interesting).
-- Binary Exploitation.
+- Reverse Engineering.
+- Exploit Development.
 - Vulnerability Research.
 - Programming.
 
@@ -26,7 +26,5 @@ My hobbies also include:
 - Observing and being observed by my four cats: Nyx, Flor, Piolha and Bilbo.
 - Sci-fi.
 - Coffee.
-
-You can find me on [mastodon](https://infosec.exchange/@gbrls).
 
 [My wiki](https://publish.obsidian.md/0xcafe4200).
