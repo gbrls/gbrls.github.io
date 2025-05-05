@@ -1,7 +1,7 @@
 +++
 title = 'IrisCTF 2025 - Checksumz'
 date = 2025-01-14T14:14:52-03:00
-tags = ['exploitation', 'linux_kernel']
+tags = ['exploitation', 'linux_kernel', 'ctf']
 +++
 
 > [CTFtime task](https://ctftime.org/task/29885)
