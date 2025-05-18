@@ -145,9 +145,11 @@ Most gadgets found by the tool look like this:
 This is different that I'm used to do when ROP'ing, since x64 the `ret`
 instruction can be used to chain our ROP. Below is the full solution:
 
-from pwn import *
 
 ```python
+
+from pwn import *
+
 context(arch='PowerPC', bits=32, endian='big')
 
 #io = remote('sp33d.play.hfsc.tf', 20020)
