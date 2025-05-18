@@ -3,7 +3,7 @@ title: "umdctf2024 - cmsc430"
 date: 2024-04-28T19:19:27-03:00
 draft: false
 description: ""
-tags: ["reverse_engineering", "ctf"]
+tags: ["rev", "ctf"]
 ---
 
 ### Description
