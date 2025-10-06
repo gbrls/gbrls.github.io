@@ -80,3 +80,9 @@ h1, h2, h3 {
 span[style*="color: #000000"] {
   color: var(--text) !important;
 }
+
+div[style*="background: #f5f5f5"] {
+  background: var(--crust) !important;
+}
+
+
