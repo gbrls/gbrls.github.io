@@ -2,7 +2,7 @@
 #import "./lib.typ": flex, svg_inline
 #show: zebraw
 
-- #link("https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/muro/")[Enunciado]
+- #link("https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/muro/")[Enunciado]
 
 Podemos criar uma função recursiva #svg_inline[f]:
 

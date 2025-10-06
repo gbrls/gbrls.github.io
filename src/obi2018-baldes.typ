@@ -3,7 +3,7 @@
 #show: zebraw
 
 - #link(
-    "https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/baldes/",
+    "https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/baldes/",
   )[Enunciado]
 
 Na minha primeira leitura, vi que esta é uma questão clássica de segtree. Um vetor de tamanho #svg_inline[$10^5$] e #svg_inline[$10^5$] queries dentro desse intervalo. Iremos fazer uma segtree para o mínimo num intervalo e outra para o máximo, sendo a resposta da query em um intervalo o max-min. Para simplificar isso, podemos guardar as duas árvores apenas em um vetor de pairs.

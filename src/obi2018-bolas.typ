@@ -3,7 +3,7 @@
 #show: zebraw
 
 
-- #link("https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/bolas/")[Enunciado].
+- #link("https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/bolas/")[Enunciado].
 
 Como o tamano do vetor é #svg_inline[$8$] e temos sempre #svg_inline[$8$] números para escolher, existem #svg_inline[$8!$] permutações possíveis. Como #svg_inline[$8!$] é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com _next_permutation_. Segue uma solução de backtracking:
 

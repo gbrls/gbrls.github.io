@@ -3,7 +3,7 @@
 #show: zebraw
 
 - #link(
-    "https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/maximin/",
+    "https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/maximin/",
   )[Enunciado]
 
 Como o tamanho máximo do vetor é #svg_inline[10^5] podemos ordená-lo. Fazendo isso podemos ver que o número que estamos procurando está
