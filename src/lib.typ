@@ -64,3 +64,8 @@
     #contents
   ]
 }
+
+#let logos() = {
+  html.frame()[#image("./logo3.svg", width: 8em)]
+  html.frame()[#image("./logo2.svg", width: 8em)]
+}

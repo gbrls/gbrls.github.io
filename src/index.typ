@@ -1,5 +1,8 @@
 #import "lib.typ": separator
 
+#html.frame()[#image("./logo3.svg", width: 8em)]
+#html.frame()[#image("./logo2.svg", width: 8em)]
+#html.frame()[#image("./logo3.svg", width: 8em)]
 #html.frame()[#image("./logo2.svg", width: 8em)]
 
 Hi, I'm Gabriel Schneider (gbrls). My areas of interest are:
