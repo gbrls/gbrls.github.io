@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <ul>
+      <li><a href="https://olimpiada.ic.unicamp.br/pratique/pu/2018/f3/bolas/">Enunciado</a>.</li>
+    </ul>
+    <p>Como o tamano do vetor é <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 5.5 7.513000000000001" width="5.5pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#g537627A16DCED18C7511751015B907A4" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="g537627A16DCED18C7511751015B907A4" overflow="visible">
+            <path d="M 2.75 7.3259997 C 2.211 7.3259997 1.738 7.15 1.342 6.798 C 0.946 6.446 0.748 6.006 0.748 5.467 C 0.748 5.016 0.913 4.609 1.243 4.246 C 1.3199999 4.158 1.562 3.971 1.969 3.685 C 0.968 3.168 0.462 2.497 0.462 1.683 C 0.462 1.1 0.704 0.627 1.177 0.264 C 1.617 -0.077 2.134 -0.242 2.739 -0.242 C 3.355 -0.242 3.894 -0.044 4.345 0.352 C 4.796 0.748 5.027 1.265 5.027 1.87 C 5.027 2.376 4.851 2.827 4.488 3.234 C 4.356 3.377 4.015 3.6299999 3.476 3.971 C 4.323 4.422 4.741 4.994 4.741 5.665 C 4.741 6.666 3.784 7.3259997 2.75 7.3259997 Z M 4.169 5.665 C 4.169 5.093 3.828 4.598 3.146 4.191 L 1.837 5.049 C 1.496 5.269 1.3199999 5.555 1.3199999 5.896 C 1.3199999 6.5559998 2.035 6.963 2.739 6.963 C 3.498 6.963 4.169 6.424 4.169 5.665 Z M 2.75 0.154 C 1.848 0.154 1.089 0.803 1.089 1.683 C 1.089 2.42 1.496 3.014 2.31 3.465 L 3.608 2.6399999 C 4.136 2.299 4.4 1.914 4.4 1.474 C 4.4 0.682 3.575 0.154 2.75 0.154 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span> e temos sempre <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 5.5 7.513000000000001" width="5.5pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#g537627A16DCED18C7511751015B907A4" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="g537627A16DCED18C7511751015B907A4" overflow="visible">
+            <path d="M 2.75 7.3259997 C 2.211 7.3259997 1.738 7.15 1.342 6.798 C 0.946 6.446 0.748 6.006 0.748 5.467 C 0.748 5.016 0.913 4.609 1.243 4.246 C 1.3199999 4.158 1.562 3.971 1.969 3.685 C 0.968 3.168 0.462 2.497 0.462 1.683 C 0.462 1.1 0.704 0.627 1.177 0.264 C 1.617 -0.077 2.134 -0.242 2.739 -0.242 C 3.355 -0.242 3.894 -0.044 4.345 0.352 C 4.796 0.748 5.027 1.265 5.027 1.87 C 5.027 2.376 4.851 2.827 4.488 3.234 C 4.356 3.377 4.015 3.6299999 3.476 3.971 C 4.323 4.422 4.741 4.994 4.741 5.665 C 4.741 6.666 3.784 7.3259997 2.75 7.3259997 Z M 4.169 5.665 C 4.169 5.093 3.828 4.598 3.146 4.191 L 1.837 5.049 C 1.496 5.269 1.3199999 5.555 1.3199999 5.896 C 1.3199999 6.5559998 2.035 6.963 2.739 6.963 C 3.498 6.963 4.169 6.424 4.169 5.665 Z M 2.75 0.154 C 1.848 0.154 1.089 0.803 1.089 1.683 C 1.089 2.42 1.496 3.014 2.31 3.465 L 3.608 2.6399999 C 4.136 2.299 4.4 1.914 4.4 1.474 C 4.4 0.682 3.575 0.154 2.75 0.154 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span> números para escolher, existem <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 8.558 7.513000000000001" width="8.558pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#g537627A16DCED18C7511751015B907A4" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+        <g transform="translate(5.5 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gDE5467B603B02A13D4C4BD511E2D7199" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="g537627A16DCED18C7511751015B907A4" overflow="visible">
+            <path d="M 2.75 7.3259997 C 2.211 7.3259997 1.738 7.15 1.342 6.798 C 0.946 6.446 0.748 6.006 0.748 5.467 C 0.748 5.016 0.913 4.609 1.243 4.246 C 1.3199999 4.158 1.562 3.971 1.969 3.685 C 0.968 3.168 0.462 2.497 0.462 1.683 C 0.462 1.1 0.704 0.627 1.177 0.264 C 1.617 -0.077 2.134 -0.242 2.739 -0.242 C 3.355 -0.242 3.894 -0.044 4.345 0.352 C 4.796 0.748 5.027 1.265 5.027 1.87 C 5.027 2.376 4.851 2.827 4.488 3.234 C 4.356 3.377 4.015 3.6299999 3.476 3.971 C 4.323 4.422 4.741 4.994 4.741 5.665 C 4.741 6.666 3.784 7.3259997 2.75 7.3259997 Z M 4.169 5.665 C 4.169 5.093 3.828 4.598 3.146 4.191 L 1.837 5.049 C 1.496 5.269 1.3199999 5.555 1.3199999 5.896 C 1.3199999 6.5559998 2.035 6.963 2.739 6.963 C 3.498 6.963 4.169 6.424 4.169 5.665 Z M 2.75 0.154 C 1.848 0.154 1.089 0.803 1.089 1.683 C 1.089 2.42 1.496 3.014 2.31 3.465 L 3.608 2.6399999 C 4.136 2.299 4.4 1.914 4.4 1.474 C 4.4 0.682 3.575 0.154 2.75 0.154 Z "/>
+        </symbol>
+        <symbol id="gDE5467B603B02A13D4C4BD511E2D7199" overflow="visible">
+            <path d="M 1.529 7.876 C 1.21 7.876 0.913 7.601 0.946 7.271 L 1.342 2.321 C 1.353 2.134 1.419 2.035 1.529 2.035 C 1.6389999 2.035 1.705 2.123 1.716 2.31 L 2.112 7.271 C 2.145 7.601 1.848 7.876 1.529 7.876 Z M 2.112 0.616 C 2.112 0.957 1.859 1.243 1.529 1.243 C 1.199 1.243 0.946 0.957 0.946 0.616 C 0.946 0.286 1.199 0 1.529 0 C 1.859 0 2.112 0.286 2.112 0.616 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span> permutações possíveis. Como <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 8.558 7.513000000000001" width="8.558pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#g537627A16DCED18C7511751015B907A4" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+        <g transform="translate(5.5 7.513000000000001)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gDE5467B603B02A13D4C4BD511E2D7199" x="0" fill="#ffffff" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="g537627A16DCED18C7511751015B907A4" overflow="visible">
+            <path d="M 2.75 7.3259997 C 2.211 7.3259997 1.738 7.15 1.342 6.798 C 0.946 6.446 0.748 6.006 0.748 5.467 C 0.748 5.016 0.913 4.609 1.243 4.246 C 1.3199999 4.158 1.562 3.971 1.969 3.685 C 0.968 3.168 0.462 2.497 0.462 1.683 C 0.462 1.1 0.704 0.627 1.177 0.264 C 1.617 -0.077 2.134 -0.242 2.739 -0.242 C 3.355 -0.242 3.894 -0.044 4.345 0.352 C 4.796 0.748 5.027 1.265 5.027 1.87 C 5.027 2.376 4.851 2.827 4.488 3.234 C 4.356 3.377 4.015 3.6299999 3.476 3.971 C 4.323 4.422 4.741 4.994 4.741 5.665 C 4.741 6.666 3.784 7.3259997 2.75 7.3259997 Z M 4.169 5.665 C 4.169 5.093 3.828 4.598 3.146 4.191 L 1.837 5.049 C 1.496 5.269 1.3199999 5.555 1.3199999 5.896 C 1.3199999 6.5559998 2.035 6.963 2.739 6.963 C 3.498 6.963 4.169 6.424 4.169 5.665 Z M 2.75 0.154 C 1.848 0.154 1.089 0.803 1.089 1.683 C 1.089 2.42 1.496 3.014 2.31 3.465 L 3.608 2.6399999 C 4.136 2.299 4.4 1.914 4.4 1.474 C 4.4 0.682 3.575 0.154 2.75 0.154 Z "/>
+        </symbol>
+        <symbol id="gDE5467B603B02A13D4C4BD511E2D7199" overflow="visible">
+            <path d="M 1.529 7.876 C 1.21 7.876 0.913 7.601 0.946 7.271 L 1.342 2.321 C 1.353 2.134 1.419 2.035 1.529 2.035 C 1.6389999 2.035 1.705 2.123 1.716 2.31 L 2.112 7.271 C 2.145 7.601 1.848 7.876 1.529 7.876 Z M 2.112 0.616 C 2.112 0.957 1.859 1.243 1.529 1.243 C 1.199 1.243 0.946 0.957 0.946 0.616 C 0.946 0.286 1.199 0 1.529 0 C 1.859 0 2.112 0.286 2.112 0.616 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span> é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com <em>next_permutation</em>. Segue uma solução de backtracking:</p>
+    <div style="position: relative; width: 42em; font-size: 0.8em" class="zebraw-code-block">
+      <div style="position: absolute; top: -0.68em; right: 0; padding: 0.25em; background: #effbf9; font-size: 0.8em; border-radius: 0.34em" class="zebraw-code-lang" translate="no">cpp</div>
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; border-radius: 0.34em">
+        <div style="background: #f5f5f5; width: 100%">
+          <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">#include</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">bits/stdc++.h</span><span style="user-select: none; opacity: 0; color: transparent">></span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">using</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">namespace</span><span style="user-select: none; opacity: 0; color: transparent"> std</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">{</span><span style="user-select: none; opacity: 0; color: transparent">}</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">n</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">==</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;=</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">n </span><span style="user-select: none; opacity: 0; color: transparent">!=</span><span style="user-select: none; opacity: 0; color: transparent"> i </span><span style="user-select: none; opacity: 0; color: transparent">&amp;&amp;</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">--</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">|=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">+</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">main</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> aux</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">scanf</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">%d</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">&amp;</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">-</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">puts</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">?</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">S</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">:</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">N</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+        </div>
+        <div style="background: #f5f5f5; width: 100%">
+          <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
+        </div>
+      </div>
+      <div style="overflow-x: auto; overflow-y: hidden">
+        <div style="width: 100%">
+          <div style="padding: 0.34em 0.34em"></div>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">#include</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #298e0d; font-weight: regular">&lt;</span><span style="color: #298e0d; font-weight: regular">bits/stdc++.h</span><span style="color: #298e0d; font-weight: regular">></span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">using</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">namespace</span><span style="color: #000000; font-weight: regular"> std</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #000000; font-weight: regular">{</span><span style="color: #000000; font-weight: regular">}</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">n</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">==</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;=</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">n </span><span style="color: #d73a49; font-weight: regular">!=</span><span style="color: #000000; font-weight: regular"> i </span><span style="color: #d73a49; font-weight: regular">&amp;&amp;</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">--</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">|=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">+</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">main</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> aux</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">scanf</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #b60157; font-weight: regular">%d</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">&amp;</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">-</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">puts</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">?</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">S</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #d73a49; font-weight: regular">:</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">N</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
+        </div>
+        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
+        </div>
+        <div style="width: 100%">
+          <div style="padding: 0.34em 0.34em"></div>
+        </div>
+      </div>
+      <script>document.querySelectorAll('.zebraw-code-block').forEach(codeBlock => {
+  const copyButton = codeBlock.querySelector('.zebraw-code-lang');
+  if (!copyButton) return;
+
+  copyButton.style.cursor = 'pointer';
+  copyButton.title = 'Click to copy code';
+
+  copyButton.addEventListener('click', () => {
+    const code = Array.from(codeBlock.querySelectorAll('.zebraw-code-line'))
+      .map(line => line.textContent)
+      .join('\n');
+
+    navigator.clipboard.writeText(code)
+      .catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      });
+
+    const originalTitle = copyButton.title;
+    copyButton.title = 'Code copied!';
+    setTimeout(() => copyButton.title = originalTitle, 2000);
+  });
+});</script>
+    </div>
+    <head>
+      <meta charset="UTF-8">
+      <title>0x4200.cafe</title>
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 0)">
+            <g class="typst-group">
+                <g>
+                    <g transform="translate(0 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(39.68503937007874 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(79.37007874015748 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(119.05511811023621 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(158.74015748031496 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(198.4251968503937 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(238.11023622047242 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(277.7952755905511 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+
+    <ul>
+      <li>
+        <p><a href="./index.html">Index</a>...........................</p>
+      </li>
+      <li>
+        <p><a href="./binbin-tree.html">Binary Binary Tree</a>..........<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g85F073375800E29B07651F26D075D320" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="g85F073375800E29B07651F26D075D320" overflow="visible">
+            <path d="M 5.263672 0.55859375 L 5.263672 0.2685547 Q 5.263672 0 4.995117 0 L 1.1816406 0 Q 0.91308594 0 0.91308594 0.2685547 L 0.91308594 0.55859375 Q 0.91308594 0.82714844 1.1816406 0.82714844 L 2.975586 0.82714844 L 2.975586 5.5859375 L 1.1816406 5.5859375 Q 0.91308594 5.5859375 0.91308594 5.854492 L 0.91308594 6.1445313 Q 0.91308594 6.413086 1.1816406 6.413086 Q 1.9873047 6.413086 2.4384766 6.6118164 Q 2.8896484 6.810547 3.1044922 7.3046875 Q 3.2011719 7.5195313 3.4160156 7.5195313 L 3.6201172 7.5195313 Q 3.8886719 7.5195313 3.8886719 7.2509766 L 3.8886719 0.82714844 L 4.995117 0.82714844 Q 5.263672 0.82714844 5.263672 0.55859375 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./c-gems-homoiconicity-in-c.html">Homoiconicity in C</a>..........<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g85F073375800E29B07651F26D075D320" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="g85F073375800E29B07651F26D075D320" overflow="visible">
+            <path d="M 5.263672 0.55859375 L 5.263672 0.2685547 Q 5.263672 0 4.995117 0 L 1.1816406 0 Q 0.91308594 0 0.91308594 0.2685547 L 0.91308594 0.55859375 Q 0.91308594 0.82714844 1.1816406 0.82714844 L 2.975586 0.82714844 L 2.975586 5.5859375 L 1.1816406 5.5859375 Q 0.91308594 5.5859375 0.91308594 5.854492 L 0.91308594 6.1445313 Q 0.91308594 6.413086 1.1816406 6.413086 Q 1.9873047 6.413086 2.4384766 6.6118164 Q 2.8896484 6.810547 3.1044922 7.3046875 Q 3.2011719 7.5195313 3.4160156 7.5195313 L 3.6201172 7.5195313 Q 3.8886719 7.5195313 3.8886719 7.2509766 L 3.8886719 0.82714844 L 4.995117 0.82714844 Q 5.263672 0.82714844 5.263672 0.55859375 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a>...........<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a>............<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a>............<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./obi2018-muro.html">OBI 2018 - Muro</a>.............<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+      <li>
+        <p><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a>..........<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+      </li>
+    </ul>
+  </body>
+</html>
