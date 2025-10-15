@@ -4,7 +4,42 @@
   <title>0x4200.cafe</title>
   <link>https://0x4200.cafe/</link>
   <description>Latest posts from 0x4200.cafe</description>
-  <lastBuildDate>Tue, 14 Oct 2025 15:00:59 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 15 Oct 2025 00:05:36 +0000</lastBuildDate>
+  <item>
+    <title>Making a Lisp - 1</title>
+    <link>https://0x4200.cafe/mk-lisp-1.html</link>
+    <pubDate>Wed, 15 Oct 2025 00:05:15 +0000</pubDate>
+  </item>
+  <item>
+    <title>Making a Lisp - 0</title>
+    <link>https://0x4200.cafe/mk-lisp-0.html</link>
+    <pubDate>Wed, 15 Oct 2025 00:01:05 +0000</pubDate>
+  </item>
+  <item>
+    <title>OBI 2018 - Baldes</title>
+    <link>https://0x4200.cafe/obi2018-baldes.html</link>
+    <pubDate>Tue, 14 Oct 2025 23:51:12 +0000</pubDate>
+  </item>
+  <item>
+    <title>The Inevitability of Getting Pwned</title>
+    <link>https://0x4200.cafe/the-inevitability-of-getting-pwned.html</link>
+    <pubDate>Tue, 14 Oct 2025 23:47:46 +0000</pubDate>
+  </item>
+  <item>
+    <title>OSWE - Some thoughts</title>
+    <link>https://0x4200.cafe/oswe-some-thoughts.html</link>
+    <pubDate>Tue, 14 Oct 2025 23:47:34 +0000</pubDate>
+  </item>
+  <item>
+    <title>Finding a command injection in a router</title>
+    <link>https://0x4200.cafe/router-command-injection.html</link>
+    <pubDate>Tue, 14 Oct 2025 16:19:05 +0000</pubDate>
+  </item>
+  <item>
+    <title>Building a free Burp Collaborator with Cloudflare Workers</title>
+    <link>https://0x4200.cafe/building-a-freeburp-collaborator-with-cloudflare-workers.html</link>
+    <pubDate>Tue, 14 Oct 2025 16:09:38 +0000</pubDate>
+  </item>
   <item>
     <title>OBI 2018 - Bolas</title>
     <link>https://0x4200.cafe/obi2018-bolas.html</link>
@@ -26,11 +61,6 @@
     <pubDate>Mon, 06 Oct 2025 23:15:18 +0000</pubDate>
   </item>
   <item>
-    <title>OBI 2018 - Baldes</title>
-    <link>https://0x4200.cafe/obi2018-baldes.html</link>
-    <pubDate>Mon, 06 Oct 2025 23:15:06 +0000</pubDate>
-  </item>
-  <item>
     <title>Index</title>
     <link>https://0x4200.cafe/index.html</link>
     <pubDate>Mon, 06 Oct 2025 23:11:12 +0000</pubDate>
@@ -39,11 +69,6 @@
     <title>Binary Binary Tree</title>
     <link>https://0x4200.cafe/binbin-tree.html</link>
     <pubDate>Mon, 06 Oct 2025 22:22:29 +0000</pubDate>
-  </item>
-  <item>
-    <title>Homoiconicity in C</title>
-    <link>https://0x4200.cafe/c-gems-homoiconicity-in-c.html</link>
-    <pubDate>Mon, 06 Oct 2025 21:14:14 +0000</pubDate>
   </item>
 </channel>
 </rss>

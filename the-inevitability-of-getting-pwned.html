@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+    <h2>The Inevitability of Getting Pwned</h2>
+    <p>In this blog I'll show the connections between hacking and Computing Theory to show how getting owned is inevitable.</p>
+    <h3>Basic definition of a turing machine</h3>
+    <p>Let's start with a simple definition of a turing machine. So, our basic turing machine has a few parts:</p>
+    <ul>
+      <li>A tape, which we can write any symbols we like.</li>
+      <li>A head, which is fixed on the tape, can move left, right, read symbols from the tape, and write symbols in it.</li>
+      <li>A decidor (<em>more formally, a state machine</em>) that decides what to do next after reading a symbol in the tape.</li>
+    </ul>
+    <p>We say that computers can compute everything that a turing machine computes, and this is the basis for all the modern luxury that we have nowdays thanks to computers. Computers are a complex digital beasts, but their beating heart is still something simple that is very similar to a turing machine, reading instructions, jumping, skipping instructions, writing to memory.</p>
+    <p>But why talk about turing machines here? Well, turing machines are <strong>very robust</strong>, and this is a very good feature for us hackers…</p>
+    <p>According to Michael Sipser in <em>Introduction to the Theory of Computation</em> (which inspired me to write this):</p>
+    <p><em>"We call this invariance to certain changes in the definition <strong>robustness</strong> [..] Turing machines have an astonishing degree of robustness."</em></p>
+    <p>In other words: Computers are general beasts, and they are very resistant to change, <strong>it's hard to make a computer stop being a computer</strong>.</p>
+    <p>One example of this is that if we have a turing machine that has (for example) two tapes and two heads, it actually has the same power as a regular turing machine.</p>
+    <p>This is good for Engineers who build computers because, if you follow the basic ideas of a turing machine when building a computer, well, it'll be able to compute everything.</p>
+    <h3>Brainfuck</h3>
+    <p>Brainfuck (depending who you ask) is the funniest programming language ever. It has a cool name, and it looks like this:</p>
+    <pre>>++++++++[&lt;+++++++++>-]&lt;.>++++[&lt;+++++++>-]&lt;+.+++++++..+++.>>++++++[&lt;+++++++>-]&lt;+ +.------------.>++++++[&lt;+++++++++>-]&lt;+.&lt;.+++.------.--------.>>>++++[&lt;++++++++>- ]&lt;+.</pre>
+    <p>This is a "Hello, world" in brainfuck. After reading it I think you understand where the name comes from.</p>
+    <p>Brainfuck is really simple, it only has the <code>> &lt; + - , . ] [</code> symbols and it can do anything and any other (<em>good</em>) programming language can do; in fact, brainfuck can compute anything that's computable by a turing machine.</p>
+    <p>How do we prove that? To do so, we need to simulate a turing machine using brainfuck, we already know that turing machines have a very flexible (and simple!) definition, thus simulating a turing machine using brainfuck shouldn't be very hard to visualize.</p>
+    <p>When a language can compute anything that a computer can, we call it <strong>turing complete</strong>.</p>
+    <h3>Let's talk about hacking</h3>
+    <p>It's thanks to these principles that we can run Doom on almost anything nowdays. But what about owning stuff?</p>
+    <p>The fundamental thing about computer security is that many systems accept arbitraty user input, and trying to make a computer <strong>not do any computation</strong> with the input that it receives is fundamentally against its nature.</p>
+    <p>Securing computers is mostly an exercise of restricting the general powers of computers, such as isolating networks, blocking access to regions of memory, and monitoring the computer for "unintended/suspicious behaviour".</p>
+    <p>So, the security in computer systems comes as a complexity on top of a simple and very hackable system. And we know that complexity is always fragile, it's prone to mishandle corner cases, miss attack vectors, and in general have unforseen consequences to the system.</p>
+    <p>Sooo… Computers are hackable by nature, hacking is unleashing their most basic functionality (Arbitrary Code Execution).</p>
+    <p>Happy Hacking!</p>
     <head>
       <meta charset="UTF-8">
       <title>0x4200.cafe</title>
