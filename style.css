@@ -31,6 +31,10 @@
   --color-crust:     #11111b;
 }
 
+body {
+  @apply bg-base;
+}
+
 ul {
   @apply list-disc ml-6; /* Tailwind utilities */
 }
