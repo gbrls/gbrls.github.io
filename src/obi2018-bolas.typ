@@ -1,3 +1,6 @@
+#import "html_elements.typ": post
+#show: post
+
 #import "@preview/zebraw:0.5.5": *
 #import "./lib.typ": flex, svg_inline
 #show: zebraw
@@ -48,4 +51,3 @@ Como o tamano do vetor é #svg_inline[$8$] e temos sempre #svg_inline[$8$] núme
   ```
 ]
 
-#include "./html_elements.typ"

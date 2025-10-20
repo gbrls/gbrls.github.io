@@ -1,3 +1,6 @@
+#import "html_elements.typ": post
+#show: post
+
 #import "@preview/zebraw:0.5.5": *
 #import "./lib.typ": flex, svg_inline
 #show: zebraw
@@ -45,4 +48,3 @@ Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):
   ```
 ]
 
-#include "./html_elements.typ"

@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <ul>
-      <li><a href="https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/bolas/">Enunciado</a>.</li>
-    </ul>
-    <p>Como o tamano do vetor é <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 5.5 7.513000000000001" width="5.5pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta charset="UTF-8">
+      <title>0x4200.cafe</title>
+      <link rel="stylesheet" href="style_compiled.css">
+    </head>
+    <div class="font-display bg-base min-h-screen text-text flex">
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+      <div class="flex-auto"></div>
+      <div class="flex-none p-4">
+        <article class="max-w-[110ch] leading-relaxed [&amp;>p]:p-2">
+          <ul>
+            <li><span class="text-blue"><a href="https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/bolas/">Enunciado</a></span> .</li>
+          </ul>
+          <p>Como o tamano do vetor é <span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 5.5 7.513000000000001" width="5.5pt" height="7.513000000000001pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.513000000000001)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -81,297 +91,297 @@
     </defs>
 </svg>
 </span> é pequeno, podemos fazer uma solução de busca completa. Existem de varias soluções possíveis como com <em>next_permutation</em>. Segue uma solução de backtracking:</p>
-    <div style="position: relative; width: 42em; font-size: 0.8em" class="zebraw-code-block">
-      <div style="position: absolute; top: -0.68em; right: 0; padding: 0.25em; background: #effbf9; font-size: 0.8em; border-radius: 0.34em" class="zebraw-code-lang" translate="no">cpp</div>
-      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; border-radius: 0.34em">
-        <div style="background: #f5f5f5; width: 100%">
-          <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">#include</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">bits/stdc++.h</span><span style="user-select: none; opacity: 0; color: transparent">></span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">using</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">namespace</span><span style="user-select: none; opacity: 0; color: transparent"> std</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">{</span><span style="user-select: none; opacity: 0; color: transparent">}</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">n</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">==</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;=</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">n </span><span style="user-select: none; opacity: 0; color: transparent">!=</span><span style="user-select: none; opacity: 0; color: transparent"> i </span><span style="user-select: none; opacity: 0; color: transparent">&amp;&amp;</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">--</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">|=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">+</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">main</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> aux</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">scanf</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">%d</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">&amp;</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">-</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">puts</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">?</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">S</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">:</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">N</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
-        </div>
-        <div style="background: #f5f5f5; width: 100%">
-          <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
-        </div>
-      </div>
-      <div style="overflow-x: auto; overflow-y: hidden">
-        <div style="width: 100%">
-          <div style="padding: 0.34em 0.34em"></div>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">#include</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #298e0d; font-weight: regular">&lt;</span><span style="color: #298e0d; font-weight: regular">bits/stdc++.h</span><span style="color: #298e0d; font-weight: regular">></span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">using</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">namespace</span><span style="color: #000000; font-weight: regular"> std</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #000000; font-weight: regular">{</span><span style="color: #000000; font-weight: regular">}</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">n</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">==</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;=</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">n </span><span style="color: #d73a49; font-weight: regular">!=</span><span style="color: #000000; font-weight: regular"> i </span><span style="color: #d73a49; font-weight: regular">&amp;&amp;</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">--</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">|=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">+</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">main</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> aux</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">scanf</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #b60157; font-weight: regular">%d</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">&amp;</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">-</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">puts</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">?</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">S</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #d73a49; font-weight: regular">:</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">N</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
-        </div>
-        <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
-          <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
-          <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
-        </div>
-        <div style="width: 100%">
-          <div style="padding: 0.34em 0.34em"></div>
-        </div>
-      </div>
-      <script>document.querySelectorAll('.zebraw-code-block').forEach(codeBlock => {
+          <div style="position: relative; width: 42em; font-size: 0.8em" class="zebraw-code-block">
+            <div style="position: absolute; top: -0.68em; right: 0; padding: 0.25em; background: #effbf9; font-size: 0.8em; border-radius: 0.34em" class="zebraw-code-lang" translate="no">cpp</div>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; border-radius: 0.34em">
+              <div style="background: #f5f5f5; width: 100%">
+                <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">#include</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">bits/stdc++.h</span><span style="user-select: none; opacity: 0; color: transparent">></span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">using</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">namespace</span><span style="user-select: none; opacity: 0; color: transparent"> std</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">{</span><span style="user-select: none; opacity: 0; color: transparent">}</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">n</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">==</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;=</span><span style="user-select: none; opacity: 0; color: transparent">9</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">if</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">n </span><span style="user-select: none; opacity: 0; color: transparent">!=</span><span style="user-select: none; opacity: 0; color: transparent"> i </span><span style="user-select: none; opacity: 0; color: transparent">&amp;&amp;</span><span style="user-select: none; opacity: 0; color: transparent"> vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">--</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">|=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">pos</span><span style="user-select: none; opacity: 0; color: transparent">+</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">            </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">main</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">for</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> i</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">&lt;</span><span style="user-select: none; opacity: 0; color: transparent">8</span><span style="user-select: none; opacity: 0; color: transparent">;</span><span style="user-select: none; opacity: 0; color: transparent">i</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> aux</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">scanf</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">%d</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">&amp;</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">        </span><span style="user-select: none; opacity: 0; color: transparent">vet</span><span style="user-select: none; opacity: 0; color: transparent">[</span><span style="user-select: none; opacity: 0; color: transparent">aux</span><span style="user-select: none; opacity: 0; color: transparent">]</span><span style="user-select: none; opacity: 0; color: transparent">++</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">int</span><span style="user-select: none; opacity: 0; color: transparent"> ans</span><span style="user-select: none; opacity: 0; color: transparent">=</span><span style="user-select: none; opacity: 0; color: transparent">solve</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">,</span><span style="user-select: none; opacity: 0; color: transparent">-</span><span style="user-select: none; opacity: 0; color: transparent">1</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">puts</span><span style="user-select: none; opacity: 0; color: transparent">(</span><span style="user-select: none; opacity: 0; color: transparent">ans</span><span style="user-select: none; opacity: 0; color: transparent">?</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">S</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">:</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">N</span><span style="user-select: none; opacity: 0; color: transparent">"</span><span style="user-select: none; opacity: 0; color: transparent">)</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">    </span><span style="user-select: none; opacity: 0; color: transparent"></span><span style="user-select: none; opacity: 0; color: transparent">return</span><span style="user-select: none; opacity: 0; color: transparent"> </span><span style="user-select: none; opacity: 0; color: transparent">0</span><span style="user-select: none; opacity: 0; color: transparent">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%; background: #f5f5f5">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; user-select: none; opacity: 0; color: transparent"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative"><span style="user-select: none; opacity: 0; color: transparent">}</span></pre>
+              </div>
+              <div style="background: #f5f5f5; width: 100%">
+                <div style="padding: 0.34em 0.34em; user-select: none; opacity: 0; color: transparent"></div>
+              </div>
+            </div>
+            <div style="overflow-x: auto; overflow-y: hidden">
+              <div style="width: 100%">
+                <div style="padding: 0.34em 0.34em"></div>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">#include</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #298e0d; font-weight: regular">&lt;</span><span style="color: #298e0d; font-weight: regular">bits/stdc++.h</span><span style="color: #298e0d; font-weight: regular">></span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">using</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">namespace</span><span style="color: #000000; font-weight: regular"> std</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #000000; font-weight: regular">{</span><span style="color: #000000; font-weight: regular">}</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">n</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">==</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;=</span><span style="color: #b60157; font-weight: regular">9</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">if</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">n </span><span style="color: #d73a49; font-weight: regular">!=</span><span style="color: #000000; font-weight: regular"> i </span><span style="color: #d73a49; font-weight: regular">&amp;&amp;</span><span style="color: #000000; font-weight: regular"> vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">--</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">|=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">pos</span><span style="color: #d73a49; font-weight: regular">+</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">            </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #4b69c6; font-weight: regular">main</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular"></span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">for</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> i</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">&lt;</span><span style="color: #b60157; font-weight: regular">8</span><span style="color: #000000; font-weight: regular">;</span><span style="color: #000000; font-weight: regular">i</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #000000; font-weight: regular">{</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> aux</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">scanf</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #b60157; font-weight: regular">%d</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">&amp;</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">        </span><span style="color: #000000; font-weight: regular">vet</span><span style="color: #000000; font-weight: regular">[</span><span style="color: #000000; font-weight: regular">aux</span><span style="color: #000000; font-weight: regular">]</span><span style="color: #d73a49; font-weight: regular">++</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #000000; font-weight: regular">}</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">int</span><span style="color: #000000; font-weight: regular"> ans</span><span style="color: #d73a49; font-weight: regular">=</span><span style="color: #4b69c6; font-weight: regular">solve</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">,</span><span style="color: #d73a49; font-weight: regular">-</span><span style="color: #b60157; font-weight: regular">1</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #4b69c6; font-weight: regular">puts</span><span style="color: #000000; font-weight: regular">(</span><span style="color: #000000; font-weight: regular">ans</span><span style="color: #d73a49; font-weight: regular">?</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">S</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #d73a49; font-weight: regular">:</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #298e0d; font-weight: regular">N</span><span style="color: #298e0d; font-weight: regular">"</span><span style="color: #000000; font-weight: regular">)</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><br></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">    </span><span style="color: #000000; font-weight: regular"></span><span style="color: #d73a49; font-weight: regular">return</span><span style="color: #000000; font-weight: regular"> </span><span style="color: #b60157; font-weight: regular">0</span><span style="color: #000000; font-weight: regular">;</span></pre>
+              </div>
+              <div style="text-align: left; display: flex; align-items: center; width: 100%" class="zebraw-code-line-container" translate="no">
+                <pre style="margin: 0; text-align: right; vertical-align: top; user-select: none; flex-shrink: 0; width: 0; padding: 0.34em 0.65em 0.34em 0.35em; height: 100%; display: flex; justify-content: flex-end; opacity: 0.7"></pre>
+                <pre style="padding-top: 0.34em; padding-bottom: 0.34em; margin: 0; padding-left: 0.34em; padding-right: 0.34em; white-space: pre-wrap; position: relative" class="zebraw-code-line" translate="no"><span style="color: #000000; font-weight: regular">}</span></pre>
+              </div>
+              <div style="width: 100%">
+                <div style="padding: 0.34em 0.34em"></div>
+              </div>
+            </div>
+            <script>document.querySelectorAll('.zebraw-code-block').forEach(codeBlock => {
   const copyButton = codeBlock.querySelector('.zebraw-code-lang');
   if (!copyButton) return;
 
@@ -398,13 +408,9 @@
     setTimeout(() => copyButton.title = originalTitle, 2000);
   });
 });</script>
-    </div>
-    <head>
-      <meta charset="UTF-8">
-      <title>0x4200.cafe</title>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </div>
+        </article>
+        <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 0)">
             <g class="typst-group">
@@ -438,13 +444,13 @@
         </g>
     </g>
 </svg>
-
-    <ul>
-      <li>
-        <p><a href="./index.html">Index</a>...............................................................................</p>
-      </li>
-      <li>
-        <p><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a>.......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+</div>
+        <ul>
+          <li>
+            <p><span class="text-blue"><a href="./index.html">Index</a></span> ...............................................................................</p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a></span> .......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -468,9 +474,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./router-command-injection.html">Finding a command injection in a router</a>.........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./router-command-injection.html">Finding a command injection in a router</a></span> .........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -494,9 +500,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a>............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a></span> ............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -520,9 +526,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a>..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a></span> ..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -546,9 +552,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./binbin-tree.html">Binary Binary Tree</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./binbin-tree.html">Binary Binary Tree</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -572,9 +578,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-1.html">Making a Lisp - 1</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-1.html">Making a Lisp - 1</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -595,9 +601,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-0.html">Making a Lisp - 0</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-0.html">Making a Lisp - 0</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -618,9 +624,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -641,9 +647,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -664,9 +670,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -687,9 +693,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-muro.html">OBI 2018 - Muro</a>.................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-muro.html">OBI 2018 - Muro</a></span> .................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -710,9 +716,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -733,7 +739,11 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-    </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-auto"></div>
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+    </div>
   </body>
 </html>

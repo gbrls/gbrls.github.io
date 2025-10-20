@@ -1,9 +1,12 @@
-#import "lib.typ": separator
+#import "html_elements.typ": post
+#show: post
 
-#html.frame()[#image("./logo3.svg", width: 8em)]
-#html.frame()[#image("./logo2.svg", width: 8em)]
-#html.frame()[#image("./logo3.svg", width: 8em)]
-#html.frame()[#image("./logo2.svg", width: 8em)]
+#html.elem("div", attrs: (class: "flex"))[
+  #html.frame()[#image("./logo3.svg", width: 8em)]
+  #html.frame()[#image("./logo2.svg", width: 8em)]
+  #html.frame()[#image("./logo3.svg", width: 8em)]
+  #html.frame()[#image("./logo2.svg", width: 8em)]
+]
 
 Hi, I'm Gabriel Schneider (gbrls). My areas of interest are:
 
@@ -26,6 +29,3 @@ My hobbies also include:
 - Sci-fi.
 - Coffee.
 
-
-
-#include "html_elements.typ"

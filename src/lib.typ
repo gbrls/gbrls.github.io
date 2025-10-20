@@ -2,11 +2,36 @@
 
 #let entries = (
   (file: "./index.typ", name: "Index"),
+  (
+    file: "./building-a-freeburp-collaborator-with-cloudflare-workers.typ",
+    name: "Building a free Burp Collaborator with Cloudflare Workers",
+    date: 2023,
+  ),
+  (
+    file: "./router-command-injection.typ",
+    name: "Finding a command injection in a router",
+    date: 2023,
+  ),
+  (
+    file: "./oswe-some-thoughts.typ",
+    name: "OSWE - Some thoughts",
+    date: 2023,
+  ),
+  (
+    file: "./the-inevitability-of-getting-pwned.typ",
+    name: "The Inevitability of Getting Pwned",
+    date: 2023,
+  ),
   (file: "./binbin-tree.typ", name: "Binary Binary Tree", date: 2021),
   (
-    file: "./c-gems-homoiconicity-in-c.typ",
-    name: "Homoiconicity in C",
-    date: 2021,
+    file: "./mk-lisp-1.typ",
+    name: "Making a Lisp - 1",
+    date: 2020,
+  ),
+  (
+    file: "./mk-lisp-0.typ",
+    name: "Making a Lisp - 0",
+    date: 2020,
   ),
   (
     file: "./obi2018-baldes.typ",

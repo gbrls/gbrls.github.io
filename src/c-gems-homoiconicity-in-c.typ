@@ -1,3 +1,6 @@
+#import "html_elements.typ": post
+#show: post
+
 #import "@preview/zebraw:0.5.5": *
 #show: zebraw
 
@@ -64,8 +67,8 @@ The article shows this code, that demonstrates how to execute memory in C,
 ]
 
 I encourage you to run this code to get a feeling of it, but what it means is
-that **you can create an array, manipulate it as a regular array and then
-execute it as code**!
+that *you can create an array, manipulate it as a regular array and then
+execute it as code*!
 
 
 Now, the other way around (manipulate code as data) it's also possible.
@@ -114,7 +117,7 @@ which is those bytes at the beginning and the `5d` before the `c3`, go figure.
 So, now that we know that the `42` is in the 10th position in the binary code
 (`2a, 16 * 2 + 10 = 42`) then we can change it in our code.
 
-**Disclaimer**: This code also only runs on Unix systems due to the way that we
+*Disclaimer*: This code also only runs on Unix systems due to the way that we
 allow the text segment to be writable.
 
 You also have to compile with these flags.
@@ -222,4 +225,3 @@ the C code that we're manipulating, it's just the machine code.
 This is why C is not homoiconic
 
 
-#include "html_elements.typ"

@@ -5,39 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <p>Last weekend I got this email:</p>
-    <p>> Dear Gabriel, > We are happy to inform you that you have successfully completed the Advanced > Web Attacks and Exploitation certification exam and have obtained your Offsec > Web Expert (OSWE) certification.</p>
-    <p>There's something weird about opening those emails which contain the result of something that I really wanted. Result in Rust's semantics, a Sum type, which before opening it, I don't know if it worked or not.</p>
-    <p>I feel a little bit betrayed by those emails because even if it didn't work, it'll start by saying something nice like: "It was very good to know you!", or: "First of all, congratulations for doing this whole process"</p>
-    <p>Anyways, I read it all and was really happy and relieved. Here I'm going to talk about my experience with it, review and tips.</p>
-    <h3>What is the OSWE</h3>
-    <p>The field of information security has a thing for certificates that I've never seen while I was working in software engineering, it's very common to see people with a handful of certificates.</p>
-    <p>OSWE is made by <em>Offensive Security</em>, they're the company behind Kali Linux and Metasploit. They have a lot of reputation in the industry and their certificates are one of the most well regarded for Pentesting.</p>
-    <p>They have a coulple of different categories for certificates, the most famous one is probably the OSCP (which teaches a lot of stuff about pentesting in general in various different environments). The OSWE is completely focused on Web Apps, i.e. stuff that talks HTTP and that poops Javascript.</p>
-    <p>One of the key things about this certificate is that it focus a lot on white-box testing, this means that I spent a lot of time reading code, reading debugging logs, etc. Doing white-box testing of course doesn't mean that you can't black-box test it, but it's just way easier when you see the whole picture.</p>
-    <p>Offensive Security offers a course, Web-300, which is all the necessary material for the OSWE exam. They have labs, text, and video material.</p>
-    <p>When you have access to the course, you can schedule your OSWE exam, it takes 48 hours of hacking + 24 of reporting, it's tough.</p>
-    <h3>OSWE Review</h3>
-    <p>I strongly believe that to understand something is a step in the direction of hacking it. Every step of making a contribution of a software project, helps you hack it, download the source code, understand the structure, download the correct version of the toolchain, modify it, build it, test it. All of those are part of it, and they really help in the hack's speed and success.</p>
-    <p>I think the white-box approach that was used in the course is really good for those reasons. The certification is really good if know what it is about and wish to learn what it teaches.</p>
-    <p>It's not for everyone on every stage of the career, I disagree with the people that try to gatekeep it and say that you need X years of experience before attempting it. If your work is mainly in Web Applications pentesting, or you really wish to work with that, then I recommend it.</p>
-    <p>It builds on a foundation of basic Linux skills, basic pentesting (like how to get a reverse shell), programming (you really got to know how to code), and web applications, you need to know those things before it, but nothing else more.</p>
-    <p>I really liked it, the thing that I took away the most from it, is how to do black-box testing more effectively. Yes, the course focuses on white-box testing, but that perception that you get from looking at the code is turned into an intuition about the working of web applications. I.e: Testing a Web App, you'll try to guess how the backend implements the funcitonalities that you're testing and that will help a lot.</p>
-    <h3>OSWE Prep</h3>
-    <p>Before doing it, I recommend at least:</p>
-    <ul>
-      <li>Doing a few easy and medium boxes on Hack the Box.</li>
-      <li>
-        <p>Program a simple a web application using a popular framework like Django or Spring.</p>
-        <p>And that's pretty much it for the prep.</p>
-      </li>
-    </ul>
     <head>
       <meta charset="UTF-8">
       <title>0x4200.cafe</title>
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="style_compiled.css">
     </head>
-    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <div class="font-display bg-base min-h-screen text-text flex">
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+      <div class="flex-auto"></div>
+      <div class="flex-none p-4">
+        <article class="max-w-[110ch] leading-relaxed [&amp;>p]:p-2">
+          <p>Last weekend I got this email:</p>
+          <p>> Dear Gabriel, > We are happy to inform you that you have successfully completed the Advanced > Web Attacks and Exploitation certification exam and have obtained your Offsec > Web Expert (OSWE) certification.</p>
+          <p>There's something weird about opening those emails which contain the result of something that I really wanted. Result in Rust's semantics, a Sum type, which before opening it, I don't know if it worked or not.</p>
+          <p>I feel a little bit betrayed by those emails because even if it didn't work, it'll start by saying something nice like: "It was very good to know you!", or: "First of all, congratulations for doing this whole process"</p>
+          <p>Anyways, I read it all and was really happy and relieved. Here I'm going to talk about my experience with it, review and tips.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>What is the OSWE</h3>
+          </div>
+          <p>The field of information security has a thing for certificates that I've never seen while I was working in software engineering, it's very common to see people with a handful of certificates.</p>
+          <p>OSWE is made by <em>Offensive Security</em>, they're the company behind Kali Linux and Metasploit. They have a lot of reputation in the industry and their certificates are one of the most well regarded for Pentesting.</p>
+          <p>They have a coulple of different categories for certificates, the most famous one is probably the OSCP (which teaches a lot of stuff about pentesting in general in various different environments). The OSWE is completely focused on Web Apps, i.e. stuff that talks HTTP and that poops Javascript.</p>
+          <p>One of the key things about this certificate is that it focus a lot on white-box testing, this means that I spent a lot of time reading code, reading debugging logs, etc. Doing white-box testing of course doesn't mean that you can't black-box test it, but it's just way easier when you see the whole picture.</p>
+          <p>Offensive Security offers a course, Web-300, which is all the necessary material for the OSWE exam. They have labs, text, and video material.</p>
+          <p>When you have access to the course, you can schedule your OSWE exam, it takes 48 hours of hacking + 24 of reporting, it's tough.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>OSWE Review</h3>
+          </div>
+          <p>I strongly believe that to understand something is a step in the direction of hacking it. Every step of making a contribution of a software project, helps you hack it, download the source code, understand the structure, download the correct version of the toolchain, modify it, build it, test it. All of those are part of it, and they really help in the hack's speed and success.</p>
+          <p>I think the white-box approach that was used in the course is really good for those reasons. The certification is really good if know what it is about and wish to learn what it teaches.</p>
+          <p>It's not for everyone on every stage of the career, I disagree with the people that try to gatekeep it and say that you need X years of experience before attempting it. If your work is mainly in Web Applications pentesting, or you really wish to work with that, then I recommend it.</p>
+          <p>It builds on a foundation of basic Linux skills, basic pentesting (like how to get a reverse shell), programming (you really got to know how to code), and web applications, you need to know those things before it, but nothing else more.</p>
+          <p>I really liked it, the thing that I took away the most from it, is how to do black-box testing more effectively. Yes, the course focuses on white-box testing, but that perception that you get from looking at the code is turned into an intuition about the working of web applications. I.e: Testing a Web App, you'll try to guess how the backend implements the funcitonalities that you're testing and that will help a lot.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>OSWE Prep</h3>
+          </div>
+          <p>Before doing it, I recommend at least:</p>
+          <ul>
+            <li>Doing a few easy and medium boxes on Hack the Box.</li>
+            <li>
+              <p>Program a simple a web application using a popular framework like Django or Spring.</p>
+              <p>And that's pretty much it for the prep.</p>
+            </li>
+          </ul>
+        </article>
+        <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 0)">
             <g class="typst-group">
@@ -71,13 +83,13 @@
         </g>
     </g>
 </svg>
-
-    <ul>
-      <li>
-        <p><a href="./index.html">Index</a>...............................................................................</p>
-      </li>
-      <li>
-        <p><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a>.......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+</div>
+        <ul>
+          <li>
+            <p><span class="text-blue"><a href="./index.html">Index</a></span> ...............................................................................</p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a></span> .......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -101,9 +113,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./router-command-injection.html">Finding a command injection in a router</a>.........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./router-command-injection.html">Finding a command injection in a router</a></span> .........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -127,9 +139,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a>............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a></span> ............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -153,9 +165,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a>..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a></span> ..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -179,9 +191,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./binbin-tree.html">Binary Binary Tree</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./binbin-tree.html">Binary Binary Tree</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -205,9 +217,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-1.html">Making a Lisp - 1</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-1.html">Making a Lisp - 1</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -228,9 +240,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-0.html">Making a Lisp - 0</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-0.html">Making a Lisp - 0</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -251,9 +263,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -274,9 +286,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -297,9 +309,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -320,9 +332,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-muro.html">OBI 2018 - Muro</a>.................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-muro.html">OBI 2018 - Muro</a></span> .................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -343,9 +355,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -366,7 +378,11 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-    </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-auto"></div>
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+    </div>
   </body>
 </html>

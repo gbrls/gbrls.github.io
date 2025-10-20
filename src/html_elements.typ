@@ -29,55 +29,51 @@
     #html.elem("link", attrs: (rel: "stylesheet", href: "style_compiled.css"))
   ]
 
+  show raw.where(lang: none): it => [
+    #html.elem("span", attrs: (
+      class: "text-peach bg-mantle p-1 rounded-md",
+    ))[#it]
+  ]
+
+  show heading: it => [
+    #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
+      #it
+    ]
+  ]
+
+  show link: it => [
+    #html.elem("span", attrs: (class: "text-blue"))[#it]
+  ]
+
+  // ========== body =======
+
 
   html.elem("div", attrs: (
-    class: "font-display bg-base min-h-screen text-text p-8",
+    class: "font-display bg-base min-h-screen text-text flex",
   ))[
 
-    #show raw.where(lang: none): it => [
-      #html.elem("span", attrs: (
-        class: "text-peach bg-mantle p-1 rounded-md",
-      ))[#it]
-    ]
+    #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
+    #html.elem("div", attrs: (class: "flex-auto"))[ ]
 
-    #show heading: it => [
-      #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
-        #it
+    #html.elem("div", attrs: (class: "flex-none p-4"))[
+      #html.elem("article", attrs: (
+        class: "max-w-[110ch] leading-relaxed [&>p]:p-2",
+      ))[
+        #contents
       ]
-    ]
 
-    #show link: it => [
-      #html.elem("span", attrs: (class: "text-blue"))[#it]
-    ]
-
-    // ========== body =======
-
-
-    #html.elem("div", attrs: (class: "flex"))[
-      #html.elem("div", attrs: (class: "flex-1"))[
-        #html.elem("article", attrs: (
-          class: "max-w-[90ch] leading-relaxed [&>p]:p-2",
-        ))[
-          #contents
+      #html.elem("div", attrs: (class: "mt-4 mb-4"))[
+        #html.frame()[
+          #separator(16)
         ]
       ]
 
-      #html.elem("div", attrs: (class: "flex-auto"))[
-        a
-      ]
-
-      #html.elem("div", attrs: (class: "flex-initial bg-teal max-w-xs"))[
-        b
-      ]
+      #list(..entries.map(it => entry-to-html(it)))
     ]
 
-    #html.elem("div", attrs: (class: "mt-4 mb-4"))[
-      #html.frame()[
-        #separator(16)
-      ]
-    ]
-
-    #list(..entries.map(it => entry-to-html(it)))
+    // spacing
+    #html.elem("div", attrs: (class: "flex-auto"))[ ]
+    #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
   ]
 }
 

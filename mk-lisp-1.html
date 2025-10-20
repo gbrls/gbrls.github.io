@@ -5,49 +5,409 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <p>This is the second part of a series of articles that I'm writing to document by progress on building a Interpreter for myLisp, a lisp-like language. For the previous post [click here](/mk-lisp-0).</p>
-    <h3>What is an interpreter?</h3>
-    <p>An Interpreter is a program that takes souce code as input and executes it. It is composed of several parts, today we are going to write a lexer and a parser.</p>
-    <p>The lexer will read a string of characters and output a vector of tokens, with some information attached to them like its type. The lexer is important to the parser because it returns the soure code in a better representation, holding only information that matters to it, <em>(this is a very important pattern in programming, thowing away information that is not important for what we want, by keeping the data in a more convenient representation)</em>.</p>
-    <p>The parser will take the vector of tokens created by the lexer and create a data structure <em>(in our case S-Expressions)</em> which can then be executed by another part of the interpreter.</p>
-    <h3>The interpreter's implementation</h3>
-    <p>I will be writing this interpreter in C. The most important reason for it is that this is a learning project more than anything else, and in C provides us with the bare minimum to create what we want. It is important to note that there are better ways to implement it, but I don't like to read other people's code before I try my own way. Maybe in the future when I'm done, I'll change it.</p>
-    <h3>Lexer</h3>
-    <p>First, lets define a little macro to help us debug.</p>
-    <pre>#ifdef DEBUG_F<br><br>#define DEBUG(fmt, args...)           \<br>    printf("(%s:%d) " fmt, __FILE__,__LINE__, ##args)<br><br>#else<br><br>#define DEBUG(f, fmt, args...) /* Do nothing */<br><br>#endif<br></pre>
-    <p>Next, we need to create a few data types to store the tokens. <em>As you can see our Lisp won't support strings and floats for now</em>.</p>
-    <pre>enum Token_Type {<br>    TOKEN_OPEN=0,<br>    TOKEN_CLOSE=1,<br>    TOKEN_NUMBER=2,<br>    TOKEN_SYMBOL=3,<br>};<br><br>/*<br>** Used to debug the lexer<br>*/<br>char* Token_Type_Str[4] = {"(", ")", "NUM", "SYM"};<br><br>typedef struct {<br>  enum Token_Type type;<br><br>  union {<br>    int number;<br>    char* name;<br>  }data;<br><br>}Token;</pre>
-    <p>And then the tokenize fuction, there are a few details about it that need to be discussed. Usually in Lisp, symbol names can be in some written in some formats, like <code>+1, +$,<br>10@b.com</code>. But for simplicity's sake we have a different set of rules: They must start with an alphabetical character and not contain any whitespace or parenthesis.</p>
-    <pre>Token* tokenize(char* in, int* ret_sz) {<br>  int cursor = 0;<br>  int sz = 0, alloc=1;<br>  Token* vec = (Token*) malloc(sizeof(Token));<br><br>  while(in[cursor] != '\0') {<br><br>    Token cur;<br><br>    if(in[cursor]=='(') {<br>      cur.type = TOKEN_OPEN;<br>      cursor++;<br><br>    } else if(in[cursor]==')') {<br>      cur.type = TOKEN_CLOSE;<br>      cursor++;<br><br>    } else if(isdigit(in[cursor])) {<br>      int number;<br>      sscanf(in+cursor,"%d",&amp;number);<br><br><br>      while(in[cursor] != '\0'<br>          &amp;&amp; isdigit(in[cursor])) {<br>        cursor++;<br>      }<br><br>      cur.type = TOKEN_NUMBER;<br>      cur.data.number = number;<br>      DEBUG("TOKEN_NUMBER: %d\n", number);<br><br>    } else if(isalpha(in[cursor])) {<br><br>      char* name = (char*) malloc(MAX_SYM_SZ);<br>      assert(name!=NULL);<br><br>      int ptr = 0;<br><br>      while(in[cursor] != '('<br>          &amp;&amp; in[cursor] != ')'<br>          &amp;&amp; in[cursor] != ' '<br>          &amp;&amp; in[cursor] != '\0')<br>        {<br><br>        if(isalpha(in[cursor])) in[cursor] = toupper(in[cursor]);<br>        name[ptr] = in[cursor];<br>        ptr++, cursor++;<br>      }<br><br>      name[ptr] = '\0';<br><br>      cur.type = TOKEN_SYMBOL;<br>      cur.data.name = name;<br>      DEBUG("TOKEN_NAME: %s\n", name);<br><br>    } else {<br>      cursor++;<br>      continue;<br>    }<br><br>    if(alloc &lt;= sz+1) {<br><br>      alloc *= 2;<br>      vec = (Token*) realloc(vec, sizeof(Token)*alloc);<br>    }<br><br>    DEBUG("TOKEN: %s\n", Token_Type_Str[cur.type]);<br><br>    vec[sz++] = cur;<br>  }<br><br>  *ret_sz = sz;<br><br>  return vec;<br>}</pre>
-    <p>And that's about it for the lexer.</p>
-    <h3>Representing S-Expressions</h3>
-    <p>Before we start to implement the parser we need to write the data types for it. But this time it is a little bit different because the parser will generate a data structure which can be executed. We are going to represent those structures as lisp S-Expressions.</p>
-    <p>First, let's define the type <code>Lisp_Object</code>, <em>(it has nothing to do with OOP's objects)</em>, which will represent everything that a cons cell can hold as its car or cdr.</p>
-    <h3>Tagged Pointers</h3>
-    <p>There are a few ways that we could choose to represent <code>Lisp_Object</code>, we are going to use tagged pointers, which are common in many Lisp implementations.</p>
-    <p>Every variable in C has at least 8 bits, so every valid pointer points to an address which is a multiple of 8. This means that the least significant bits of a valid address will aways end with three zeros. So we can use these bits to store additional information about what the pointer is pointing to. When we need to deference it we just mask out those three bits.</p>
-    <p>They are useful because a pointer usually occupies eight bytes and an <code>int</code> or <code>float</code> just 4, so we can embed ints and floats into them, all we have to do is to shift them up three bits. That's a huge improvement over deferencing a pointer to an integer which is allocated on the heap. Using tagged pointers we can utilize ints and floats on the stack.</p>
-    <p>Now, we will define a variable that will represent everything that a cons cell can hold as its car and cdr: <code>Lisp_Object</code>.</p>
-    <pre>typedef uintptr_t Lisp_Object;<br>#define NIL (Lisp_Object)0;</pre>
-    <p><code>Lisp_Object</code> is a tagged pointer, that's why we used <code>uintptr_t</code> <em>(it is defined be a variable that can store a pointer)</em>. And now a few functions to operate on it.</p>
-    <pre>enum Tag {<br>  TAG_SYMBOL = 0,<br>  TAG_NUMBER = 1,<br>  TAG_CONS = 2<br>  /* ... */<br>};<br><br>Lisp_Object ptr_tag(Lisp_Object obj, enum Tag tag) {<br>  return obj | (int)tag;<br>}<br><br>Lisp_Object ptr_untag(Lisp_Object obj) {<br>  return obj &amp; ~((Lisp_Object) 7);<br>}<br><br>int ptr_getTag(Lisp_Object obj) {<br>  return (int)(obj&amp;7);<br>}<br></pre>
-    <p>Those are the basic operations that we are going to be doing with them. But now we need a few helper functions and macros to help us create new objects.</p>
-    <pre>#define OBJ(val, type)              \<br>  Obj_New_ ## type (val)<br><br>Lisp_Object Obj_New_symbol(char* str) {<br>  char* nstr = (char*) malloc(sizeof(str));<br>  strcpy(nstr, str);<br>  Lisp_Object ret = ptr_tag((Lisp_Object)nstr, TAG_SYMBOL);<br><br>  return ret;<br>}<br><br>Lisp_Object Obj_New_number(int val) {<br>  Lisp_Object nval = val;<br>  nval = val&lt;&lt;3;<br><br>  return ptr_tag(nval, TAG_NUMBER);<br>}<br><br>typedef struct {<br><br>  Lisp_Object car;<br>  Lisp_Object cdr;<br><br>}Lisp_Cons_Cell;<br><br>Lisp_Object fcons(Lisp_Object a, Lisp_Object b) {<br>  Lisp_Cons_Cell* cell = (Lisp_Cons_Cell*) malloc(sizeof(Lisp_Cons_Cell));<br>  cell->car = a, cell->cdr = b;<br><br>  return ptr_tag((Lisp_Object)&amp;cell, TAG_CONS);<br>}<br></pre>
-    <p><code>OBJ</code> is a little helper macro do help us create new objects. We use it like this:</p>
-    <p>Lisp_Object a = OBJ("hello-there", symbol); Lisp_Object b = OBJ(42, number);</p>
-    <p>I didn't write a <code>Obj_New_cons</code> because we will be using the fcons function to create new conses.</p>
-    <h3>Printing S-Expressions</h3>
-    <p>Before we start the parser itself we need to create a function to print S-Expressions, in order to debug it. There's an algorithm for it but I won't get into detail. Here it is:</p>
-    <pre>void _Lisp_Print(Lisp_Object obj, int head);<br><br>void Lisp_Print_cons(Lisp_Object obj, int head) {<br>  if(head) putchar('(');<br><br>  _Lisp_Print(fcar(obj), 1);<br><br>  if(ptr_untag(fcdr(obj))==NIL) {<br>    putchar(')');<br>  } else if(ptr_getTag(fcdr(obj))!=TAG_CONS) {<br>    printf(" . ");<br>    _Lisp_Print(fcdr(obj), 0);<br>    putchar(')');<br>  } else {<br>    putchar(' ');<br>    _Lisp_Print(fcdr(obj), 0);<br>  }<br>}<br><br><br>void _Lisp_Print(Lisp_Object obj, int head) {<br>  enum Tag tag = ptr_getTag(obj);<br><br>  switch(tag) {<br>    case TAG_NUMBER:<br>      printf("%d", GET_VAL(obj, number));<br>      break;<br>    case TAG_SYMBOL:<br>      printf("%s", GET_VAL(obj, symbol));<br>      break;<br>    case TAG_CONS:<br>      Lisp_Print_cons(obj, head);<br>      break;<br>    default:<br>      break;<br>  }<br>}<br><br><br>void Lisp_Print(Lisp_Object obj) {<br>  _Lisp_Print(obj, 1);<br>  putchar('\n');<br>}<br></pre>
-    <h3>The parser</h3>
-    <p>I really liked implementing a Lisp parser a for another interpreter a few days ago, the algorithm is so simple!</p>
-    <p>If a S-Expression is a list, whe can think of it as a list of atoms and for each atom we parse it recursively. So, how do we parse a simple list? This is how it would like in   py  pseudocode:</p>
-    <p>def parse (n): obj = get_obj(n)</p>
-    <p>if obj == nil: return obj</p>
-    <p>else: return cons(obj, parse(n+1))</p>
-    <p>It doesn't work for every S-Expression <strong>yet</strong>, but the main takeaway for it is that you cons the current object with the rest of the list recursively. The only difference between this and a complete parser is that the latter handles parenthesis by parsing what is inside the current block and consing it with the rest of the list.</p>
-    <pre>Lisp_Object parse(Token* tokens, int pos, int sz) {<br>  if(pos==sz) return NIL; /* the stop condition */<br><br>  if(tokens[pos].type == TOKEN_OPEN) {<br><br>    Lisp_Object car = parse(tokens,pos+1,sz);<br><br>    int aux = 1, balance = -1;<br><br>    while(balance != 0) { /*  Looking for the matching ) */<br><br>      assert(aux+pos &lt; sz);<br><br>      if(tokens[pos+aux].type == TOKEN_OPEN)<br>        balance--;<br>      if(tokens[pos+aux].type == TOKEN_CLOSE)<br>        balance ++;<br><br>      aux++;<br>    }<br><br>    Lisp_Object cdr = parse(tokens, pos+aux, sz);<br><br>    return fcons(car, cdr);<br><br>  } else if(tokens[pos].type == TOKEN_CLOSE) {<br><br>    return NIL;<br><br>  } else if(tokens[pos].type == TOKEN_NUMBER) {<br><br>    int n = tokens[pos].data.number;<br>    Lisp_Object car = OBJ(n, number);<br><br>    return fcons(car, parse(tokens, pos+1, sz));<br><br>  } else if(tokens[pos].type == TOKEN_SYMBOL) {<br><br>    char* str = tokens[pos].data.name;<br><br>    Lisp_Object car = OBJ(str, symbol);<br>    return fcons(car, parse(tokens, pos+1, sz));<br><br>  }<br><br>  return NIL;<br>}<br></pre>
-    <p>This code isn't that much different from the pseudocode that I've written before, the main difference is the parenthesis handling. The code for this article can be seen [here](<a href="https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c">https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c</a>).</p>
-    <p>Every cons and symbol in which we allocate are not fred, so our interpreter is leaking memory. The solution for this is called garbage collection, we are going to implement it in a latter article.</p>
+    <head>
+      <meta charset="UTF-8">
+      <title>0x4200.cafe</title>
+      <link rel="stylesheet" href="style_compiled.css">
+    </head>
+    <div class="font-display bg-base min-h-screen text-text flex">
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+      <div class="flex-auto"></div>
+      <div class="flex-none p-4">
+        <article class="max-w-[110ch] leading-relaxed [&amp;>p]:p-2">
+          <p>This is the second part of a series of articles that I'm writing to document by progress on building a Interpreter for myLisp, a lisp-like language. For the previous post [click here](/mk-lisp-0).</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>What is an interpreter?</h3>
+          </div>
+          <p>An Interpreter is a program that takes souce code as input and executes it. It is composed of several parts, today we are going to write a lexer and a parser.</p>
+          <p>The lexer will read a string of characters and output a vector of tokens, with some information attached to them like its type. The lexer is important to the parser because it returns the soure code in a better representation, holding only information that matters to it, <em>(this is a very important pattern in programming, thowing away information that is not important for what we want, by keeping the data in a more convenient representation)</em>.</p>
+          <p>The parser will take the vector of tokens created by the lexer and create a data structure <em>(in our case S-Expressions)</em> which can then be executed by another part of the interpreter.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>The interpreter's implementation</h3>
+          </div>
+          <p>I will be writing this interpreter in C. The most important reason for it is that this is a learning project more than anything else, and in C provides us with the bare minimum to create what we want. It is important to note that there are better ways to implement it, but I don't like to read other people's code before I try my own way. Maybe in the future when I'm done, I'll change it.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>Lexer</h3>
+          </div>
+          <p>First, lets define a little macro to help us debug.</p>
+          <pre>#ifdef DEBUG_F<br><br>#define DEBUG(fmt, args...)           \<br>    printf("(%s:%d) " fmt, __FILE__,__LINE__, ##args)<br><br>#else<br><br>#define DEBUG(f, fmt, args...) /* Do nothing */<br><br>#endif<br></pre>
+          <p>Next, we need to create a few data types to store the tokens. <em>As you can see our Lisp won't support strings and floats for now</em>.</p>
+          <pre>enum Token_Type {<br>    TOKEN_OPEN=0,<br>    TOKEN_CLOSE=1,<br>    TOKEN_NUMBER=2,<br>    TOKEN_SYMBOL=3,<br>};<br><br>/*<br>** Used to debug the lexer<br>*/<br>char* Token_Type_Str[4] = {"(", ")", "NUM", "SYM"};<br><br>typedef struct {<br>  enum Token_Type type;<br><br>  union {<br>    int number;<br>    char* name;<br>  }data;<br><br>}Token;</pre>
+          <p>And then the tokenize fuction, there are a few details about it that need to be discussed. Usually in Lisp, symbol names can be in some written in some formats, like <span class="text-peach bg-mantle p-1 rounded-md"><code>+1, +$,<br>10@b.com</code></span> . But for simplicity's sake we have a different set of rules: They must start with an alphabetical character and not contain any whitespace or parenthesis.</p>
+          <pre>Token* tokenize(char* in, int* ret_sz) {<br>  int cursor = 0;<br>  int sz = 0, alloc=1;<br>  Token* vec = (Token*) malloc(sizeof(Token));<br><br>  while(in[cursor] != '\0') {<br><br>    Token cur;<br><br>    if(in[cursor]=='(') {<br>      cur.type = TOKEN_OPEN;<br>      cursor++;<br><br>    } else if(in[cursor]==')') {<br>      cur.type = TOKEN_CLOSE;<br>      cursor++;<br><br>    } else if(isdigit(in[cursor])) {<br>      int number;<br>      sscanf(in+cursor,"%d",&amp;number);<br><br><br>      while(in[cursor] != '\0'<br>          &amp;&amp; isdigit(in[cursor])) {<br>        cursor++;<br>      }<br><br>      cur.type = TOKEN_NUMBER;<br>      cur.data.number = number;<br>      DEBUG("TOKEN_NUMBER: %d\n", number);<br><br>    } else if(isalpha(in[cursor])) {<br><br>      char* name = (char*) malloc(MAX_SYM_SZ);<br>      assert(name!=NULL);<br><br>      int ptr = 0;<br><br>      while(in[cursor] != '('<br>          &amp;&amp; in[cursor] != ')'<br>          &amp;&amp; in[cursor] != ' '<br>          &amp;&amp; in[cursor] != '\0')<br>        {<br><br>        if(isalpha(in[cursor])) in[cursor] = toupper(in[cursor]);<br>        name[ptr] = in[cursor];<br>        ptr++, cursor++;<br>      }<br><br>      name[ptr] = '\0';<br><br>      cur.type = TOKEN_SYMBOL;<br>      cur.data.name = name;<br>      DEBUG("TOKEN_NAME: %s\n", name);<br><br>    } else {<br>      cursor++;<br>      continue;<br>    }<br><br>    if(alloc &lt;= sz+1) {<br><br>      alloc *= 2;<br>      vec = (Token*) realloc(vec, sizeof(Token)*alloc);<br>    }<br><br>    DEBUG("TOKEN: %s\n", Token_Type_Str[cur.type]);<br><br>    vec[sz++] = cur;<br>  }<br><br>  *ret_sz = sz;<br><br>  return vec;<br>}</pre>
+          <p>And that's about it for the lexer.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>Representing S-Expressions</h3>
+          </div>
+          <p>Before we start to implement the parser we need to write the data types for it. But this time it is a little bit different because the parser will generate a data structure which can be executed. We are going to represent those structures as lisp S-Expressions.</p>
+          <p>First, let's define the type <span class="text-peach bg-mantle p-1 rounded-md"><code>Lisp_Object</code></span> , <em>(it has nothing to do with OOP's objects)</em>, which will represent everything that a cons cell can hold as its car or cdr.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>Tagged Pointers</h3>
+          </div>
+          <p>There are a few ways that we could choose to represent <span class="text-peach bg-mantle p-1 rounded-md"><code>Lisp_Object</code></span> , we are going to use tagged pointers, which are common in many Lisp implementations.</p>
+          <p>Every variable in C has at least 8 bits, so every valid pointer points to an address which is a multiple of 8. This means that the least significant bits of a valid address will aways end with three zeros. So we can use these bits to store additional information about what the pointer is pointing to. When we need to deference it we just mask out those three bits.</p>
+          <p>They are useful because a pointer usually occupies eight bytes and an <span class="text-peach bg-mantle p-1 rounded-md"><code>int</code></span> or <span class="text-peach bg-mantle p-1 rounded-md"><code>float</code></span> just 4, so we can embed ints and floats into them, all we have to do is to shift them up three bits. That's a huge improvement over deferencing a pointer to an integer which is allocated on the heap. Using tagged pointers we can utilize ints and floats on the stack.</p>
+          <p>Now, we will define a variable that will represent everything that a cons cell can hold as its car and cdr: <span class="text-peach bg-mantle p-1 rounded-md"><code>Lisp_Object</code></span> .</p>
+          <pre>typedef uintptr_t Lisp_Object;<br>#define NIL (Lisp_Object)0;</pre>
+          <p><span class="text-peach bg-mantle p-1 rounded-md"><code>Lisp_Object</code></span> is a tagged pointer, that's why we used <span class="text-peach bg-mantle p-1 rounded-md"><code>uintptr_t</code></span> <em>(it is defined be a variable that can store a pointer)</em>. And now a few functions to operate on it.</p>
+          <pre>enum Tag {<br>  TAG_SYMBOL = 0,<br>  TAG_NUMBER = 1,<br>  TAG_CONS = 2<br>  /* ... */<br>};<br><br>Lisp_Object ptr_tag(Lisp_Object obj, enum Tag tag) {<br>  return obj | (int)tag;<br>}<br><br>Lisp_Object ptr_untag(Lisp_Object obj) {<br>  return obj &amp; ~((Lisp_Object) 7);<br>}<br><br>int ptr_getTag(Lisp_Object obj) {<br>  return (int)(obj&amp;7);<br>}<br></pre>
+          <p>Those are the basic operations that we are going to be doing with them. But now we need a few helper functions and macros to help us create new objects.</p>
+          <pre>#define OBJ(val, type)              \<br>  Obj_New_ ## type (val)<br><br>Lisp_Object Obj_New_symbol(char* str) {<br>  char* nstr = (char*) malloc(sizeof(str));<br>  strcpy(nstr, str);<br>  Lisp_Object ret = ptr_tag((Lisp_Object)nstr, TAG_SYMBOL);<br><br>  return ret;<br>}<br><br>Lisp_Object Obj_New_number(int val) {<br>  Lisp_Object nval = val;<br>  nval = val&lt;&lt;3;<br><br>  return ptr_tag(nval, TAG_NUMBER);<br>}<br><br>typedef struct {<br><br>  Lisp_Object car;<br>  Lisp_Object cdr;<br><br>}Lisp_Cons_Cell;<br><br>Lisp_Object fcons(Lisp_Object a, Lisp_Object b) {<br>  Lisp_Cons_Cell* cell = (Lisp_Cons_Cell*) malloc(sizeof(Lisp_Cons_Cell));<br>  cell->car = a, cell->cdr = b;<br><br>  return ptr_tag((Lisp_Object)&amp;cell, TAG_CONS);<br>}<br></pre>
+          <p><span class="text-peach bg-mantle p-1 rounded-md"><code>OBJ</code></span> is a little helper macro do help us create new objects. We use it like this:</p>
+          <p>Lisp_Object a = OBJ("hello-there", symbol); Lisp_Object b = OBJ(42, number);</p>
+          <p>I didn't write a <span class="text-peach bg-mantle p-1 rounded-md"><code>Obj_New_cons</code></span> because we will be using the fcons function to create new conses.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h3>Printing S-Expressions</h3>
+          </div>
+          <p>Before we start the parser itself we need to create a function to print S-Expressions, in order to debug it. There's an algorithm for it but I won't get into detail. Here it is:</p>
+          <pre>void _Lisp_Print(Lisp_Object obj, int head);<br><br>void Lisp_Print_cons(Lisp_Object obj, int head) {<br>  if(head) putchar('(');<br><br>  _Lisp_Print(fcar(obj), 1);<br><br>  if(ptr_untag(fcdr(obj))==NIL) {<br>    putchar(')');<br>  } else if(ptr_getTag(fcdr(obj))!=TAG_CONS) {<br>    printf(" . ");<br>    _Lisp_Print(fcdr(obj), 0);<br>    putchar(')');<br>  } else {<br>    putchar(' ');<br>    _Lisp_Print(fcdr(obj), 0);<br>  }<br>}<br><br><br>void _Lisp_Print(Lisp_Object obj, int head) {<br>  enum Tag tag = ptr_getTag(obj);<br><br>  switch(tag) {<br>    case TAG_NUMBER:<br>      printf("%d", GET_VAL(obj, number));<br>      break;<br>    case TAG_SYMBOL:<br>      printf("%s", GET_VAL(obj, symbol));<br>      break;<br>    case TAG_CONS:<br>      Lisp_Print_cons(obj, head);<br>      break;<br>    default:<br>      break;<br>  }<br>}<br><br><br>void Lisp_Print(Lisp_Object obj) {<br>  _Lisp_Print(obj, 1);<br>  putchar('\n');<br>}<br></pre>
+          <div class="text-mauve text-3xl p-8">
+            <h3>The parser</h3>
+          </div>
+          <p>I really liked implementing a Lisp parser a for another interpreter a few days ago, the algorithm is so simple!</p>
+          <p>If a S-Expression is a list, whe can think of it as a list of atoms and for each atom we parse it recursively. So, how do we parse a simple list? This is how it would like in   py  pseudocode:</p>
+          <p>def parse (n): obj = get_obj(n)</p>
+          <p>if obj == nil: return obj</p>
+          <p>else: return cons(obj, parse(n+1))</p>
+          <p>It doesn't work for every S-Expression <strong>yet</strong>, but the main takeaway for it is that you cons the current object with the rest of the list recursively. The only difference between this and a complete parser is that the latter handles parenthesis by parsing what is inside the current block and consing it with the rest of the list.</p>
+          <pre>Lisp_Object parse(Token* tokens, int pos, int sz) {<br>  if(pos==sz) return NIL; /* the stop condition */<br><br>  if(tokens[pos].type == TOKEN_OPEN) {<br><br>    Lisp_Object car = parse(tokens,pos+1,sz);<br><br>    int aux = 1, balance = -1;<br><br>    while(balance != 0) { /*  Looking for the matching ) */<br><br>      assert(aux+pos &lt; sz);<br><br>      if(tokens[pos+aux].type == TOKEN_OPEN)<br>        balance--;<br>      if(tokens[pos+aux].type == TOKEN_CLOSE)<br>        balance ++;<br><br>      aux++;<br>    }<br><br>    Lisp_Object cdr = parse(tokens, pos+aux, sz);<br><br>    return fcons(car, cdr);<br><br>  } else if(tokens[pos].type == TOKEN_CLOSE) {<br><br>    return NIL;<br><br>  } else if(tokens[pos].type == TOKEN_NUMBER) {<br><br>    int n = tokens[pos].data.number;<br>    Lisp_Object car = OBJ(n, number);<br><br>    return fcons(car, parse(tokens, pos+1, sz));<br><br>  } else if(tokens[pos].type == TOKEN_SYMBOL) {<br><br>    char* str = tokens[pos].data.name;<br><br>    Lisp_Object car = OBJ(str, symbol);<br>    return fcons(car, parse(tokens, pos+1, sz));<br><br>  }<br><br>  return NIL;<br>}<br></pre>
+          <p>This code isn't that much different from the pseudocode that I've written before, the main difference is the parenthesis handling. The code for this article can be seen [here]( <span class="text-blue"><a href="https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c">https://github.com/gbrls/lisp-interpreter/blob/a15eb40743e64e9cc60c9e01474050ebf25b59ec/main.c</a></span> ).</p>
+          <p>Every cons and symbol in which we allocate are not fred, so our interpreter is leaking memory. The solution for this is called garbage collection, we are going to implement it in a latter article.</p>
+        </article>
+        <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 0)">
+            <g class="typst-group">
+                <g>
+                    <g transform="translate(0 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(39.68503937007874 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(79.37007874015748 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(119.05511811023621 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(158.74015748031496 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(198.4251968503937 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(238.11023622047242 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                    <g transform="translate(277.7952755905511 0)">
+                        <path class="typst-shape" fill="#7287fd" fill-rule="nonzero" d="M 0 0 L 0 2.8346457 L 19.84252 2.8346457 L 19.84252 0 L 0 0 Z "/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+</div>
+        <ul>
+          <li>
+            <p><span class="text-blue"><a href="./index.html">Index</a></span> ...............................................................................</p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a></span> .......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gBC2B38D693AB667686D58C182FD5D286" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="gBC2B38D693AB667686D58C182FD5D286" overflow="visible">
+            <path d="M 1.2246094 7.2402344 Q 1.2246094 7.4335938 1.4179688 7.4765625 Q 2.0195313 7.626953 2.6640625 7.626953 Q 3.7167969 7.626953 4.4365234 7.159668 Q 5.15625 6.692383 5.15625 5.7041016 Q 5.15625 5.091797 4.8500977 4.6674805 Q 4.5439453 4.243164 3.9316406 3.9101563 Q 4.5009766 3.6523438 4.882324 3.1313477 Q 5.263672 2.6103516 5.263672 1.9013672 Q 5.263672 0.89160156 4.4902344 0.39208984 Q 3.7167969 -0.107421875 2.6103516 -0.107421875 Q 1.9335938 -0.107421875 1.3105469 0.04296875 Q 1.1171875 0.0859375 1.1171875 0.27929688 Q 1.1171875 0.34375 1.1279297 0.37597656 L 1.2138672 0.6767578 Q 1.2568359 0.859375 1.4394531 0.859375 Q 1.5039063 0.859375 1.546875 0.8486328 Q 2.0517578 0.73046875 2.6103516 0.73046875 Q 4.3398438 0.73046875 4.3398438 2.0302734 Q 4.3398438 2.6748047 3.8779297 3.0776367 Q 3.4160156 3.4804688 2.6855469 3.4804688 L 2.1376953 3.4804688 Q 1.8691406 3.4804688 1.8691406 3.7490234 L 1.8691406 4.0390625 Q 1.8691406 4.307617 2.1376953 4.307617 L 2.6855469 4.307617 Q 3.4052734 4.307617 3.8188477 4.651367 Q 4.232422 4.995117 4.232422 5.6503906 Q 4.232422 6.2626953 3.834961 6.525879 Q 3.4375 6.7890625 2.6640625 6.7890625 Q 2.1591797 6.7890625 1.6542969 6.6708984 Q 1.6113281 6.6601563 1.546875 6.6601563 Q 1.3642578 6.6601563 1.3212891 6.8427734 L 1.2353516 7.1435547 Q 1.2246094 7.1757813 1.2246094 7.2402344 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./router-command-injection.html">Finding a command injection in a router</a></span> .........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gBC2B38D693AB667686D58C182FD5D286" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="gBC2B38D693AB667686D58C182FD5D286" overflow="visible">
+            <path d="M 1.2246094 7.2402344 Q 1.2246094 7.4335938 1.4179688 7.4765625 Q 2.0195313 7.626953 2.6640625 7.626953 Q 3.7167969 7.626953 4.4365234 7.159668 Q 5.15625 6.692383 5.15625 5.7041016 Q 5.15625 5.091797 4.8500977 4.6674805 Q 4.5439453 4.243164 3.9316406 3.9101563 Q 4.5009766 3.6523438 4.882324 3.1313477 Q 5.263672 2.6103516 5.263672 1.9013672 Q 5.263672 0.89160156 4.4902344 0.39208984 Q 3.7167969 -0.107421875 2.6103516 -0.107421875 Q 1.9335938 -0.107421875 1.3105469 0.04296875 Q 1.1171875 0.0859375 1.1171875 0.27929688 Q 1.1171875 0.34375 1.1279297 0.37597656 L 1.2138672 0.6767578 Q 1.2568359 0.859375 1.4394531 0.859375 Q 1.5039063 0.859375 1.546875 0.8486328 Q 2.0517578 0.73046875 2.6103516 0.73046875 Q 4.3398438 0.73046875 4.3398438 2.0302734 Q 4.3398438 2.6748047 3.8779297 3.0776367 Q 3.4160156 3.4804688 2.6855469 3.4804688 L 2.1376953 3.4804688 Q 1.8691406 3.4804688 1.8691406 3.7490234 L 1.8691406 4.0390625 Q 1.8691406 4.307617 2.1376953 4.307617 L 2.6855469 4.307617 Q 3.4052734 4.307617 3.8188477 4.651367 Q 4.232422 4.995117 4.232422 5.6503906 Q 4.232422 6.2626953 3.834961 6.525879 Q 3.4375 6.7890625 2.6640625 6.7890625 Q 2.1591797 6.7890625 1.6542969 6.6708984 Q 1.6113281 6.6601563 1.546875 6.6601563 Q 1.3642578 6.6601563 1.3212891 6.8427734 L 1.2353516 7.1435547 Q 1.2246094 7.1757813 1.2246094 7.2402344 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a></span> ............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gBC2B38D693AB667686D58C182FD5D286" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="gBC2B38D693AB667686D58C182FD5D286" overflow="visible">
+            <path d="M 1.2246094 7.2402344 Q 1.2246094 7.4335938 1.4179688 7.4765625 Q 2.0195313 7.626953 2.6640625 7.626953 Q 3.7167969 7.626953 4.4365234 7.159668 Q 5.15625 6.692383 5.15625 5.7041016 Q 5.15625 5.091797 4.8500977 4.6674805 Q 4.5439453 4.243164 3.9316406 3.9101563 Q 4.5009766 3.6523438 4.882324 3.1313477 Q 5.263672 2.6103516 5.263672 1.9013672 Q 5.263672 0.89160156 4.4902344 0.39208984 Q 3.7167969 -0.107421875 2.6103516 -0.107421875 Q 1.9335938 -0.107421875 1.3105469 0.04296875 Q 1.1171875 0.0859375 1.1171875 0.27929688 Q 1.1171875 0.34375 1.1279297 0.37597656 L 1.2138672 0.6767578 Q 1.2568359 0.859375 1.4394531 0.859375 Q 1.5039063 0.859375 1.546875 0.8486328 Q 2.0517578 0.73046875 2.6103516 0.73046875 Q 4.3398438 0.73046875 4.3398438 2.0302734 Q 4.3398438 2.6748047 3.8779297 3.0776367 Q 3.4160156 3.4804688 2.6855469 3.4804688 L 2.1376953 3.4804688 Q 1.8691406 3.4804688 1.8691406 3.7490234 L 1.8691406 4.0390625 Q 1.8691406 4.307617 2.1376953 4.307617 L 2.6855469 4.307617 Q 3.4052734 4.307617 3.8188477 4.651367 Q 4.232422 4.995117 4.232422 5.6503906 Q 4.232422 6.2626953 3.834961 6.525879 Q 3.4375 6.7890625 2.6640625 6.7890625 Q 2.1591797 6.7890625 1.6542969 6.6708984 Q 1.6113281 6.6601563 1.546875 6.6601563 Q 1.3642578 6.6601563 1.3212891 6.8427734 L 1.2353516 7.1435547 Q 1.2246094 7.1757813 1.2246094 7.2402344 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a></span> ..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gBC2B38D693AB667686D58C182FD5D286" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="gBC2B38D693AB667686D58C182FD5D286" overflow="visible">
+            <path d="M 1.2246094 7.2402344 Q 1.2246094 7.4335938 1.4179688 7.4765625 Q 2.0195313 7.626953 2.6640625 7.626953 Q 3.7167969 7.626953 4.4365234 7.159668 Q 5.15625 6.692383 5.15625 5.7041016 Q 5.15625 5.091797 4.8500977 4.6674805 Q 4.5439453 4.243164 3.9316406 3.9101563 Q 4.5009766 3.6523438 4.882324 3.1313477 Q 5.263672 2.6103516 5.263672 1.9013672 Q 5.263672 0.89160156 4.4902344 0.39208984 Q 3.7167969 -0.107421875 2.6103516 -0.107421875 Q 1.9335938 -0.107421875 1.3105469 0.04296875 Q 1.1171875 0.0859375 1.1171875 0.27929688 Q 1.1171875 0.34375 1.1279297 0.37597656 L 1.2138672 0.6767578 Q 1.2568359 0.859375 1.4394531 0.859375 Q 1.5039063 0.859375 1.546875 0.8486328 Q 2.0517578 0.73046875 2.6103516 0.73046875 Q 4.3398438 0.73046875 4.3398438 2.0302734 Q 4.3398438 2.6748047 3.8779297 3.0776367 Q 3.4160156 3.4804688 2.6855469 3.4804688 L 2.1376953 3.4804688 Q 1.8691406 3.4804688 1.8691406 3.7490234 L 1.8691406 4.0390625 Q 1.8691406 4.307617 2.1376953 4.307617 L 2.6855469 4.307617 Q 3.4052734 4.307617 3.8188477 4.651367 Q 4.232422 4.995117 4.232422 5.6503906 Q 4.232422 6.2626953 3.834961 6.525879 Q 3.4375 6.7890625 2.6640625 6.7890625 Q 2.1591797 6.7890625 1.6542969 6.6708984 Q 1.6113281 6.6601563 1.546875 6.6601563 Q 1.3642578 6.6601563 1.3212891 6.8427734 L 1.2353516 7.1435547 Q 1.2246094 7.1757813 1.2246094 7.2402344 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./binbin-tree.html">Binary Binary Tree</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g85F073375800E29B07651F26D075D320" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+        <symbol id="g85F073375800E29B07651F26D075D320" overflow="visible">
+            <path d="M 5.263672 0.55859375 L 5.263672 0.2685547 Q 5.263672 0 4.995117 0 L 1.1816406 0 Q 0.91308594 0 0.91308594 0.2685547 L 0.91308594 0.55859375 Q 0.91308594 0.82714844 1.1816406 0.82714844 L 2.975586 0.82714844 L 2.975586 5.5859375 L 1.1816406 5.5859375 Q 0.91308594 5.5859375 0.91308594 5.854492 L 0.91308594 6.1445313 Q 0.91308594 6.413086 1.1816406 6.413086 Q 1.9873047 6.413086 2.4384766 6.6118164 Q 2.8896484 6.810547 3.1044922 7.3046875 Q 3.2011719 7.5195313 3.4160156 7.5195313 L 3.6201172 7.5195313 Q 3.8886719 7.5195313 3.8886719 7.2509766 L 3.8886719 0.82714844 L 4.995117 0.82714844 Q 5.263672 0.82714844 5.263672 0.55859375 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-1.html">Making a Lisp - 1</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-0.html">Making a Lisp - 0</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-muro.html">OBI 2018 - Muro</a></span> .................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <g>
+        <g transform="translate(0 7.51953125)">
+            <g class="typst-text" transform="scale(1, -1)">
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="0" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="6.1767578125" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#gD6AA89A111AB15358B6D44DF6FCB196B" x="12.353515625" fill="#8c8fa1" fill-rule="nonzero"/>
+                <use xlink:href="#g631558804257AC4545908F80293F5536" x="18.5302734375" fill="#8c8fa1" fill-rule="nonzero"/>
+            </g>
+        </g>
+    </g>
+    <defs id="glyph">
+        <symbol id="gD6AA89A111AB15358B6D44DF6FCB196B" overflow="visible">
+            <path d="M 5.5214844 0.55859375 L 5.5214844 0.2578125 Q 5.5214844 -0.0107421875 5.2529297 -0.0107421875 L 1.1708984 -0.0107421875 Q 0.90234375 -0.0107421875 0.90234375 0.2578125 L 0.90234375 0.515625 Q 0.90234375 1.1816406 1.1923828 1.7026367 Q 1.4824219 2.2236328 1.8369141 2.5458984 Q 2.1914063 2.868164 2.7822266 3.319336 Q 3.3515625 3.7705078 3.6738281 4.071289 Q 3.9960938 4.3720703 4.2001953 4.7319336 Q 4.404297 5.091797 4.404297 5.5214844 Q 4.404297 6.7890625 2.8466797 6.7890625 Q 2.234375 6.7890625 1.5039063 6.53125 Q 1.4179688 6.5097656 1.3857422 6.5097656 Q 1.2353516 6.5097656 1.1494141 6.692383 L 1.0527344 6.9716797 Q 1.03125 7.0146484 1.03125 7.0898438 Q 1.03125 7.2509766 1.203125 7.3154297 Q 2.0302734 7.626953 2.8466797 7.626953 Q 3.9208984 7.626953 4.6245117 7.100586 Q 5.328125 6.5742188 5.328125 5.5214844 Q 5.328125 4.9091797 5.054199 4.409668 Q 4.7802734 3.9101563 4.3881836 3.5395508 Q 3.9960938 3.1689453 3.3515625 2.6640625 Q 2.6103516 2.0947266 2.2451172 1.7026367 Q 1.8798828 1.3105469 1.8261719 0.82714844 L 5.2529297 0.82714844 Q 5.5214844 0.82714844 5.5214844 0.55859375 Z "/>
+        </symbol>
+        <symbol id="g631558804257AC4545908F80293F5536" overflow="visible">
+            <path d="M 4.42041 7.159668 Q 4.984375 6.692383 5.2851563 5.8168945 Q 5.5859375 4.9414063 5.5859375 3.7597656 Q 5.5859375 2.578125 5.2851563 1.7026367 Q 4.984375 0.82714844 4.42041 0.35986328 Q 3.8564453 -0.107421875 3.09375 -0.107421875 Q 2.3310547 -0.107421875 1.7617188 0.35986328 Q 1.1923828 0.82714844 0.89160156 1.7026367 Q 0.5908203 2.578125 0.5908203 3.7597656 Q 0.5908203 4.9414063 0.89160156 5.8168945 Q 1.1923828 6.692383 1.7617188 7.159668 Q 2.3310547 7.626953 3.09375 7.626953 Q 3.8564453 7.626953 4.42041 7.159668 Z M 1.9335938 5.9887695 Q 1.5039063 5.166992 1.5039063 3.7597656 Q 1.5039063 3.319336 1.5576172 2.8359375 L 4.3935547 5.671875 Q 4.189453 6.2197266 3.8564453 6.5151367 Q 3.5234375 6.810547 3.09375 6.810547 Q 2.3632813 6.810547 1.9335938 5.9887695 Z M 4.248535 1.5361328 Q 4.6728516 2.352539 4.6728516 3.7597656 Q 4.6728516 4.2109375 4.6191406 4.694336 L 1.7939453 1.8691406 Q 1.9980469 1.3105469 2.3310547 1.0151367 Q 2.6640625 0.71972656 3.09375 0.71972656 Q 3.8242188 0.71972656 4.248535 1.5361328 Z "/>
+        </symbol>
+    </defs>
+</svg>
+</span></p>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-auto"></div>
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+    </div>
   </body>
 </html>

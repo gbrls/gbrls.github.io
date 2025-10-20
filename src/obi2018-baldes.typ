@@ -1,3 +1,7 @@
+#import "html_elements.typ": post
+#show: post
+
+
 #import "@preview/zebraw:0.5.5": *
 #import "./lib.typ": flex, svg_inline
 #show: zebraw
@@ -138,4 +142,3 @@ Porém após implementar a primeira solução e não funcionar fiz uma segunda l
   ```
 ]
 
-#include "./html_elements.typ"

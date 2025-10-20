@@ -5,53 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <p>This is the first part of a series of articles that I'll be writing to document my progress on building a interpreter for a Lisp-like language.</p>
-    <p>I've been interested in learning different programming languages for a while now, I've read the first chapters of Haskell and Lisp books recently and the one that hooked me on was [Land of lisp](<a href="http://landoflisp.com/">http://landoflisp.com/</a>). Lisp's simplicity really struck me: from very simple building blocks you can create anything in such an elegant and simple way.</p>
-    <h2>What is myLisp</h2>
-    <p>myLisp is a lisp-like language, the main goal of it is to be implemented in the most simple and educational way possible. So, what is lisp?</p>
-    <h2>A bit of history</h2>
-    <p>Lisp is a programming language that was invented in the late 50's by John McCarthy, in 1960 he published a <a href="http://www-formal.stanford.edu/jmc/recursive.html">paper</a> where he defined the language and wrote a Lisp interpreter in Lisp! It's crazy to think that you can write a interpreter for Lisp in Lisp in such an small and beautiful way using only simple operations, it really shows its elegance and power. There's a more <a href="http://www.paulgraham.com/rootsoflisp.html">approachable paper</a> by Paul Graham in which he explains step by step how Lisp was defined in McCarthy's paper, here's an excerpt from it: > "<em>I wrote this article to help myself understand exactly what McCarthy > discovered. You don't need to know this stuff to program in Lisp, but it > should be helpful to anyone who wants to understand the essence of Lisp - both > in the sense of its origins and its semantic core. The fact that it has such a > core is one of Lisp's distinguishing features (…)</em>"</p>
-    <h2>What is it?</h2>
-    <p>The building blocks of Lisp are cons cells. It is a structure that holds two values, head and tail or as Lisp calls them: <code>CAR</code> and <code>CDR</code>. Each of them can either point to another cons cell or to atoms. Atoms are anything that can't be divided into smaller parts (as we can with cons cells which can be divided into two parts) such as: <code>14</code>, <code>hello-there</code>, <code>aux</code>, <code>"I'm a string"</code>. Bellow you can see some examples on how cons cells can work together:</p>
-    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 525 128" width="525pt" height="128pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
-    <g>
-        <g transform="translate(0 0)">
-            <image xlink:href="data:image/png;base64,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" width="525" height="128" preserveAspectRatio="none"/>
-        </g>
-    </g>
-</svg>
-
-    <p>> <em>Example 1: List</em></p>
-    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 425 175" width="425pt" height="175pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
-    <g>
-        <g transform="translate(0 0)">
-            <image xlink:href="data:image/gif;base64,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" width="425" height="175" preserveAspectRatio="none"/>
-        </g>
-    </g>
-</svg>
-
-    <p>> <em>Example 2: Nested list</em></p>
-    <p>NIL is a special object which denotes the end of a list. As you can see from the first example we've just created a list, which is the single most important data structure in Lisp. That's where it's name comes from: <strong>LIS*t</strong>P*rocessor.</p>
-    <h2>S-Expressions</h2>
-    <p>Now that we know the basic concepts of the language we are going to learn how to represent them in Lisp code.</p>
-    <p>S-Expressions are how Lisp represent its code and data. Code and data being represented in the same way is a very important concept to Lisp, it is called <a href="https://en.wikipedia.org/wiki/Homoiconicity">homoiconicity</a>. They can be in the form of atoms or other s-expressions enclosed by parenthesis and separated by a whitespace.</p>
-    <p>Lets see how the examples 1 and 2 can be represented using S-Expressions.</p>
-    <p>(42 69 613) (c-major (c e g))</p>
-    <p>Lisp can look at these two expressions as code or as data. By default Lisp reads them as if they were code. The first element of an expression, (it's <code>CAR</code>) is interpreted as a function, so <code>(f a b)</code> has the same meaning as <code>f(a, b);</code> have in C, for example.</p>
-    <h2>Basic functions</h2>
-    <p><strong><code>PRINT</code>: Receives an expression as its input, prints it, and then returns it.</strong> <code>QUOTE</code>: Receives an expression as its input and returns it, without evaluating it.</p>
-    <p>Let's try these two functions, let's say that I want to print the list from the first example. If I call <code>(PRINT (32 69 613))</code> it will throw an error because Lisp will try to call the function <code>32</code> with <code>69</code> and <code>613</code> as its arguments. But if I call <code>(PRINT (QUOTE (32 69 613)))</code> it will work as I intended, because <code>QUOTE</code> returns <code>(32 69 613)</code> and then <code>PRINT</code> prints it, so <code>QUOTE</code> is a way to convert code into data.</p>
-    <p><strong><code>CONS</code>: Takes <code>a</code> and <code>b</code> and returns a cons cell with <code>a</code> as it's first part and <code>b</code> as the second.</strong> <code>CAR</code>: Takes a cons cell and returns it's first part. <strong><code>CDR</code>: Takes a cons cell and returns it's second part.</strong> <code>CADR</code>: Same as <code>CAR(CDR(a))</code>, <code>CDDR</code>: Same as <code>(CDR(CDR(a)))</code>, <code>CADDR</code>, <code>CADAR</code>, …</p>
-    <p>Examples:</p>
-    <p><strong><code>(CONS (QUOTE A) (CONS (QUOTE B) NIL))</code> returns <code>(A B)</code>.</strong> Expression to create the nested list from the second image: <code>(CONS (QUOTE C-MAJOR) (CONS (CONS (QUOTE C) (CONS (QUOTE E) (CONS (QUOTE G)<br>NIL))) NIL))</code> which returns <code>(C-MAJOR (C E G))</code>.</p>
-    <p><em>Sidenote: You don't have to declare things this way, I just made this way for illustration purposes, in Lisp you could also just do</em> <code>(QUOTE (C-MAJOR (C E<br>G)))</code>.</p>
-    <p>There are other important functions that we'll be discussing later, but for the next article they are enough.</p>
     <head>
       <meta charset="UTF-8">
       <title>0x4200.cafe</title>
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="style_compiled.css">
     </head>
-    <svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+    <div class="font-display bg-base min-h-screen text-text flex">
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+      <div class="flex-auto"></div>
+      <div class="flex-none p-4">
+        <article class="max-w-[110ch] leading-relaxed [&amp;>p]:p-2">
+          <p>This is the first part of a series of articles that I'll be writing to document my progress on building a interpreter for a Lisp-like language.</p>
+          <p>I've been interested in learning different programming languages for a while now, I've read the first chapters of Haskell and Lisp books recently and the one that hooked me on was [Land of lisp]( <span class="text-blue"><a href="http://landoflisp.com/">http://landoflisp.com/</a></span> ). Lisp's simplicity really struck me: from very simple building blocks you can create anything in such an elegant and simple way.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>What is myLisp</h2>
+          </div>
+          <p>myLisp is a lisp-like language, the main goal of it is to be implemented in the most simple and educational way possible. So, what is lisp?</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>A bit of history</h2>
+          </div>
+          <p>Lisp is a programming language that was invented in the late 50's by John McCarthy, in 1960 he published a <span class="text-blue"><a href="http://www-formal.stanford.edu/jmc/recursive.html">paper</a></span> where he defined the language and wrote a Lisp interpreter in Lisp! It's crazy to think that you can write a interpreter for Lisp in Lisp in such an small and beautiful way using only simple operations, it really shows its elegance and power. There's a more <span class="text-blue"><a href="http://www.paulgraham.com/rootsoflisp.html">approachable paper</a></span> by Paul Graham in which he explains step by step how Lisp was defined in McCarthy's paper, here's an excerpt from it: > "<em>I wrote this article to help myself understand exactly what McCarthy > discovered. You don't need to know this stuff to program in Lisp, but it > should be helpful to anyone who wants to understand the essence of Lisp - both > in the sense of its origins and its semantic core. The fact that it has such a > core is one of Lisp's distinguishing features (…)</em>"</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>What is it?</h2>
+          </div>
+          <p>The building blocks of Lisp are cons cells. It is a structure that holds two values, head and tail or as Lisp calls them: <span class="text-peach bg-mantle p-1 rounded-md"><code>CAR</code></span> and <span class="text-peach bg-mantle p-1 rounded-md"><code>CDR</code></span> . Each of them can either point to another cons cell or to atoms. Atoms are anything that can't be divided into smaller parts (as we can with cons cells which can be divided into two parts) such as: <span class="text-peach bg-mantle p-1 rounded-md"><code>14</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>hello-there</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>aux</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>"I'm a string"</code></span> . Bellow you can see some examples on how cons cells can work together:</p>
+          <img class="max-w-xl block rounded-md p-4 mx-auto" src="static/cons-cell-0.png">
+          <p>> <em>Example 1: List</em></p>
+          <img class="max-w-xl block rounded-md p-4 mx-auto" src="static/cons-cell-1.gif">
+          <p>> <em>Example 2: Nested list</em></p>
+          <p>NIL is a special object which denotes the end of a list. As you can see from the first example we've just created a list, which is the single most important data structure in Lisp. That's where it's name comes from: <strong>LIS*t</strong>P*rocessor.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>S-Expressions</h2>
+          </div>
+          <p>Now that we know the basic concepts of the language we are going to learn how to represent them in Lisp code.</p>
+          <p>S-Expressions are how Lisp represent its code and data. Code and data being represented in the same way is a very important concept to Lisp, it is called <span class="text-blue"><a href="https://en.wikipedia.org/wiki/Homoiconicity">homoiconicity</a></span> . They can be in the form of atoms or other s-expressions enclosed by parenthesis and separated by a whitespace.</p>
+          <p>Lets see how the examples 1 and 2 can be represented using S-Expressions.</p>
+          <p>(42 69 613) (c-major (c e g))</p>
+          <p>Lisp can look at these two expressions as code or as data. By default Lisp reads them as if they were code. The first element of an expression, (it's <span class="text-peach bg-mantle p-1 rounded-md"><code>CAR</code></span> ) is interpreted as a function, so <span class="text-peach bg-mantle p-1 rounded-md"><code>(f a b)</code></span> has the same meaning as <span class="text-peach bg-mantle p-1 rounded-md"><code>f(a, b);</code></span> have in C, for example.</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>Basic functions</h2>
+          </div>
+          <p><strong><span class="text-peach bg-mantle p-1 rounded-md"><code>PRINT</code></span> : Receives an expression as its input, prints it, and then returns it.</strong> <span class="text-peach bg-mantle p-1 rounded-md"><code>QUOTE</code></span> : Receives an expression as its input and returns it, without evaluating it.</p>
+          <p>Let's try these two functions, let's say that I want to print the list from the first example. If I call <span class="text-peach bg-mantle p-1 rounded-md"><code>(PRINT (32 69 613))</code></span> it will throw an error because Lisp will try to call the function <span class="text-peach bg-mantle p-1 rounded-md"><code>32</code></span> with <span class="text-peach bg-mantle p-1 rounded-md"><code>69</code></span> and <span class="text-peach bg-mantle p-1 rounded-md"><code>613</code></span> as its arguments. But if I call <span class="text-peach bg-mantle p-1 rounded-md"><code>(PRINT (QUOTE (32 69 613)))</code></span> it will work as I intended, because <span class="text-peach bg-mantle p-1 rounded-md"><code>QUOTE</code></span> returns <span class="text-peach bg-mantle p-1 rounded-md"><code>(32 69 613)</code></span> and then <span class="text-peach bg-mantle p-1 rounded-md"><code>PRINT</code></span> prints it, so <span class="text-peach bg-mantle p-1 rounded-md"><code>QUOTE</code></span> is a way to convert code into data.</p>
+          <p><strong><span class="text-peach bg-mantle p-1 rounded-md"><code>CONS</code></span> : Takes <span class="text-peach bg-mantle p-1 rounded-md"><code>a</code></span> and <span class="text-peach bg-mantle p-1 rounded-md"><code>b</code></span> and returns a cons cell with <span class="text-peach bg-mantle p-1 rounded-md"><code>a</code></span> as it's first part and <span class="text-peach bg-mantle p-1 rounded-md"><code>b</code></span> as the second.</strong> <span class="text-peach bg-mantle p-1 rounded-md"><code>CAR</code></span> : Takes a cons cell and returns it's first part. <strong><span class="text-peach bg-mantle p-1 rounded-md"><code>CDR</code></span> : Takes a cons cell and returns it's second part.</strong> <span class="text-peach bg-mantle p-1 rounded-md"><code>CADR</code></span> : Same as <span class="text-peach bg-mantle p-1 rounded-md"><code>CAR(CDR(a))</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>CDDR</code></span> : Same as <span class="text-peach bg-mantle p-1 rounded-md"><code>(CDR(CDR(a)))</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>CADDR</code></span> , <span class="text-peach bg-mantle p-1 rounded-md"><code>CADAR</code></span> , …</p>
+          <p>Examples:</p>
+          <p><strong><span class="text-peach bg-mantle p-1 rounded-md"><code>(CONS (QUOTE A) (CONS (QUOTE B) NIL))</code></span> returns <span class="text-peach bg-mantle p-1 rounded-md"><code>(A B)</code></span> .</strong> Expression to create the nested list from the second image: <span class="text-peach bg-mantle p-1 rounded-md"><code>(CONS (QUOTE C-MAJOR) (CONS (CONS (QUOTE C) (CONS (QUOTE E) (CONS (QUOTE G)<br>NIL))) NIL))</code></span> which returns <span class="text-peach bg-mantle p-1 rounded-md"><code>(C-MAJOR (C E G))</code></span> .</p>
+          <p><em>Sidenote: You don't have to declare things this way, I just made this way for illustration purposes, in Lisp you could also just do</em> <span class="text-peach bg-mantle p-1 rounded-md"><code>(QUOTE (C-MAJOR (C E<br>G)))</code></span> .</p>
+          <p>There are other important functions that we'll be discussing later, but for the next article they are enough.</p>
+        </article>
+        <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 0)">
             <g class="typst-group">
@@ -85,13 +87,13 @@
         </g>
     </g>
 </svg>
-
-    <ul>
-      <li>
-        <p><a href="./index.html">Index</a>...............................................................................</p>
-      </li>
-      <li>
-        <p><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a>.......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+</div>
+        <ul>
+          <li>
+            <p><span class="text-blue"><a href="./index.html">Index</a></span> ...............................................................................</p>
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./building-a-freeburp-collaborator-with-cloudflare-workers.html">Building a free Burp Collaborator with Cloudflare Workers</a></span> .......................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -115,9 +117,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./router-command-injection.html">Finding a command injection in a router</a>.........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./router-command-injection.html">Finding a command injection in a router</a></span> .........................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -141,9 +143,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a>............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./oswe-some-thoughts.html">OSWE - Some thoughts</a></span> ............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -167,9 +169,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a>..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./the-inevitability-of-getting-pwned.html">The Inevitability of Getting Pwned</a></span> ..............................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -193,9 +195,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./binbin-tree.html">Binary Binary Tree</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./binbin-tree.html">Binary Binary Tree</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -219,9 +221,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-1.html">Making a Lisp - 1</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-1.html">Making a Lisp - 1</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -242,9 +244,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./mk-lisp-0.html">Making a Lisp - 0</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./mk-lisp-0.html">Making a Lisp - 0</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -265,9 +267,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a>...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-baldes.html">OBI 2018 - Baldes</a></span> ...............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -288,9 +290,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-bolas.html">OBI 2018 - Bolas</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -311,9 +313,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a>................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-cinco.html">OBI 2018 - Cinco</a></span> ................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -334,9 +336,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-muro.html">OBI 2018 - Muro</a>.................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-muro.html">OBI 2018 - Muro</a></span> .................................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -357,9 +359,9 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-      <li>
-        <p><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a>..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
+          </li>
+          <li>
+            <p><span class="text-blue"><a href="./obi2018-maximin.html">OBI 2018 - MaxiMin</a></span> ..............................................................<span style="display: inline-block;"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 24.70703125 7.51953125" width="24.70703125pt" height="7.51953125pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
         <g transform="translate(0 7.51953125)">
             <g class="typst-text" transform="scale(1, -1)">
@@ -380,7 +382,11 @@
     </defs>
 </svg>
 </span></p>
-      </li>
-    </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-auto"></div>
+      <div class="flex-none bg-mantle min-w-1/20"></div>
+    </div>
   </body>
 </html>

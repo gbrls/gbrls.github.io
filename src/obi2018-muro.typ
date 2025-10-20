@@ -1,3 +1,6 @@
+#import "html_elements.typ": post
+#show: post
+
 #import "@preview/zebraw:0.5.5": *
 #import "./lib.typ": flex, svg_inline
 #show: zebraw
@@ -57,5 +60,3 @@ usar um vetor para guardar o valor da função já computados.
   }
   ```
 ]
-
-#include "./html_elements.typ"
