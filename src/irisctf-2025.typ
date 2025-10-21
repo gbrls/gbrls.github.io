@@ -1,18 +1,24 @@
-+++
-title = 'IrisCTF 2025 - Checksumz'
-date = 2025-01-14T14:14:52-03:00
-tags = ['pwn', 'linux_kernel', 'ctf']
-+++
+#import "./html_elements.typ": post
+
+#show: post
+
+// +++
+// title = 'IrisCTF 2025 - Checksumz'
+// date = 2025-01-14T14:14:52-03:00
+// tags = ['pwn', 'linux_kernel', 'ctf']
+// +++
+
+= Checksumz
 
 > [CTFtime task](https://ctftime.org/task/29885)
 > [Challenge files](https://github.com/gbrls/pwn/tree/main/iris-2025/checksumz)
 
 
-# Problem statement
+== Problem statement
 
 ```goat
  "Someone told me that I can write faster programs by putting them into kernel
-modules, so I replaced my checksum function with a char device." 
+modules, so I replaced my checksum function with a char device."
 ```
 
 We're given a nicely setup environment with a vulnerable kernel module.
@@ -57,7 +63,7 @@ static int checksumz_open(struct inode *inode, struct file *file) {
 In this case, since the allocations are above 512 and below 1024 bytes, they'll
 get allocated in `kmalloc-1024`.
 
-# Buffer overflow
+= Buffer overflow
 
 Below are the `lseek` and `write` handlers. Note that the overflow happens
 because we can set the `buffer->pos` to the end of the buffer, and during the
@@ -99,12 +105,12 @@ static ssize_t checksumz_write_iter(struct kiocb *iocb, struct iov_iter *from) {
     buffer->pos += copied;
     if (buffer->pos >= buffer->size)
         buffer->pos = buffer->size - 1;
-    
+
     return copied;
 }
 ```
 
-And there is also a `read` that overflows, it leaks **256** bytes instead of **16**.
+And there is also a `read` that overflows, it leaks `256` bytes instead of `16`.
 
 ```c
 static ssize_t checksumz_read_iter(struct kiocb *iocb, struct iov_iter *to) {
@@ -115,7 +121,7 @@ static ssize_t checksumz_read_iter(struct kiocb *iocb, struct iov_iter *to) {
 }
 ```
 
-# hands on
+= hands on
 
 Let's test our assumptions debugging the kernel with driver.
 In the CTF challenge files we have symbols, so setting a breakpoint is as easy
@@ -157,9 +163,9 @@ $9 = 3
 
 Both heap allocations we discussed before are 1024 (0x400 in hex) aligned, i.e.
 their addresses are multiples of 0x400. We can also see that both allocations
-are close, just **0x400 * 3** bytes apart.
+are close, just `0x400 * 3` bytes apart.
 
-# unlocking abilities (getting a better primitive)
+= unlocking abilities (getting a better primitive)
 
 The first we're going to do is to override that `size` variable withthe
 overflow we have in the `state` buffer, since they're next to each other we
@@ -174,7 +180,7 @@ static long checksumz_ioctl(struct file *file, unsigned int command, unsigned lo
 	struct checksum_buffer* buffer = file->private_data;
 	if (!file->private_data)
 		return -EBADFD;
-	
+
 	switch (command) {
         // ...
 		case CHECKSUMZ_IOCTL_RENAME:
@@ -201,8 +207,7 @@ void arb_write(int fd, uint64_t addr, uint64_t* data) {
 }
 ```
 
-# Heap magic
-
+= Heap magic
 
 
 Oops, the writeup for this part is in progress...
@@ -313,7 +318,7 @@ for (int i = 1; i <= 8; i++) {
 
 ```
 
-# Arb write + KASLR leak = PRIVESC
+= Arb write + KASLR leak = PRIVESC
 
 
 Now that we have those primitives, it's just a matter of rewriting the
@@ -337,8 +342,8 @@ fscanf(flag, "%s", flag_buf);
 printf("(~) FLAG: %s\n", flag_buf);
 ```
 
-# References
+= References
 
 
-- [1] - https://pawnyable.cafe/linux-kernel/ 
+- [1] - https://pawnyable.cafe/linux-kernel/
 - [2] - https://ptr-yudai.hatenablog.com/entry/2020/03/16/165628

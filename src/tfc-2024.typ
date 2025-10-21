@@ -1,10 +1,14 @@
----
-title: "license - tfc 2024"
-date: 2024-08-12T15:26:51-03:00
-draft: false
-description: ""
-tags: ["rev", "ctf"]
----
+#import "./html_elements.typ": post
+
+#show: post
+
+// ---
+// title: "license - tfc 2024"
+// date: 2024-08-12T15:26:51-03:00
+// draft: false
+// description: ""
+// tags: ["rev", "ctf"]
+// ---
 
 This is a writeup for the [TFC CTF 2024](https://ctftime.org/event/2423/).
 
@@ -42,44 +46,44 @@ function.
 +0x14c4      puts("Please enter your license key to…");
 +0x14e2      fgets(&buffer_start, 18, stdin);
 +0x14f1      uint64_t rax = strlen(&buffer_start);
-+0x14f1      
++0x14f1
 +0x14ff      if (rax != 0x11)
 +0x14ff      {
 +0x1506          exit(0);
 +0x14ff      }
-+0x14ff      
++0x14ff
 +0x1527      if ((rax != 0 && *(uint8_t*)(rax + 0x405f) == 0xa))
 +0x1538          *(uint8_t*)(rax + 0x405f) = 0;
-+0x1538      
++0x1538
 +0x1555      strncpy(&first_8, &buffer_start, 8);
 +0x155a      data_4088 = 0;
-+0x155a      
++0x155a
 +0x1573      if (check_1st_half(&first_8) == 1)
 +0x1573      {
 +0x157f          puts("Nope");
 +0x1589          exit(0);
 +0x1573      }
-+0x1573      
++0x1573
 +0x1597      if (_9th_byte != '-')
 +0x1597      {
 +0x159e          exit(0);
 +0x1597      }
-+0x1597      
++0x1597
 +0x15bc      strncpy(&last_8, &buffer_10th, 8);
-+0x15bc      
++0x15bc
 +0x15d3      if (check_2nd_half(&last_8) != 1)
 +0x15d3      {
 +0x15f8          puts("Congrats! Get the flag on remote…");
 +0x1603          return 0;
 +0x15d3      }
-+0x15d3      
++0x15d3
 +0x15df      puts("Nope");
 +0x15e9      exit(0);
 +0x14ae  }
 ```
 
-Due to the call to `strlen` and the conditional below it, we know that **the
-flag is 17 characters long**.
+Due to the call to `strlen` and the conditional below it, we know that *the
+flag is 17 characters long*.
 
 Then there is:
 
@@ -98,24 +102,24 @@ This is the decompilation of the `check_1st_half` function
 +0x1219      void* fsbase;
 +0x1219      int64_t rax = *(uint64_t*)((char*)fsbase + 0x28);
 +0x12e6      void to_compare;
-+0x12e6      
++0x12e6
 +0x12e6      for (int32_t i = 0; i <= 7; i += 1) // copy input_buffer to to_compare with a few modifications
 +0x12e6      {
 +0x1254          int32_t rax_7 = (i % 3);
-+0x1254          
++0x1254
 +0x1259          if (rax_7 == 2)
 +0x12c1              *(uint8_t*)(&to_compare + ((int64_t)i)) = (*(uint8_t*)((char*)input_buffer + ((int64_t)i)) - 0x25);
 +0x1259          else if (rax_7 == 0)
 +0x1285              *(uint8_t*)(&to_compare + ((int64_t)i)) = (*(uint8_t*)((char*)input_buffer + ((int64_t)i)) ^ 0x5a);
 +0x1262          else if (rax_7 == 1)
 +0x12a3              *(uint8_t*)(&to_compare + ((int64_t)i)) = (*(uint8_t*)((char*)input_buffer + ((int64_t)i)) + 0x10);
-+0x12a3          
++0x12a3
 +0x12da          *(uint8_t*)(&to_compare + ((int64_t)i)) ^= 0x33;
 +0x12e6      }
-+0x12e6      
++0x12e6
 +0x12ec      int32_t iter = 0;
 +0x1328      int64_t result;
-+0x1328      
++0x1328
 +0x1328      while (true) // this checks if to_compose == global_flag_buffer_0
 +0x1328      {
 +0x1328          if (iter > 7)
@@ -123,21 +127,21 @@ This is the decompilation of the `check_1st_half` function
 +0x132a              result = 0;
 +0x132a              break;
 +0x1328          }
-+0x1328          
++0x1328
 +0x1317          if (((uint32_t)*(uint8_t*)(&to_compare + ((int64_t)iter))) != ((int32_t)global_flag_buffer_0[((int64_t)iter)]))
 +0x1317          {
 +0x1319              result = 1;
 +0x131e              break;
 +0x1317          }
-+0x1317          
++0x1317
 +0x1320          iter += 1;
 +0x1328      }
-+0x1328      
++0x1328
 +0x1333      *(uint64_t*)((char*)fsbase + 0x28);
-+0x1333      
++0x1333
 +0x133c      if (rax == *(uint64_t*)((char*)fsbase + 0x28))
 +0x1344          return result;
-+0x1344      
++0x1344
 +0x133e      __stack_chk_fail();
 +0x1209  }
 ```
@@ -148,10 +152,10 @@ Reverse Engineering is the art of understanding how things work. So, reading the
 - Compares the new buffer against a global buffer, which is `"Xsl3BDxP"`
 
 So, to solve this part of the challenge we just need to provide 8 characters
-that after they're copied to that new buffer they are `"Xsl3BDxP"`. 
+that after they're copied to that new buffer they are `"Xsl3BDxP"`.
 
 There are multiple ways to do this - even just bruteforcing char by char - in
-this chal I used [angr](https://angr.io/) to do this. This kind of problem is a classical application of angr - it's a symbolic execution engine - 
+this chal I used [angr](https://angr.io/) to do this. This kind of problem is a classical application of angr - it's a symbolic execution engine -
 
 
 ```python3
@@ -215,31 +219,31 @@ was different.
 +0x1463      for (int32_t i = 0; i <= 7; i += 1)
 +0x1463      {
 +0x1366          uint16_t* rdx_1 = *(uint64_t*)__ctype_b_loc();
-+0x1366          
++0x1366
 +0x1390          if ((((uint32_t)rdx_1[((int64_t)*(uint8_t*)((char*)input_buffer + ((int64_t)i)))]) & 0x200) == 0)
 +0x1390          {
 +0x13e4              uint16_t* rdx_11 = *(uint64_t*)__ctype_b_loc();
-+0x13e4              
++0x13e4
 +0x140e              if ((((uint32_t)rdx_11[((int64_t)*(uint8_t*)((char*)input_buffer + ((int64_t)i)))]) & 0x100) != 0)
 +0x1459                  *(uint8_t*)((char*)input_buffer + ((int64_t)i)) = (((int8_t)((((int32_t)*(uint8_t*)((char*)input_buffer + ((int64_t)i))) - 0x30) % 0x1a)) + 0x41);
 +0x1390          }
 +0x1390          else
 +0x13db              *(uint8_t*)((char*)input_buffer + ((int64_t)i)) = (((int8_t)((((int32_t)*(uint8_t*)((char*)input_buffer + ((int64_t)i))) - 0x5c) % 0x1a)) + 0x61);
 +0x1463      }
-+0x1463      
++0x1463
 +0x1469      int32_t iter = 0;
-+0x1469      
++0x1469
 +0x14a5      while (true) // just checking the equality
 +0x14a5      {
 +0x14a5          if (iter > 7)
 +0x14a7              return 0;
-+0x14a7          
++0x14a7
 +0x1494          if (*(uint8_t*)((char*)input_buffer + ((int64_t)iter)) != global_flag_buffer_1[((int64_t)iter)])
 +0x1494              break;
-+0x1494          
++0x1494
 +0x149d          iter += 1;
 +0x14a5      }
-+0x14a5      
++0x14a5
 +0x1496      return 1;
 +0x1345  }
 ```
@@ -257,7 +261,7 @@ I wrote a bash script and `gdb` script to run the binary with every possible val
 ```bash
 for i in {1..255}
 do
-    I=$(printf '%02x' $i) 
+    I=$(printf '%02x' $i)
     printf "${I}\x30\x84\x5a\x61\x9c\x11\x53\x2d\x68\x75\x47\x76\x59\x55\x75\x41" > input_x
     Y=$(gdb -q -x ./table.gdb --batch --args ./license | grep '0x555555558090')
     echo "$I = $Y"

@@ -49,15 +49,15 @@
 
 
   html.elem("div", attrs: (
-    class: "font-display bg-base min-h-screen text-text flex",
+    class: "font-display bg-base min-h-screen text-text flex flex-wrap",
   ))[
 
     #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
-    #html.elem("div", attrs: (class: "flex-auto"))[ ]
+    #html.elem("div", attrs: (class: "flex-auto bg-mantle"))[ ]
 
     #html.elem("div", attrs: (class: "flex-none p-4"))[
       #html.elem("article", attrs: (
-        class: "max-w-[110ch] leading-relaxed [&>p]:p-2",
+        class: "max-w-[90ch] leading-relaxed [&>p]:p-2 break-words",
       ))[
         #contents
       ]
@@ -72,7 +72,7 @@
     ]
 
     // spacing
-    #html.elem("div", attrs: (class: "flex-auto"))[ ]
+    #html.elem("div", attrs: (class: "flex-auto bg-mantle"))[ ]
     #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
   ]
 }

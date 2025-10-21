@@ -1,13 +1,17 @@
-+++
-title = 'Googlectf 2025'
-date = 2025-06-30T17:45:28-03:00
-draft = false
-tags = ['rev', 'ctf']
-+++
+#import "./html_elements.typ": post
+
+#show: post
+
+// +++
+// title = 'Googlectf 2025'
+// date = 2025-06-30T17:45:28-03:00
+// draft = false
+// tags = ['rev', 'ctf']
+// +++
 
 
 
-# rev-multiarch-1 (126 points / 99 solves)
+= rev-multiarch-1 (126 points / 99 solves)
 
 This challenge was solved by me and [Matt.](https://lobisomem.gay).
 
@@ -121,7 +125,7 @@ and execute cycle.
 > people just solved this manually on `gdb`, but I *really* wanted to try a
 > new tool...
 
-# libdebug
+= libdebug
 
 This is where [libdebug](https://github.com/libdebug/libdebug) comes in, it's
 basically a python library to automate `ptrace` debugging, it's pretty cool and
@@ -147,7 +151,7 @@ vm_breakpoints = [
 vm_ip_breakpoints = [
     # 0x131, # regvm loop cmp
     #0x5a, # chal1 cmp
-    #0x7c, 
+    #0x7c,
     0x88, # chal2 cmp
     #0xcd, # chal3 cmp?
     0xdd, # chal3 actual cmp?
@@ -220,7 +224,7 @@ def disasm(off, ip, code_adr):
     else:
         raw_instr = u64(d.memory.read(code_adr+ip, 8))
         print(f'raw: {raw_instr:016x}\n')
-        acc = ip 
+        acc = ip
         for i in range(0, 8):
             s, bytes_read = regvm_disasm(code_adr, acc)
             print(f'{acc:08x}\t{s}')
@@ -252,13 +256,13 @@ while not should_stop:
             case 'c':
                 hit_vm_bp = False
             case 'n':
-                vm_breakpoints.append(cur_cycle) 
+                vm_breakpoints.append(cur_cycle)
                 hit_vm_bp = False
             case '':
-                vm_breakpoints.append(cur_cycle) 
+                vm_breakpoints.append(cur_cycle)
                 hit_vm_bp = False
             case 'q':
-                vm_stop.append(cur_cycle) 
+                vm_stop.append(cur_cycle)
                 hit_vm_bp = False
             case _:
                 continue
@@ -314,8 +318,8 @@ Below is how it looks like in action:
 
 ```
 masmdbg> c/n/q:
-                                                                                                                                                  
-                                                                                                                                                  
+
+
 ========masm debugger=== regvm 139
 ip -> 000000bd
 ~~~ REGS
@@ -325,7 +329,7 @@ ip -> 000000bd
         00000000
 ~~~~~
 raw: 00631100ffffff10
-                                                                                                                                                  
+
 000000bd        PUSHI 0x00ffffff
 000000c2        PUSH REG(0)
 000000c3        JMPI.NE 0x00000000
@@ -334,7 +338,7 @@ raw: 00631100ffffff10
 000000cb        UNKNOWN(0xc0)
 000000cc        NOP
 000000cd        CMPI REG(0), 0x00000000
-                                                                                                                                                  
+
 -------stack sp:  0xee0 0x7ffff7fbc000
 00000000
 00000000
@@ -346,10 +350,10 @@ f2f2f2f2
 00000000
 00000000
 00000000
-                                                                                                                                                  
+
 ========cycle ended=====
-                                                                                                                                                  
- ```
+
+```
 
 As you can see the disassembler wasn't 100% complete, but it was enough to
 manually reverse the `masm` file and solve it.

@@ -3,6 +3,36 @@
 #let entries = (
   (file: "./index.typ", name: "Index"),
   (
+    file: "./corctf-2025.typ",
+    name: "COR CTF 2025",
+    date: 2025,
+  ),
+  (
+    file: "./googlectf-2025.typ",
+    name: "Google CTF 2025",
+    date: 2025,
+  ),
+  (
+    file: "./midnightsunctf-2025.typ",
+    name: "MidnightSun CTF 2025",
+    date: 2025,
+  ),
+  (
+    file: "./wolvctf-2025.typ",
+    name: "Wolv CTF 2025",
+    date: 2025,
+  ),
+  (
+    file: "./irisctf-2025.typ",
+    name: "Iris CTF 2025",
+    date: 2025,
+  ),
+  (
+    file: "./tfc-2024.typ",
+    name: "TFC CTF 2024",
+    date: 2024,
+  ),
+  (
     file: "./building-a-freeburp-collaborator-with-cloudflare-workers.typ",
     name: "Building a free Burp Collaborator with Cloudflare Workers",
     date: 2023,

