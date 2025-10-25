@@ -1,4 +1,5 @@
 #import "lib.typ": entries, separator
+#import "@preview/cetz:0.4.2"
 
 
 #let entry-to-html(entry) = {
@@ -44,6 +45,8 @@
   show link: it => [
     #html.elem("span", attrs: (class: "text-blue"))[#it]
   ]
+
+  set raw(theme: "./mocha.tmTheme")
 
   // ========== body =======
 

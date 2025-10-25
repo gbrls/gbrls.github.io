@@ -1,9 +1,6 @@
 #import "html_elements.typ": post
 #show: post
 
-#import "@preview/zebraw:0.5.5": *
-#show: zebraw
-
 
 = C Wizardry intro
 Sometimes I find some neat, crazy, cryptic features of the C programming
@@ -27,44 +24,43 @@ across #link("https://blog.reverberate.org/2012/12/hello-jit-world-joy-of-simple
 The article shows this code, that demonstrates how to execute memory in C,
 (*disclaimer:* This only works on Unix systems).
 
-#zebraw(numbering: false)[
-  ```c
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <sys/mman.h>
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
 
-  int main(int argc, char *argv[]) {
-    // Machine code for:
-    //   mov eax, 0
-    //   ret
-    unsigned char code[] = {0xb8, 0x00, 0x00, 0x00, 0x00, 0xc3};
+int main(int argc, char *argv[]) {
+  // Machine code for:
+  //   mov eax, 0
+  //   ret
+  unsigned char code[] = {0xb8, 0x00, 0x00, 0x00, 0x00, 0xc3};
 
-    if (argc < 2) {
-      fprintf(stderr, "Usage: jit1 <integer>\n");
-      return 1;
-    }
-
-    // Overwrite immediate value "0" in the instruction
-    // with the user's value.  This will make our code:
-    //   mov eax, <user's value>
-    //   ret
-    int num = atoi(argv[1]);
-    memcpy(&code[1], &num, 4);
-
-    // Allocate writable/executable memory.
-    // Note: real programs should not map memory both writable
-    // and executable because it is a security risk.
-    void *mem = mmap(NULL, sizeof(code), PROT_WRITE | PROT_EXEC,
-                     MAP_ANON | MAP_PRIVATE, -1, 0);
-    memcpy(mem, code, sizeof(code));
-
-    // The function will return the user's value.
-    int (*func)() = mem;
-    return func();
+  if (argc < 2) {
+    fprintf(stderr, "Usage: jit1 <integer>\n");
+    return 1;
   }
-  ```
-]
+
+  // Overwrite immediate value "0" in the instruction
+  // with the user's value.  This will make our code:
+  //   mov eax, <user's value>
+  //   ret
+  int num = atoi(argv[1]);
+  memcpy(&code[1], &num, 4);
+
+  // Allocate writable/executable memory.
+  // Note: real programs should not map memory both writable
+  // and executable because it is a security risk.
+  void *mem = mmap(NULL, sizeof(code), PROT_WRITE | PROT_EXEC,
+                   MAP_ANON | MAP_PRIVATE, -1, 0);
+  memcpy(mem, code, sizeof(code));
+
+  // The function will return the user's value.
+  int (*func)() = mem;
+  return func();
+}
+```
+
 
 I encourage you to run this code to get a feeling of it, but what it means is
 that *you can create an array, manipulate it as a regular array and then
@@ -77,31 +73,29 @@ I was able to get it working. The first thing that I did was to try to read a fu
 
 
 
-#zebraw(numbering: false)[
-  ```c
-  #include <stdio.h>
-  #include <string.h>
+```c
+#include <stdio.h>
+#include <string.h>
 
-  int f0() {
-      return 42;
-  }
+int f0() {
+    return 42;
+}
 
-  int main() {
-      int padding[100];
-      memset(padding, -1, sizeof(padding));
+int main() {
+    int padding[100];
+    memset(padding, -1, sizeof(padding));
 
-      char* p = f0;
+    char* p = f0;
 
-      for(int i = 0; i < 16; i++) {
-          printf("%x ", (int)(p[i] & 0xff));
-      }
+    for(int i = 0; i < 16; i++) {
+        printf("%x ", (int)(p[i] & 0xff));
+    }
 
-      putchar('\n');
+    putchar('\n');
 
-      return 0;
-  }
-  ```
-]
+    return 0;
+}
+```
 
 And this is the output (on my my machine running 20.04 Ubuntu with `gcc`), I
 highlighted the actual function code:
@@ -124,37 +118,35 @@ You also have to compile with these flags.
 
 gcc --static -g -Wl,--omagic -o test test.c
 
-#zebraw(numbering: false)[
-  ```c
-  #include <stdio.h>
-  #include <string.h>
+```c
+#include <stdio.h>
+#include <string.h>
 
-  int f0() {
-      return 42;
-  }
+int f0() {
+    return 42;
+}
 
-  int main() {
-      int padding[100];
-      memset(padding, -1, sizeof(padding));
+int main() {
+    int padding[100];
+    memset(padding, -1, sizeof(padding));
 
-      int a = f0();
+    int a = f0();
 
-      char* p = f0;
-      // changing the return value of the function
-      p[9] = 16;
-      for(int i = 0; i < 16; i++) {
-          printf("%x ", (int)(p[i] & 0xff));
-      }
-      putchar('\n');
+    char* p = f0;
+    // changing the return value of the function
+    p[9] = 16;
+    for(int i = 0; i < 16; i++) {
+        printf("%x ", (int)(p[i] & 0xff));
+    }
+    putchar('\n');
 
-      int b = f0();
+    int b = f0();
 
-      printf("a = %d, b = %d\n", a, b);
+    printf("a = %d, b = %d\n", a, b);
 
-      return 0;
-  }
-  ```
-]
+    return 0;
+}
+```
 
 And the output is:
 

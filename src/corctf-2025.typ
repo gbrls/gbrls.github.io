@@ -13,7 +13,15 @@
 = yourock (rev) - 124 solves / 119 pts
 
 
-Below is the full code of the main function after some manual reversing. The challenge is basically an input encoder that encodes each character to a word based on a big dictionary (rockyou.txt password wordlist in this case).
+// #box()[#html.frame()[#text(size: 8em, fill: rgb("#74c7ec").darken(10%))[B]]]
+
+#box()[
+  #html.elem("div", attrs: (class: "float-left mr-2"))[
+    #html.frame()[ #text(size: 8em, fill: rgb("#74c7ec").darken(10%))[B]]
+  ]
+]
+
+elow is the full code of the main function after some manual reversing. The challenge is basically an input encoder that encodes each character to a word based on a big dictionary (rockyou.txt password wordlist in this case).
 
 ```cpp
 

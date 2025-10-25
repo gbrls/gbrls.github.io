@@ -13,6 +13,7 @@
 
 = rev-multiarch-1 (126 points / 99 solves)
 
+#box()[#html.frame()[#text(size: 8em, fill: rgb("#74c7ec").darken(10%))[T]]]
 This challenge was solved by me and [Matt.](https://lobisomem.gay).
 
 The challenge files were a Linux executable and a misterius `crackme.masm` file.

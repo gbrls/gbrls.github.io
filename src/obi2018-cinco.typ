@@ -1,9 +1,7 @@
 #import "html_elements.typ": post
-#show: post
-
-#import "@preview/zebraw:0.5.5": *
 #import "./lib.typ": flex, svg_inline
-#show: zebraw
+
+#show: post
 
 - #link("https://olimpiada.ic.unicamp.br/pratique/ps/2018/f3/cinco/")[Enunciado]
 
@@ -12,7 +10,6 @@ Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):
 1. O dígito mais significativo que for trocado por um número maior do que ele
 2. (na falha do primeiro) O dígito menos significativo que for trocado por um número menor do que ele
 
-#zebraw(numbering: false)[
   ```cpp
   #include <bits/stdc++.h>
   using namespace std;
@@ -46,5 +43,4 @@ Podemos criar um algoritmo guloso simples, trocar sempre (em ordem):
       return 0;
   }
   ```
-]
 
