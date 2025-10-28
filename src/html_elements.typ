@@ -30,15 +30,34 @@
     #html.elem("link", attrs: (rel: "stylesheet", href: "style_compiled.css"))
   ]
 
-  show raw.where(lang: none): it => [
+  // simple backticks like `0x4200`
+  show raw.where(lang: none, block: false): it => [
     #html.elem("span", attrs: (
-      class: "text-peach bg-mantle p-1 rounded-md",
+      class: "text-peach bg-crust p-1 rounded-md",
     ))[#it]
   ]
 
-  show heading: it => [
-    #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
+  show raw.where(block: true): it => [
+    #html.elem("div", attrs: (
+      class: "bg-mantle p-8 rounded-xl text-sm overflow-x-auto",
+    ))[#it]
+  ]
+
+  show heading.where(level: 1): it => [
+    #html.elem("div", attrs: (class: "text-3xl p-8"))[
+      // #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
       #it
+    ]
+  ]
+
+  show heading.where(level: 4): it => [
+    #html.elem("div", attrs: (class: "text-yellow"))[
+      #text(str(counter(heading).display()))
+      #text(it.body)
+
+      #html.elem("button", attrs: (
+        onclick: "history.back()",
+      ))[#sym.arrow.t]
     ]
   ]
 
@@ -51,32 +70,33 @@
   // ========== body =======
 
 
-  html.elem("div", attrs: (
-    class: "font-display bg-base min-h-screen text-text flex flex-wrap",
-  ))[
+  html.elem(
+    "div",
+    attrs: (
+      class: "font-display bg-base min-h-screen min-w-fit text-text flex",
+    ),
+  )[
 
-    #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
-    #html.elem("div", attrs: (class: "flex-auto bg-mantle"))[ ]
+    #html.elem("div", attrs: (class: "flex-none bg-crust min-w-1/20"))[ ]
+    #html.elem("div", attrs: (class: "flex-auto bg-crust"))[ ]
 
-    #html.elem("div", attrs: (class: "flex-none p-4"))[
-      #html.elem("article", attrs: (
-        class: "max-w-[90ch] leading-relaxed [&>p]:p-2 break-words",
-      ))[
+    #html.elem("div", attrs: (class: "flex-none p-8 min-w-fit"))[
+      #html.elem(
+        "article",
+        attrs: (
+          class: "max-w-[90ch] leading-relaxed [&>p]:p-2 break-words overflow-x-auto",
+        ),
+      )[
         #contents
       ]
 
-      #html.elem("div", attrs: (class: "mt-4 mb-4"))[
-        #html.frame()[
-          #separator(16)
-        ]
-      ]
-
+      #separator(16)
       #list(..entries.map(it => entry-to-html(it)))
     ]
 
     // spacing
-    #html.elem("div", attrs: (class: "flex-auto bg-mantle"))[ ]
-    #html.elem("div", attrs: (class: "flex-none bg-mantle min-w-1/20"))[ ]
+    #html.elem("div", attrs: (class: "flex-auto bg-crust"))[ ]
+    #html.elem("div", attrs: (class: "flex-none bg-crust min-w-1/20"))[ ]
   ]
 }
 

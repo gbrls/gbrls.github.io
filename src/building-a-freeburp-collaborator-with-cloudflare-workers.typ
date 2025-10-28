@@ -1,6 +1,12 @@
-#import "html_elements.typ": img, post
+#import "html_elements.typ": img, post, separator
 #show: post
 
+// #set heading(numbering: "א")
+
+// hi @a[goto]
+
+// - refs: @b
+// - refs: @c
 
 Burp collaborator is the thing that I miss the most in the free _community
 version_, and after that is the search. The Burp Collaborator is a tool that generates a domain and any interaction with that domain via DNS, HTTP and SMTP (maybe others are available too).
@@ -18,7 +24,7 @@ After the Discord and Cloudflare setup is done, here's what a message will look 
 
 #img("/static/discord-bot.png")
 
-= Basic Architecture
+= Basic Architecture <a>
 
 We need an edge component, which is going to be triggered when a request is made for it, and a place where the request is displayed for us.
 
@@ -143,3 +149,7 @@ There are a few limitations to this setup when comparing to the real Collaborato
 
 I really liked this setup and the results impressed me. It's beatifully simple, and yet it's crazy useful. You can use it like collaborator to exfiltrate data via the URL or the Body, pixel tracking, and track blind XSS when it triggers, and anything else you can think of.
 
+// #separator(4)
+
+// ==== http://hello.com <b>
+// ==== https://a.com <c>

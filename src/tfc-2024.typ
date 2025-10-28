@@ -158,7 +158,7 @@ There are multiple ways to do this - even just bruteforcing char by char - in
 this chal I used [angr](https://angr.io/) to do this. This kind of problem is a classical application of angr - it's a symbolic execution engine -
 
 
-```python3
+```python
 base = 0x400000
 
 def first_check(project):
