@@ -1,4 +1,5 @@
 #import "@preview/cetz:0.4.2": canvas, draw
+#import "mocha.typ": mocha
 
 #let entries = (
   (file: "./index.typ", name: "Index"),
@@ -107,11 +108,11 @@
 
         for i in range(n) {
           if calc.rem(i, 2) == 0 {
-            draw.fill(rgb("#7287fd"))
-            draw.rect((i * w, 0), ((i + 1) * w, 0.1))
+            draw.fill(mocha.colors.blue.rgb)
+            draw.rect((i * w, 0), ((i + 0.8) * w, 0.1))
           } else {
-            draw.fill(rgb("#dd7878"))
-            // draw.rect((i, 0), (i + 1, 0.2))
+            draw.fill(mocha.colors.peach.rgb)
+            draw.rect((i * w, 0), ((i + 0.8) * w, 0.1))
           }
         }
       })

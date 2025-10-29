@@ -1,3 +1,5 @@
+#import "@preview/cetz:0.4.2": canvas, draw
+#import "mocha.typ": mocha
 #import "html_elements.typ": post
 #show: post
 
@@ -30,4 +32,5 @@ My hobbies also include:
 - Observing and being observed by my four cats: Nyx, Flor, Piolha and Bilbo.
 - Sci-fi.
 - Coffee.
+
 

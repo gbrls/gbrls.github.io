@@ -1,4 +1,6 @@
 #import "./html_elements.typ": post
+#import "@preview/cetz:0.4.2": canvas, draw
+#import "mocha.typ": mocha
 
 #show: post
 
@@ -338,15 +340,161 @@ My initial approach on this one was a dynamic analysis to understand which bound
 And the same to the right:
 - `+[>+]`
 
+The figure below illustrates the brainfuck vm memory on the stack, and what we're doing by probing to the left or to the right.
 
-Executing this we see that increasing the IP, the vm notices that and stops, but by decreasing the IP it just crashes the vm, thus we have a buffer underflow.
+#html.elem("div", attrs: (class: "mt-4 mb-4"))[
+  #html.frame()[
+    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #canvas({
+      import draw: *
 
-This is not immediately useful, since the return addresses that are from function calls that will be returned to after this one (lower stack frames), are down the stack, but our stack grows in the opposite direction (this might sound crazy, this is crazy, and I'm not making this up), so, the addressess that we want are:
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+      fill(mocha.colors.mantle.rgb)
+      let h = 1.5
+      let w = 12
+      rect((0, 0), (w, h), name: "box", radius: 0.2)
+      fill(none)
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      line((w * 0.1, 0), (w * 0.1, h), name: "local")
+      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+      line((w * 0.65, 0), (w * 0.65, h), name: "rest")
+
+      set-style(content: (
+        frame: "rect",
+        stroke: none,
+        padding: .4,
+      ))
+
+      content("local", [local vars], anchor: "west")
+      content("tape", [bf vm tape], anchor: "west")
+      content("dot", [...], anchor: "west")
+      content("rest", [return address, etc], anchor: "west")
+      content("box.west", [...], anchor: "west")
+
+      set-style(mark: (end: ">"))
+      stroke(mocha.colors.subtext1.rgb + 1.5pt)
+      fill(mocha.colors.subtext1.rgb)
+      line((0, -0.5), (w, -0.5), name: "arrow")
+
+      fill(none)
+      content(
+        (0, -1),
+        text(size: 0.7em, fill: mocha.colors.subtext1.rgb)[lower address],
+        anchor: "west",
+      )
+      content(
+        (w, -1),
+        text(size: 0.7em, fill: mocha.colors.subtext1.rgb)[higher address],
+        anchor: "east",
+      )
+
+      fill(mocha.colors.text.rgb)
+      stroke(mocha.colors.text.rgb + 1.5pt)
+      line("tape", (rel: (-0.2, 0)))
+      line("dot", (rel: (0.2, 0)))
+    })
+  ]
+]
+
+
+Executing this we see that increasing the vm IP (going to a higher address on the stack), the vm notices that and stops, but by decreasing the vm IP it just crashes the vm, thus we have a buffer underflow.
+
+#html.elem("div", attrs: (class: "mt-4 mb-4"))[
+  #html.frame()[
+    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #canvas({
+      import draw: *
+
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+      fill(mocha.colors.mantle.rgb)
+      let h = 1.5
+      let w = 12
+      rect((0, 0), (w, h), name: "box", radius: 0.2)
+      fill(none)
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+      set-style(content: (
+        frame: "rect",
+        stroke: none,
+        padding: .4,
+      ))
+
+      content("tape", [bf vm tape], anchor: "west")
+      content("box.west", [...], anchor: "west")
+      content(
+        "dot",
+        [...],
+        anchor: "west",
+      )
+      set-style(mark: (end: ">"))
+
+
+      fill(mocha.colors.text.rgb)
+      stroke(mocha.colors.text.rgb + 1.5pt)
+      line("tape", (rel: (-1.5, 0)))
+    })
+  ]
+]
+
+This is not immediately useful, since the return addresses that are from function calls that will be returned to after this one (lower stack frames), are down the stack, but our stack grows in the opposite direction, so, the addressess that we want are:
 
 - lower on the stack
 - thus, have higher addressess (our stack grows upside down...)
 - and we have an underflow
 - so... we can't directly use it to solve the chal
+
+
+#html.elem("div", attrs: (class: "mt-4 mb-4"))[
+  #html.frame()[
+    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #canvas({
+      import draw: *
+
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      fill(mocha.colors.mantle.rgb)
+      let h = 1.5
+      let w = 12
+      rect((0, 0), (w, h), name: "box", radius: 0.2)
+      fill(none)
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+      set-style(content: (
+        frame: "rect",
+        stroke: none,
+        padding: .4,
+      ))
+
+      content("tape", [bf vm tape], anchor: "west")
+      content("box.west", [...], anchor: "west")
+      content(
+        "dot",
+        text(fill: mocha.colors.red.rgb)[where we actually want],
+        anchor: "west",
+      )
+      set-style(mark: (end: ">"))
+
+
+      fill(mocha.colors.text.rgb)
+      stroke(mocha.colors.text.rgb + 1.5pt)
+      line("tape", (rel: (-1.5, 0)))
+    })
+  ]
+]
 
 We need to use the underflow to grant more exploitation primitives. This is where a bit of reversing comes in, see the bounds check:
 
@@ -365,17 +513,102 @@ So breaking this down:
 
 - Moving to the left to increase the maximum bound by ovewriting the variable on the stack
 
+
+#html.elem("div", attrs: (class: "mt-4 mb-4"))[
+  #html.frame()[
+    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #canvas({
+      import draw: *
+
+
+      stroke(none)
+      fill(mocha.colors.mantle.rgb)
+      let h = 1.5
+      let w = 12
+      rect((0, 0), (w, h), name: "box", radius: 0.2)
+      fill(none)
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+      set-style(content: (
+        frame: "rect",
+        stroke: none,
+        padding: .4,
+      ))
+
+      content("tape", [bf vm tape], anchor: "west")
+      content("box.west", [tape_end_var], anchor: "west")
+      content(
+        "dot",
+        [...],
+        anchor: "west",
+      )
+      set-style(mark: (end: ">"))
+
+
+      fill(mocha.colors.red.rgb)
+      stroke(mocha.colors.red.rgb + 1.5pt)
+      line("tape", (rel: (-1.5, 0)))
+    })
+  ]
+]
+
 ```elixir
 +<+<+<+
 ```
 
-- Then moving back to the right to start our journey down the stack (by going up...)
 
+- Then moving back to the right to start our journey down the stack (by going up...)
 ```elixir
 >>>-
 ```
 
 - Then we run this algorithm to find the first `nonzero` byte, since there's a lot of empty space down the stack (it's the vm's tape).
+
+#html.elem("div", attrs: (class: "mt-4 mb-4"))[
+  #html.frame()[
+    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #canvas({
+      import draw: *
+
+
+      stroke(none)
+      fill(mocha.colors.mantle.rgb)
+      let h = 1.5
+      let w = 12
+      rect((0, 0), (w, h), name: "box", radius: 0.2)
+      fill(none)
+
+      stroke(mocha.colors.blue.rgb + 0.8pt)
+
+      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+      set-style(content: (
+        frame: "rect",
+        stroke: none,
+        padding: .4,
+      ))
+
+      content("tape", [bf vm tape], anchor: "west")
+      content(
+        "box.west",
+        text(fill: mocha.colors.red.rgb)[tape_end_var],
+        anchor: "west",
+      )
+      set-style(mark: (end: ">"))
+
+
+      fill(mocha.colors.text.rgb)
+      stroke(mocha.colors.text.rgb + 2.5pt)
+      line("dot", (rel: (4, 0)))
+    })
+  ]
+]
+
 
 ```elixir
 +[>[<-]<[->+<]>]

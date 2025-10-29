@@ -20,14 +20,12 @@ function. The vulnerability is that we have a `gets` that stores a string of
 any length in a stack variable, giving us a stack buffer overflow.
 
 
-```goat
-> PowerPC ELF32 2's complement, big endian
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols         FORTIFY Fortified       Fortifiable     FILE
-Full RELRO      No canary found   NX enabled    No PIE          N/A        N/A          2043 Symbols      N/A   0               0               sp33d1
-```
-
 
 ```asm
+; > PowerPC ELF32 2's complement, big endian
+; RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols         FORTIFY Fortified       Fortifiable     FILE
+; Full RELRO      No canary found   NX enabled    No PIE          N/A        N/A          2043 Symbols      N/A   0               0               sp33d1
+
 stwu r1, -0x20(r1)
 mflr r0
 stw r0, 0x24(r1)
