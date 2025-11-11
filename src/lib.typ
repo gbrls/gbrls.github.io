@@ -96,9 +96,21 @@
   ),
 )
 
+#let rightbox(content) = {
+  html.elem("div", attrs: (class: "flex font-meta text-sm text-justify"))[
+    #html.elem("div", attrs: (class: "flex p-8"))[  ]
+    #html.elem("div", attrs: (class: "flex p-8"))[  ]
+    #html.elem("div", attrs: (
+      class: "flex bg-mantle p-4 flex-auto rounded-s-xl",
+    ))[
+      #content
+    ]
+  ]
+}
+
 #let textbox(content) = {
   html.elem("div", attrs: (
-    class: "p-8 bg-surface0 rounded-xl font-meta text-sm",
+    class: "p-4 bg-surface0 rounded-xl font-meta text-sm",
   ))[
     #content
   ]

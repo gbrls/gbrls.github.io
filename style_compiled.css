@@ -49,6 +49,8 @@
     --color-mauve: #cba6f7;
     --color-red: #f38ba8;
     --color-yellow: #f9e2af;
+    --color-green: #a6e3a1;
+    --color-teal: #94e2d5;
     --color-blue: #89b4fa;
     --color-text: #cdd6f4;
     --color-overlay0: #6c7086;
@@ -377,6 +379,10 @@
   .rounded-xl {
     border-radius: var(--radius-xl);
   }
+  .rounded-s-xl {
+    border-start-start-radius: var(--radius-xl);
+    border-end-start-radius: var(--radius-xl);
+  }
   .rounded-l {
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
@@ -403,11 +409,17 @@
   .bg-cyan-500 {
     background-color: var(--color-cyan-500);
   }
+  .bg-green {
+    background-color: var(--color-green);
+  }
   .bg-mantle {
     background-color: var(--color-mantle);
   }
   .bg-overlay0 {
     background-color: var(--color-overlay0);
+  }
+  .bg-red {
+    background-color: var(--color-red);
   }
   .bg-slate-700 {
     background-color: var(--color-slate-700);
@@ -423,6 +435,12 @@
   }
   .bg-surface1 {
     background-color: var(--color-surface1);
+  }
+  .bg-teal {
+    background-color: var(--color-teal);
+  }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -441,6 +459,9 @@
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
+  }
+  .text-justify {
+    text-align: justify;
   }
   .font-display {
     font-family: var(--font-display);

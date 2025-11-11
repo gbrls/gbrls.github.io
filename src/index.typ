@@ -10,8 +10,6 @@
   #html.frame()[#image("./logo2.svg", width: 8em)]
 ]
 
-
-
 Hi, I'm Gabriel Schneider (gbrls). My areas of interest are:
 
 - Reverse Engineering.
@@ -33,9 +31,4 @@ My hobbies also include:
 - Sci-fi.
 - Coffee.
 
-
-
-#html.elem("div", attrs: (class: "flex p-8 font-meta"))[
-  hey hey hey
-  aaa
-]
+#linebreak()

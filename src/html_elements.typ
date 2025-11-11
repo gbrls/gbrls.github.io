@@ -1,4 +1,4 @@
-#import "lib.typ": entries, separator
+#import "lib.typ": entries, rightbox, separator, textbox
 #import "@preview/cetz:0.4.2"
 
 
@@ -73,7 +73,7 @@
   html.elem(
     "div",
     attrs: (
-      class: "font-display bg-base min-h-screen min-w-fit text-text flex",
+      class: "font-display bg-base min-h-screen min-w-fit text-text flex text-justify",
     ),
   )[
 
@@ -92,6 +92,13 @@
 
       #separator(16)
       #list(..entries.map(it => entry-to-html(it)))
+
+      #linebreak()
+      #linebreak()
+
+      #rightbox[#link("/index.xml")[feed] #sym.bar #link(
+          "https://github.com/gbrls/gbrls.github.io",
+        )[source]]
     ]
 
     // spacing
