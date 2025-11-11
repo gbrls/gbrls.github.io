@@ -15,3 +15,8 @@ feed:
     mv ./src/feed.rss .
     cp ./feed.rss ./index.xml
 
+server:
+    live-server --port=8080 .
+    
+css:
+    tailwind -i ./style.css -o ./style_compiled.css --watch

@@ -26,20 +26,20 @@
           <p>I think I’ve achieved those goals, there are some limitations (e.g: We only support HTTP, and the headers are a bit fucked), but there are also some unexpected benefits. I hope you enjoy this project and find this useful.</p>
           <p>After the Discord and Cloudflare setup is done, here’s what a message will look like:</p>
           <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/discord-bot.png">
-          <div class="text-3xl p-8">
+          <div class="text-2xl font-meta p-8">
             <h2>Basic Architecture</h2>
           </div>
           <p>We need an edge component, which is going to be triggered when a request is made for it, and a place where the request is displayed for us.</p>
           <p>I chose Discord for the latter, I really like the idea of connecting some of by projects to text messaging apps, and by creating a Discord sever for those projects I have a lot of flexibility on how I can do those things (it also has good lookin’ emojis).</p>
           <p>For the edge component, I chose Cloudflare workers. Some people were talking about it on the webs, and I really wanted to try using it for a project. They have a generous free tier, they run on Cloudflare’s CDN (this is a very welcomed unexpected benefit), and they are really easy to setup and use.</p>
-          <div class="text-3xl p-8">
+          <div class="text-2xl font-meta p-8">
             <h2>Discord Setup</h2>
           </div>
           <p>The discord setup is pretty simple, you create a server, create a channel for the collaborator, and in that channel you create a webhook URL. That can be done as <strong>Click on the Gear</strong> next to the channel’s name > <strong>Integrations</strong> > <strong>Webhooks</strong>.</p>
           <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/discord-gear.png">
           <p>We webhook is just an URL with a high entropy token somewhere in it. Take good care of it, because anyone can send messages to that channel with it, but just sending messages (AFAIK).</p>
           <p>And that’s it, the Discord setup is done.</p>
-          <div class="text-3xl p-8">
+          <div class="text-2xl font-meta p-8">
             <h2>Cloudflare Workers</h2>
           </div>
           <p>For this step you’ll need to setup a Clouflare account. Once that’s done you can go ahead and go to <strong>Workers &amp; Pages</strong> in the left sidebar, and then <strong>Create application</strong>.</p>
@@ -51,7 +51,7 @@
           <p>After that, just <strong>Save and Deploy</strong>. You can replace the environment variable for the discord webhook via the <strong>Settings</strong> pane for the worker.</p>
           <img class="max-w-xl block rounded-md p-4 mx-auto" src="/static/cf-vars.png">
           <p>There are a few limitations to this setup when comparing to the real Collaborator. The Cloudflare workers can only listen to HTTP requests, and Cloudflare messes a little bit with the HTTP headers.</p>
-          <div class="text-3xl p-8">
+          <div class="text-2xl font-meta p-8">
             <h2>It’s done</h2>
           </div>
           <p>I really liked this setup and the results impressed me. It’s beatifully simple, and yet it’s crazy useful. You can use it like collaborator to exfiltrate data via the URL or the Body, pixel tracking, and track blind XSS when it triggers, and anything else you can think of.</p>

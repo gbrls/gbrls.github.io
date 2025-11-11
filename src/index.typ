@@ -34,3 +34,8 @@ My hobbies also include:
 - Coffee.
 
 
+
+#html.elem("div", attrs: (class: "flex p-8 font-meta"))[
+  hey hey hey
+  aaa
+]

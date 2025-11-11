@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @theme {
   --font-display: "mononoki", monospace;
+  --font-meta: "Futura", sans-serif;
 
   --color-rosewater: #f5e0dc;
   --color-flamingo:  #f2cdcd;

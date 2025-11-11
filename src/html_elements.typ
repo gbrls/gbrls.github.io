@@ -33,7 +33,7 @@
   // simple backticks like `0x4200`
   show raw.where(lang: none, block: false): it => [
     #html.elem("span", attrs: (
-      class: "text-peach bg-mantle p-1 rounded-md",
+      class: "text-red",
     ))[#it]
   ]
 
@@ -44,7 +44,7 @@
   ]
 
   show heading.where(level: 1): it => [
-    #html.elem("div", attrs: (class: "text-3xl p-8"))[
+    #html.elem("div", attrs: (class: "text-2xl font-meta p-8"))[
       // #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
       #it
     ]

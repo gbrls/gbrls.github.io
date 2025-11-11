@@ -96,6 +96,13 @@
   ),
 )
 
+#let textbox(content) = {
+  html.elem("div", attrs: (
+    class: "p-8 bg-surface0 rounded-xl font-meta text-sm",
+  ))[
+    #content
+  ]
+}
 
 #let separator(n) = {
   html.elem("div", attrs: (class: "mt-4 mb-4"))[

@@ -10,7 +10,6 @@
     --color-cyan-300: oklch(86.5% 0.127 207.078);
     --color-cyan-500: oklch(71.5% 0.143 215.221);
     --color-cyan-600: oklch(60.9% 0.126 221.723);
-    --color-indigo-500: oklch(58.5% 0.233 277.117);
     --color-slate-300: oklch(86.9% 0.022 252.894);
     --color-slate-500: oklch(55.4% 0.046 257.417);
     --color-slate-600: oklch(44.6% 0.043 257.281);
@@ -46,12 +45,15 @@
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --font-display: "mononoki", monospace;
-    --color-flamingo: #f2cdcd;
+    --font-meta: "Futura", sans-serif;
     --color-mauve: #cba6f7;
-    --color-peach: #fab387;
+    --color-red: #f38ba8;
     --color-yellow: #f9e2af;
     --color-blue: #89b4fa;
     --color-text: #cdd6f4;
+    --color-overlay0: #6c7086;
+    --color-surface1: #45475a;
+    --color-surface0: #313244;
     --color-base: #1e1e2e;
     --color-mantle: #181825;
     --color-crust: #11111b;
@@ -264,23 +266,8 @@
   .mr-2 {
     margin-right: calc(var(--spacing) * 2);
   }
-  .mr-3 {
-    margin-right: calc(var(--spacing) * 3);
-  }
-  .mr-4 {
-    margin-right: calc(var(--spacing) * 4);
-  }
-  .mr-8 {
-    margin-right: calc(var(--spacing) * 8);
-  }
-  .mr-\[9px\] {
-    margin-right: 9px;
-  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
-  }
-  .mb-3 {
-    margin-bottom: calc(var(--spacing) * 3);
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
@@ -318,9 +305,6 @@
   .min-h-screen {
     min-height: 100vh;
   }
-  .w-\[5vw\] {
-    width: 5vw;
-  }
   .w-full {
     width: 100%;
   }
@@ -339,14 +323,8 @@
   .min-w-1\/20 {
     min-width: calc(1/20 * 100%);
   }
-  .min-w-\[5vw\] {
-    min-width: 5vw;
-  }
   .min-w-fit {
     min-width: fit-content;
-  }
-  .min-w-full {
-    min-width: 100%;
   }
   .flex-auto {
     flex: auto;
@@ -375,9 +353,6 @@
   .flex-col {
     flex-direction: column;
   }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
   .items-center {
     align-items: center;
   }
@@ -390,9 +365,6 @@
   .self-end {
     align-self: flex-end;
   }
-  .overflow-hidden {
-    overflow: hidden;
-  }
   .overflow-x-auto {
     overflow-x: auto;
   }
@@ -404,6 +376,10 @@
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-l {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
   }
   .border {
     border-style: var(--tw-border-style);
@@ -418,6 +394,9 @@
   .bg-black {
     background-color: var(--color-black);
   }
+  .bg-blue {
+    background-color: var(--color-blue);
+  }
   .bg-crust {
     background-color: var(--color-crust);
   }
@@ -426,6 +405,9 @@
   }
   .bg-mantle {
     background-color: var(--color-mantle);
+  }
+  .bg-overlay0 {
+    background-color: var(--color-overlay0);
   }
   .bg-slate-700 {
     background-color: var(--color-slate-700);
@@ -436,11 +418,11 @@
   .bg-slate-900 {
     background-color: var(--color-slate-900);
   }
-  .bg-repeat {
-    background-repeat: repeat;
+  .bg-surface0 {
+    background-color: var(--color-surface0);
   }
-  .p-1 {
-    padding: calc(var(--spacing) * 1);
+  .bg-surface1 {
+    background-color: var(--color-surface1);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
@@ -463,6 +445,9 @@
   .font-display {
     font-family: var(--font-display);
   }
+  .font-meta {
+    font-family: var(--font-meta);
+  }
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -482,10 +467,6 @@
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
-  }
-  .leading-\[1\] {
-    --tw-leading: 1;
-    line-height: 1;
   }
   .leading-relaxed {
     --tw-leading: var(--leading-relaxed);
@@ -516,14 +497,11 @@
   .text-cyan-300 {
     color: var(--color-cyan-300);
   }
-  .text-flamingo {
-    color: var(--color-flamingo);
-  }
   .text-mauve {
     color: var(--color-mauve);
   }
-  .text-peach {
-    color: var(--color-peach);
+  .text-red {
+    color: var(--color-red);
   }
   .text-slate-300 {
     color: var(--color-slate-300);
