@@ -1,3 +1,5 @@
 ./html_elements.html
 ./entries.html
 ./build
+./.zig-cache
+./zig-out
