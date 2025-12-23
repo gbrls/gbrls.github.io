@@ -1,7 +1,7 @@
 const std = @import("std");
 
 const typstSrc = "src";
-const htmlOutput = "html";
+const htmlOutput = "docs";
 
 fn typst2html(b: *std.Build) !*std.Build.Step {
     var typstFiles: std.ArrayList(std.Build.LazyPath) = try .initCapacity(b.allocator, 0x100);
@@ -26,9 +26,9 @@ fn typst2html(b: *std.Build) !*std.Build.Step {
             typstCmd.addFileInput(f);
             try typstCmd.step.addWatchInput(f);
 
-            if (std.mem.startsWith(u8, name, "feed")) {
-                _ = try typstCmd.step.addDirectoryWatchInput(b.path(typstSrc));
-            }
+            // if (std.mem.startsWith(u8, name, "feed")) {
+            _ = try typstCmd.step.addDirectoryWatchInput(b.path(typstSrc));
+            // }
 
             // --root ./src --format html --features html
             typstCmd.addArg("--root");
@@ -38,16 +38,17 @@ fn typst2html(b: *std.Build) !*std.Build.Step {
             typstCmd.addArg("--features");
             typstCmd.addArg("html");
 
-            const p = try std.mem.join(b.allocator, "", &.{ "html/", nameWithoutExt, ".html" });
+            const p = try std.mem.join(b.allocator, "", &.{ htmlOutput, "/", nameWithoutExt, ".html" });
 
-            _ = typstCmd.addOutputFileArg(p);
+            // _ = typstCmd.addOutputFileArg(p);
+            typstCmd.addArg(p);
 
             typstStep.dependOn(&typstCmd.step);
             // b.addWriteFile(file_path: []const u8, data: []const u8)
         }
     }
 
-    const installHTML = b.addInstallDirectory(.{ .source_dir = b.path(htmlOutput), .install_dir = .prefix, .install_subdir = "html" });
+    const installHTML = b.addInstallDirectory(.{ .source_dir = b.path(htmlOutput), .install_dir = .prefix, .install_subdir = htmlOutput });
 
     typstStep.dependOn(&installHTML.step);
     return typstStep;
@@ -58,8 +59,8 @@ fn feed(b: *std.Build) !*std.Build.Step {
     const pythonCmd = b.addSystemCommand(&.{"python3"});
 
     pythonCmd.addFileArg(b.path("src").path(b, "build_feed.py"));
-    pythonCmd.addFileArg(b.path("html").path(b, "feed.html"));
-    _ = pythonCmd.addOutputFileArg(b.path("html").path(b, "feed.rss").getDisplayName());
+    pythonCmd.addFileArg(b.path(htmlOutput).path(b, "feed.html"));
+    _ = pythonCmd.addOutputFileArg(b.path(htmlOutput).path(b, "feed.rss").getDisplayName());
 
     feedStep.dependOn(&pythonCmd.step);
 
