@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellular Automaton Generator</title>
+    <style>
+        /* Use a modern font stack with a monospace font for the output */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: grey;
+        }
+        #automaton-output {
+            font-family: 'Roboto Mono', monospace;
+            /* Use ASCII characters for the cells */
+            --cell-on: '#';
+            --cell-off: '-';
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-3xl mx-auto">
+            <!-- Controls -->
+            <div class="bg-slate-800 p-6 rounded-lg shadow-2xl mb-8 flex flex-col sm:flex-row items-center gap-4">
+                <div class="flex-grow w-full">
+                    <label for="rule-input" class="block text-sm font-medium text-slate-300 mb-2">Rule Number</label>
+                    <input 
+                        id="rule-input" 
+                        type="number" 
+                        min="0" 
+                        max="255" 
+                        value="30" 
+                        class="w-full bg-slate-700 border border-slate-600 rounded-md px-4 py-2 text-white text-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all duration-200"
+                    >
+                </div>
+                <button 
+                    id="generate-btn" 
+                    class="w-full sm:w-auto bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-md transition-colors duration-300 mt-4 sm:mt-0 self-end h-[46px] disabled:bg-slate-500 disabled:cursor-not-allowed"
+                >
+                    Generate
+                </button>
+            </div>
+
+            <!-- Output Display -->
+            <div class="bg-slate-800 p-4 sm:p-6 rounded-lg shadow-2xl">
+                <pre id="automaton-output" class="bg-black p-4 rounded-md overflow-x-auto text-sm sm:text-base leading-tight tracking-wider text-cyan-300 select-none"></pre>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Element References ---
+        const ruleInput = document.getElementById('rule-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const outputElement = document.getElementById('automaton-output');
+
+        let isAnimating = false;
+
+        // Utility function to create a delay
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        /**
+         * The core function, now async to support animation.
+         */
+        async function generateAutomaton() {
+            // Prevent starting a new animation while one is running
+            if (isAnimating) return;
+            isAnimating = true;
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Animating...';
+
+            // 1. Get and validate rule number.
+            const ruleNumber = parseInt(ruleInput.value, 10);
+            if (isNaN(ruleNumber) || ruleNumber < 0 || ruleNumber > 255) {
+                outputElement.textContent = "Error: Please enter a valid rule number between 0 and 255.";
+                isAnimating = false;
+                generateBtn.disabled = false;
+                 generateBtn.textContent = 'Generate';
+                return;
+            }
+
+            // 2. Convert rule number to its 8-bit binary ruleset.
+            const ruleset = ruleNumber.toString(2).padStart(8, '0');
+
+            // --- Simulation Parameters ---
+            const generations = 50;
+            const width = 101;
+            const animationDelay = 40; // milliseconds between each generation
+
+            // Clear previous output
+            outputElement.textContent = '';
+            
+            // 3. Initialize the first generation (a single live cell in the middle).
+            let cells = Array(width).fill(0);
+            cells[Math.floor(width / 2)] = 1;
+            
+            // Get ASCII characters from CSS variables
+            const cellOn = getComputedStyle(outputElement).getPropertyValue('--cell-on').trim().replace(/'/g, '');
+            const cellOff = getComputedStyle(outputElement).getPropertyValue('--cell-off').trim().replace(/'/g, '');
+
+            // 4. Main animation loop.
+            for (let g = 0; g < generations; g++) {
+                // Format the current row of cells into a string.
+                const outputString = cells.map(cell => (cell === 1 ? cellOn : cellOff)).join('');
+                
+                // Append the new generation to the output display.
+                outputElement.textContent += outputString + '\n';
+                
+                // Auto-scroll the output area to the bottom.
+                outputElement.scrollTop = outputElement.scrollHeight;
+
+                // --- Calculate the next generation ---
+                let nextCells = Array(width).fill(0);
+                for (let i = 0; i < width; i++) {
+                    const left   = cells[(i - 1 + width) % width];
+                    const center = cells[i];
+                    const right  = cells[(i + 1) % width];
+                    
+                    const neighborhood = `${left}${center}${right}`;
+                    const neighborhoodValue = parseInt(neighborhood, 2);
+                    const ruleIndex = 7 - neighborhoodValue;
+                    
+                    nextCells[i] = parseInt(ruleset[ruleIndex], 10);
+                }
+                
+                // The next generation becomes the current one for the next loop iteration.
+                cells = nextCells;
+                
+                // Wait for a short moment before drawing the next line.
+                await sleep(animationDelay);
+            }
+
+            // 5. Re-enable the button after the animation is complete.
+            isAnimating = false;
+            generateBtn.disabled = false;
+            generateBtn.textContent = 'Generate';
+        }
+
+        // --- Event Listeners ---
+        generateBtn.addEventListener('click', generateAutomaton);
+        ruleInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                generateAutomaton();
+            }
+        });
+
+        // Generate the default automaton when the page first loads.
+        document.addEventListener('DOMContentLoaded', generateAutomaton);
+    </script>
+
+</body>
+</html>
