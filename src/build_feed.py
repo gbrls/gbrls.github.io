@@ -1,10 +1,12 @@
 
 #!/usr/bin/env python3
-import os, re, time
+import os, re, time, sys
 from datetime import datetime, timezone
 
-IN = "./src/feed.html"
-OUT = "./src/feed.rss"
+# IN = "./src/feed.html"
+# OUT = "./src/feed.rss"
+IN = sys.argv[1]
+OUT = sys.argv[2]
 
 def fmt_rfc2822(ts: float) -> str:
     return datetime.fromtimestamp(ts, timezone.utc).strftime("%a, %d %b %Y %H:%M:%S %z")

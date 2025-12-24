@@ -110,7 +110,7 @@
 
 #let textbox(content) = {
   html.elem("div", attrs: (
-    class: "p-4 bg-surface0 rounded-xl font-meta text-sm",
+    class: "p-4 bg-surface0 rounded-xl font-meta text-sm font-black",
   ))[
     #content
   ]

@@ -1,7 +1,38 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Junction";
+  src:
+    url("/fonts/junction-regular.woff2") format("woff2"),
+    url("/fonts/junction-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ostrich Sans";
+  src:
+    url("/fonts/ostrich-sans-black.woff2") format("woff2"),
+    url("/fonts/ostrich-sans-black.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myna";
+  src:
+    url("/fonts/Myna-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-display: "mononoki", monospace;
-  --font-meta: "Futura", sans-serif;
+  --font-display: "Junction", serif;
+  --font-meta: "Ostrich Sans", sans-serif;
+  --font-mono: "Myna", monospace;
 
   --color-rosewater: #f5e0dc;
   --color-flamingo:  #f2cdcd;

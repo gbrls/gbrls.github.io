@@ -9,8 +9,8 @@
   let end = ""
   if entry.at("date", default: 0) > 0 {
     end = box()[#html.frame()[#text(font: "mononoki", fill: rgb("#8c8fa1"), str(
-          entry.date,
-        ))]]
+      entry.date,
+    ))]]
   } else {
     end = text("....")
   }
@@ -25,7 +25,11 @@
 
 #let post(contents) = {
   html.elem("head")[
-    #html.elem("meta", attrs: (charset: "UTF-8"))
+    #html.elem("meta", attrs: (
+      charset: "UTF-8",
+      name: "viewport",
+      content: "width=device-width, initial-scale=1.0",
+    ))
     #html.elem("title")[0x4200.cafe]
     #html.elem("link", attrs: (rel: "stylesheet", href: "style_compiled.css"))
   ]
@@ -39,12 +43,12 @@
 
   show raw.where(block: true): it => [
     #html.elem("div", attrs: (
-      class: "bg-mantle p-8 rounded-xl text-sm overflow-x-auto",
+      class: "bg-mantle p-8 m-8 rounded-xl text-md overflow-x-auto",
     ))[#it]
   ]
 
   show heading.where(level: 1): it => [
-    #html.elem("div", attrs: (class: "text-2xl font-meta p-8"))[
+    #html.elem("div", attrs: (class: "text-2xl font-meta font-black p-8"))[
       // #html.elem("div", attrs: (class: "text-mauve text-3xl p-8"))[
       #it
     ]
@@ -73,14 +77,14 @@
   html.elem(
     "div",
     attrs: (
-      class: "font-display bg-base min-h-screen min-w-fit text-text flex text-justify",
+      class: "font-display bg-base min-h-screen w-full min-w-0 text-text flex text-justify sm:text-lg",
     ),
   )[
 
-    #html.elem("div", attrs: (class: "flex-none bg-crust min-w-1/20"))[ ]
-    #html.elem("div", attrs: (class: "flex-auto bg-crust"))[ ]
+    #html.elem("div", attrs: (class: "flex-none bg-base min-w-1/20"))[ ]
+    #html.elem("div", attrs: (class: "hidden lg:block lg:flex-auto bg-base"))[ ]
 
-    #html.elem("div", attrs: (class: "flex-none p-8 min-w-fit"))[
+    #html.elem("div", attrs: (class: "flex-1 sm:p-8 min-w-0"))[
       #html.elem(
         "article",
         attrs: (
@@ -91,19 +95,33 @@
       ]
 
       #separator(16)
-      #list(..entries.map(it => entry-to-html(it)))
+      #html.elem("div", attrs: (class: "flex-none p-8 min-w-fit font-mono"))[
+        #list(..entries.map(it => entry-to-html(it)))
+      ]
 
       #linebreak()
       #linebreak()
 
-      #rightbox[#link("/index.xml")[feed] #sym.bar #link(
-          "https://github.com/gbrls/gbrls.github.io",
-        )[source]]
+      #rightbox[
+
+        #html.elem("div", attrs: (class: "p-2 m-2"))[ #link(
+          "/index.xml",
+        )[`FEED`] ]
+        #html.elem("div", attrs: (
+          class: "p-2 m-2",
+        ))[
+          #link(
+            "https://github.com/gbrls/gbrls.github.io",
+          )[`SOURCE`]]
+
+        #html.elem("div", attrs: (class: "p-2 m-2"))[ `contact@0x4200.cafe` ]
+      ]
+
     ]
 
     // spacing
-    #html.elem("div", attrs: (class: "flex-auto bg-crust"))[ ]
-    #html.elem("div", attrs: (class: "flex-none bg-crust min-w-1/20"))[ ]
+    #html.elem("div", attrs: (class: "hidden lg:block lg:flex-auto bg-base"))[ ]
+    #html.elem("div", attrs: (class: "flex-none bg-base min-w-1/20"))[ ]
   ]
 }
 

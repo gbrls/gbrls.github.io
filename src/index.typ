@@ -30,5 +30,7 @@ My hobbies also include:
 - Observing and being observed by my four cats: Nyx, Flor, Piolha and Bilbo.
 - Sci-fi.
 - Coffee.
+- Generative visual and auditory art.
+
 
 #linebreak()

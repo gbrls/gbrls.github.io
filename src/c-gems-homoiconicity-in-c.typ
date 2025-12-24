@@ -8,7 +8,6 @@ language.  As a Teaching Assistant for it, I believe I must become a C
 wizard and scare the students with some esoteric magical spells. So, this is
 going to be a series of posts about weird (and maybe useful) stuff in C.
 
-
 = Homoiconicity
 It's a word known by Lisp users and Programming Language nerds. It's a
 really important feature of Lisp ([I talked a bit about it](/mk-lisp-0) in my Make a Lisp
@@ -209,7 +208,7 @@ some_code = [0xb8, 0x99, 0x00, 0x00, 0x00, 0xc3]
 vm.run(some_code)
 ```
 
-As you can see this is not the same kind of abstration that we have with this
+As you can see this is not the same kind of abstraction that we have with this
 hypothetical homoiconic language. In C we can manipulate the compiled code in a
 "high-level" representation (if you consider arrays high level) but it's not
 the C code that we're manipulating, it's just the machine code.
