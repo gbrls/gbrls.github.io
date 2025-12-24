@@ -11,6 +11,15 @@
 }
 
 @font-face {
+  font-family: "Prociono";
+  src:
+    url("/fonts/Prociono-Regular-webfont.ttf") format("truetype"),
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Ostrich Sans";
   src:
     url("/fonts/ostrich-sans-black.woff2") format("woff2"),
@@ -31,6 +40,7 @@
 
 @theme {
   --font-display: "Junction", serif;
+  --font-small: "Prociono", monospace;
   --font-meta: "Ostrich Sans", sans-serif;
   --font-mono: "Myna", monospace;
 

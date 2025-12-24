@@ -3,6 +3,7 @@
 #import "html_elements.typ": post
 #show: post
 
+
 #html.elem("div", attrs: (class: "flex p-8"))[
   #html.frame()[#image("./logo3.svg", width: 8em)]
   #html.frame()[#image("./logo2.svg", width: 8em)]
@@ -10,7 +11,7 @@
   #html.frame()[#image("./logo2.svg", width: 8em)]
 ]
 
-Hi, I'm Gabriel Schneider (gbrls). My areas of interest are:
+Hi, I'm Gabriel Schneider - `gbrls`. My areas of interest are:
 
 - Reverse Engineering.
 - Exploit Development.

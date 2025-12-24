@@ -1,6 +1,17 @@
-#import "lib.typ": entries, rightbox, separator, textbox
+#import "lib.typ": centerbox, entries, rightbox, separator, textbox
 #import "@preview/cetz:0.4.2"
 
+
+#let footer() = {
+  let m(c) = { html.elem("div", attrs: (class: "text-xs font-bold"))[ #c ] }
+
+  centerbox[
+    #m[#link("/index.html")[`HOME`]]
+    #m[#link("/index.xml")[`FEED`]]
+    #m[#link("https://github.com/gbrls/gbrls.github.io")[`SOURCE`]]
+    #m[#link("mailto:contact@0x4200.cafe")[`contact@0x4200.cafe`]]
+  ]
+}
 
 #let entry-to-html(entry) = {
   let path = entry.file.replace(".typ", ".html")
@@ -87,6 +98,9 @@
     ))[ ]
 
     #html.elem("div", attrs: (class: "flex-1 sm:p-8 min-w-0"))[
+
+      #footer()
+
       #html.elem(
         "article",
         attrs: (
@@ -97,27 +111,15 @@
       ]
 
       #separator(16)
-      #html.elem("div", attrs: (class: "flex-none p-8 min-w-fit font-mono"))[
+      #html.elem("div", attrs: (
+        class: "flex-none p-2 min-w-fit font-mono text-xs font-bold",
+      ))[
         #list(..entries.map(it => entry-to-html(it)))
       ]
 
       #linebreak()
       #linebreak()
-
-      #rightbox[
-
-        #html.elem("div", attrs: (class: "p-2 m-2"))[ #link(
-          "/index.xml",
-        )[`FEED`] ]
-        #html.elem("div", attrs: (
-          class: "p-2 m-2",
-        ))[
-          #link(
-            "https://github.com/gbrls/gbrls.github.io",
-          )[`SOURCE`]]
-
-        #html.elem("div", attrs: (class: "p-2 m-2"))[ `contact@0x4200.cafe` ]
-      ]
+      #footer()
 
     ]
 

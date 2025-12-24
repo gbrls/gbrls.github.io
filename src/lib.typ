@@ -108,9 +108,19 @@
   ]
 }
 
+#let centerbox(content) = {
+  html.elem("div", attrs: (class: "flex font-meta text-sm text-justify m-4"))[
+    #html.elem("div", attrs: (
+      class: "flex bg-mantle p-4 flex-auto rounded-s-xl place-content-around",
+    ))[
+      #content
+    ]
+  ]
+}
+
 #let textbox(content) = {
   html.elem("div", attrs: (
-    class: "p-4 bg-surface0 rounded-xl font-meta text-sm font-black",
+    class: "p-4 bg-surface0 rounded-xl font-display text-xs font-bold",
   ))[
     #content
   ]
