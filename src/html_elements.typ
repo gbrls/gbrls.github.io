@@ -77,12 +77,14 @@
   html.elem(
     "div",
     attrs: (
-      class: "font-display bg-base min-h-screen w-full min-w-0 text-text flex text-justify sm:text-lg",
+      class: "font-display bg-base min-h-screen w-full min-w-0 text-text flex text-justify",
     ),
   )[
 
     #html.elem("div", attrs: (class: "flex-none bg-base min-w-1/20"))[ ]
-    #html.elem("div", attrs: (class: "hidden lg:block lg:flex-auto bg-base"))[ ]
+    #html.elem("div", attrs: (
+      class: "hidden 2xl:block 2xl:flex-auto bg-base",
+    ))[ ]
 
     #html.elem("div", attrs: (class: "flex-1 sm:p-8 min-w-0"))[
       #html.elem(
@@ -120,7 +122,9 @@
     ]
 
     // spacing
-    #html.elem("div", attrs: (class: "hidden lg:block lg:flex-auto bg-base"))[ ]
+    #html.elem("div", attrs: (
+      class: "hidden 2xl:block 2xl:flex-auto bg-base",
+    ))[ ]
     #html.elem("div", attrs: (class: "flex-none bg-base min-w-1/20"))[ ]
   ]
 }

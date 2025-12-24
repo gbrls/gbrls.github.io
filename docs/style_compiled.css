@@ -224,6 +224,9 @@
   .inline-block {
     display: inline-block;
   }
+  .table {
+    display: table;
+  }
   .min-h-screen {
     min-height: 100vh;
   }
@@ -238,6 +241,9 @@
   }
   .min-w-0 {
     min-width: calc(var(--spacing) * 0);
+  }
+  .min-w-1 {
+    min-width: calc(var(--spacing) * 1);
   }
   .min-w-1\/20 {
     min-width: calc(1/20 * 100%);
@@ -254,8 +260,14 @@
   .flex-none {
     flex: none;
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .resize {
+    resize: both;
   }
   .overflow-x-auto {
     overflow-x: auto;
@@ -269,6 +281,10 @@
   .rounded-s-xl {
     border-start-start-radius: var(--radius-xl);
     border-end-start-radius: var(--radius-xl);
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .bg-base {
     background-color: var(--color-base);
@@ -328,6 +344,13 @@
   .text-text {
     color: var(--color-text);
   }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
   .sm\:p-8 {
     @media (width >= 40rem) {
       padding: calc(var(--spacing) * 8);
@@ -346,6 +369,38 @@
   }
   .lg\:flex-auto {
     @media (width >= 64rem) {
+      flex: auto;
+    }
+  }
+  .lg\:text-lg {
+    @media (width >= 64rem) {
+      font-size: var(--text-lg);
+      line-height: var(--tw-leading, var(--text-lg--line-height));
+    }
+  }
+  .lg\:text-sm {
+    @media (width >= 64rem) {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
+  }
+  .xl\:block {
+    @media (width >= 80rem) {
+      display: block;
+    }
+  }
+  .xl\:flex-auto {
+    @media (width >= 80rem) {
+      flex: auto;
+    }
+  }
+  .\32 xl\:block {
+    @media (width >= 96rem) {
+      display: block;
+    }
+  }
+  .\32 xl\:flex-auto {
+    @media (width >= 96rem) {
       flex: auto;
     }
   }
@@ -402,6 +457,11 @@ ol {
   syntax: "*";
   inherits: false;
 }
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-leading {
   syntax: "*";
   inherits: false;
@@ -409,6 +469,11 @@ ol {
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
+}
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
@@ -418,8 +483,10 @@ ol {
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-border-style: solid;
       --tw-leading: initial;
       --tw-font-weight: initial;
+      --tw-outline-style: solid;
     }
   }
 }
