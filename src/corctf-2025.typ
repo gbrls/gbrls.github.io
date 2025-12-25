@@ -345,7 +345,7 @@ The figure below illustrates the brainfuck vm memory on the stack, and what we'r
 
 #html.elem("div", attrs: (class: "mt-4 mb-4"))[
   #html.frame()[
-    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #set text(font: "Myna", fill: mocha.colors.text.rgb, size: 0.85em)
     #canvas({
       import draw: *
 
@@ -406,7 +406,7 @@ Executing this we see that increasing the vm IP (going to a higher address on th
 
 #html.elem("div", attrs: (class: "mt-4 mb-4"))[
   #html.frame()[
-    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #set text(font: "Myna", fill: mocha.colors.text.rgb, size: 0.85em)
     #canvas({
       import draw: *
 
@@ -456,7 +456,7 @@ This is not immediately useful, since the return addresses that are from functio
 
 #html.elem("div", attrs: (class: "mt-4 mb-4"))[
   #html.frame()[
-    #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+    #set text(font: "Myna", fill: mocha.colors.text.rgb, size: 0.85em)
     #canvas({
       import draw: *
 
@@ -517,7 +517,7 @@ So breaking this down:
 
   #html.elem("div", attrs: (class: "mt-4 mb-4"))[
     #html.frame()[
-      #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+      #set text(font: "Myna", fill: mocha.colors.text.rgb, size: 0.85em)
       #canvas({
         import draw: *
 
@@ -573,7 +573,7 @@ So breaking this down:
 
   #html.elem("div", attrs: (class: "mt-4 mb-4"))[
     #html.frame()[
-      #set text(font: "mononoki", fill: mocha.colors.text.rgb, size: 0.85em)
+      #set text(font: "Myna", fill: mocha.colors.text.rgb, size: 0.85em)
       #canvas({
         import draw: *
 

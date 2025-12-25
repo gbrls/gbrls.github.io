@@ -8,28 +8,29 @@
   #html.frame()[#image("./logo3.svg", width: 8em)]
   #html.frame()[#image("./logo2.svg", width: 8em)]
   #html.frame()[#image("./logo3.svg", width: 8em)]
-  #html.frame()[#image("./logo2.svg", width: 8em)]
+  // #html.frame()[#image("./logo2.svg", width: 8em)]
 ]
 
-Hi, I'm Gabriel Schneider - `gbrls`. My areas of interest are:
+Hi, I'm Gabriel Schneider #sym.dash `gbrls`. My areas of interest are:
 
-- Reverse Engineering.
-- Exploit Development.
-- Vulnerability Research.
-- Programming.
-
-My time is also dedicated to:
+- #smallcaps[reverse engineering].
+- #smallcaps[exploit development].
+- #smallcaps[vulnerability research].
+- #smallcaps[programming].
+- #smallcaps[tool development].
 - CTFs at #link("https://epicleet.team/")[ELT].
-- Offensive Security at #link("https://vtex.com")[VTEX]
-- Computer Engineering at #link("https://cin.ufpe.br")[Centro de Informatica - UFPE]
 
+#linebreak()
 
-My hobbies also include:
+My hobbies include, in no particular order:
 - Painting and Drawing.
+- Writing.
 - Playing the drums, keyboard, acoustic guitar, electric bass and harmonica.
+- FPV Drones
 - Learning modern hebrew.
 - Observing and being observed by my four cats: Nyx, Flor, Piolha and Bilbo.
 - Sci-fi.
+- Studying philosophy and religion.
 - Coffee.
 - Generative visual and auditory art.
 

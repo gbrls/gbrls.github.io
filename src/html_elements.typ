@@ -9,6 +9,7 @@
     #m[#link("/index.html")[`HOME`]]
     #m[#link("/index.xml")[`FEED`]]
     #m[#link("https://github.com/gbrls/gbrls.github.io")[`SOURCE`]]
+    #m[#link("https://infosec.exchange/@gbrls")[`MSTDN`]]
     #m[#link("mailto:contact@0x4200.cafe")[`contact@0x4200.cafe`]]
   ]
 }
@@ -19,7 +20,7 @@
 
   let end = ""
   if entry.at("date", default: 0) > 0 {
-    end = box()[#html.frame()[#text(font: "mononoki", fill: rgb("#8c8fa1"), str(
+    end = box()[#html.frame()[#text(font: "Myna", fill: rgb("#8c8fa1"), str(
       entry.date,
     ))]]
   } else {
@@ -28,9 +29,8 @@
 
   text[
 
-    #link(path)[#text(entry.name)]#text(pad.slice(entry.name.len()))#text(
-      end,
-    )
+    // #link(path)[#text(entry.name)]#text(pad.slice(entry.name.len()))#text( end, )
+    #text(end)#link(path)[#text(entry.name)]
   ]
 }
 
@@ -112,7 +112,8 @@
 
       #separator(16)
       #html.elem("div", attrs: (
-        class: "flex-none p-2 min-w-fit font-mono text-xs font-bold",
+        // class: "flex-none p-2 min-w-fit text-sm",
+        class: "flex-none p-2 min-w-fit  text-sm font-bold",
       ))[
         #list(..entries.map(it => entry-to-html(it)))
       ]

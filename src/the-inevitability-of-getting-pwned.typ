@@ -6,7 +6,7 @@
 In this blog I'll show the connections between hacking and Computing Theory to
 show how getting owned is inevitable.
 
-== Basic definition of a turing machine
+= Basic definition of a turing machine
 
 Let's start with a simple definition of a turing machine.
 So, our basic turing machine has a few parts:
@@ -30,7 +30,7 @@ One example of this is that if we have a turing machine that has (for example) t
 
 This is good for Engineers who build computers because, if you follow the basic ideas of a turing machine when building a computer, well, it'll be able to compute everything.
 
-== Brainfuck
+= Brainfuck
 
 Brainfuck (depending who you ask) is the funniest programming language ever. It has a cool name, and it looks like this:
 
@@ -46,7 +46,7 @@ How do we prove that? To do so, we need to simulate a turing machine using brain
 
 When a language can compute anything that a computer can, we call it *turing complete*.
 
-== Let's talk about hacking
+= Let's talk about hacking
 
 It's thanks to these principles that we can run Doom on almost anything nowdays. But what about owning stuff?
 
