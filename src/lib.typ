@@ -4,6 +4,11 @@
 #let entries = (
   (file: "./index.typ", name: "Index"),
   (
+    file: "./genuary-2026.typ",
+    name: "Genuary 2026",
+    date: 2026,
+  ),
+  (
     file: "./corctf-2025.typ",
     name: "COR CTF 2025",
     date: 2025,
