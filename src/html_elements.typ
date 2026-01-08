@@ -1,4 +1,5 @@
 #import "lib.typ": centerbox, entries, rightbox, separator, textbox
+#import "./figures/frieze.typ"
 #import "@preview/cetz:0.4.2"
 
 
@@ -110,7 +111,16 @@
         #contents
       ]
 
-      #separator(16)
+      // #separator(16)
+
+      #html.elem("div", attrs: (
+        class: "flex-shrink min-w-0 w-full [&_svg]:w-full [&_svg]:h-auto [&_svg]:max-w-2 m-4",
+      ))[
+        #html.frame[
+          // #frieze.frieze(80, (0, 0), "step")
+          #frieze.frieze(32, (0, 0), "spinning jump")
+        ]
+      ]
       #html.elem("div", attrs: (
         // class: "flex-none p-2 min-w-fit text-sm",
         class: "flex-none p-2 min-w-fit  text-sm font-bold",
