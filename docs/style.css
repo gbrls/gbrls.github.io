@@ -83,3 +83,7 @@ ul {
 ol {
   @apply list-decimal ml-6;
 }
+
+p {
+  @apply mb-2;
+}

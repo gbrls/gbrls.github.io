@@ -22,7 +22,6 @@
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
     --font-display: "Junction", serif;
-    --font-small: "Prociono", monospace;
     --font-meta: "Ostrich Sans", sans-serif;
     --color-red: #f38ba8;
     --color-blue: #89b4fa;
@@ -232,9 +231,6 @@
   .w-full {
     width: 100%;
   }
-  .max-w-2 {
-    max-width: calc(var(--spacing) * 2);
-  }
   .max-w-\[90ch\] {
     max-width: 90ch;
   }
@@ -397,6 +393,9 @@ ul {
 ol {
   margin-left: calc(var(--spacing) * 6);
   list-style-type: decimal;
+}
+p {
+  margin-bottom: calc(var(--spacing) * 2);
 }
 @property --tw-rotate-x {
   syntax: "*";
