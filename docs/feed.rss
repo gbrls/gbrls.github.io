@@ -4,21 +4,36 @@
   <title>0x4200.cafe</title>
   <link>https://0x4200.cafe/</link>
   <description>Latest posts from 0x4200.cafe</description>
-  <lastBuildDate>Tue, 23 Dec 2025 01:22:16 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 13 Jan 2026 05:11:29 +0000</lastBuildDate>
   <item>
-    <title>Binary Binary Tree</title>
-    <link>https://0x4200.cafe/binbin-tree.html</link>
-    <pubDate>Mon, 22 Dec 2025 20:49:18 +0000</pubDate>
+    <title>Brainfuck, Zig, and Typst</title>
+    <link>https://0x4200.cafe/the-twilight-of-20th-century-programs.html</link>
+    <pubDate>Tue, 13 Jan 2026 05:09:33 +0000</pubDate>
   </item>
   <item>
     <title>Index</title>
     <link>https://0x4200.cafe/index.html</link>
-    <pubDate>Tue, 11 Nov 2025 21:03:15 +0000</pubDate>
+    <pubDate>Tue, 13 Jan 2026 05:06:40 +0000</pubDate>
+  </item>
+  <item>
+    <title>Genuary 2026</title>
+    <link>https://0x4200.cafe/genuary-2026.html</link>
+    <pubDate>Fri, 02 Jan 2026 19:00:36 +0000</pubDate>
   </item>
   <item>
     <title>COR CTF 2025</title>
     <link>https://0x4200.cafe/corctf-2025.html</link>
-    <pubDate>Tue, 11 Nov 2025 18:12:07 +0000</pubDate>
+    <pubDate>Thu, 25 Dec 2025 16:30:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>The Inevitability of Getting Pwned</title>
+    <link>https://0x4200.cafe/the-inevitability-of-getting-pwned.html</link>
+    <pubDate>Wed, 24 Dec 2025 19:54:16 +0000</pubDate>
+  </item>
+  <item>
+    <title>Binary Binary Tree</title>
+    <link>https://0x4200.cafe/binbin-tree.html</link>
+    <pubDate>Mon, 22 Dec 2025 20:49:18 +0000</pubDate>
   </item>
   <item>
     <title>MidnightSun CTF 2025</title>
@@ -84,11 +99,6 @@
     <title>Making a Lisp - 0</title>
     <link>https://0x4200.cafe/mk-lisp-0.html</link>
     <pubDate>Mon, 20 Oct 2025 22:44:34 +0000</pubDate>
-  </item>
-  <item>
-    <title>The Inevitability of Getting Pwned</title>
-    <link>https://0x4200.cafe/the-inevitability-of-getting-pwned.html</link>
-    <pubDate>Mon, 20 Oct 2025 22:42:18 +0000</pubDate>
   </item>
   <item>
     <title>Finding a command injection in a router</title>
