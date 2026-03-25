@@ -1,0 +1,9 @@
+#import "_lib/kodama.typ": *
+#show: kodama
+
+#metadata(("title": "0x4200.cafe"))
+
+
+hello!
+
+
